@@ -1,17 +1,4 @@
-#include <stdio.h>
-#include <arpa/inet.h>
-#include <netdb.h>
-#include <stdlib.h>
-#include <string.h>
-#include <strings.h>
-#include <sys/socket.h>
-#include <unistd.h>
-#include <pthread.h>
-
-#define MAX_MSG_SIZE 256
-#define MAX_NICK_SIZE 16
-#define MAX_OVERHEAD_SIZE (MAX_NICK_SIZE + 4)
-#define PORT 6060
+#include "common.h"
 
 void* client_receive(void *arg)
 {
@@ -122,7 +109,7 @@ int main(int argc, char **argv)
             break;
         }
 
-        if (strlen(text_buffer) == 0) {
+        if (strlen(text_buffer) == 1) { // Only newline typed
             continue;
         }
 

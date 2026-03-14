@@ -1,20 +1,4 @@
-#include <stdio.h>
-#include <netdb.h>
-#include <netinet/in.h> 
-#include <stdlib.h> 
-#include <string.h> 
-#include <sys/socket.h> 
-#include <sys/types.h> 
-#include <unistd.h>
-#include <pthread.h>
-#include <signal.h>
-
-#define MAX_CLIENTS_CONNECTED 32
-#define MAX_CLIENTS_QUEUED 16
-#define MAX_MSG_SIZE 256
-#define MAX_NICK_SIZE 16
-#define MAX_OVERHEAD_SIZE (MAX_NICK_SIZE + 4)
-#define PORT 6060
+#include "common.h"
 
 struct client_t {
     pthread_t client_thread;
@@ -54,7 +38,7 @@ void* client_thread(void *arg)
     free(arg);
 
     // Prepare buffer for reading client data
-    char buffer[MAX_MSG_SIZE + MAX_OVERHEAD_SIZE];
+    char buffer[MAX_OVERHEAD_SIZE + MAX_MSG_SIZE];
 
     while (1) {
         // Read n chars
@@ -131,7 +115,7 @@ int main(int argc, char **argv)
     }
 
     // Listen for clients on server socket
-    ret = listen(socket_fd, MAX_CLIENTS_QUEUED);
+    ret = listen(socket_fd, 0);
     if (ret != 0) {
         perror("Listen on socket failed\n");
         return 1;
@@ -142,21 +126,8 @@ int main(int argc, char **argv)
     printf(":%d\n", PORT);
 
     while (server_running) {
-        // Find dead client to use
-        int free_client_slot = find_dead_client(clients, MAX_CLIENTS_CONNECTED);
-
-        if (free_client_slot == -1) {
-            printf("Max number of clients reached\n");
-
-            while (server_running && find_dead_client(clients, MAX_CLIENTS_CONNECTED) == -1) {
-                sleep(1);
-            }
-
-            continue;
-        }
-
         socklen_t length = sizeof(client_address);
-        
+
         // Accept connection from new client
         int client_fd = accept(socket_fd, (struct sockaddr*)&client_address, &length);
 
@@ -166,6 +137,15 @@ int main(int argc, char **argv)
             }
 
             perror("Accept failed");
+            continue;
+        }
+
+        // Find dead client to use
+        int free_client_slot = find_dead_client(clients, MAX_CLIENTS_CONNECTED);
+
+        if (free_client_slot == -1) {
+            printf("Max number of clients reached, refusing new connection\n");
+            close(client_fd);
             continue;
         }
 
