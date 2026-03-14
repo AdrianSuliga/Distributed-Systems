@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <netdb.h>
 #include <netinet/in.h> 
 #include <stdlib.h> 
@@ -15,14 +14,15 @@
 #define MAX_MSG_SIZE 256
 #define PORT 6060
 
-static volatile sig_atomic_t server_running = 1;
-static volatile int socket_fd = -1;
-
 struct client_t {
     pthread_t client_thread;
     int alive;
     int connection_fd;
 };
+
+static struct client_t clients[MAX_CLIENTS_CONNECTED];
+static volatile sig_atomic_t server_running = 1;
+static volatile int socket_fd = -1;
 
 static int find_dead_client(struct client_t *clients, size_t length)
 {
@@ -48,9 +48,42 @@ static void print_ipv4(uint32_t address)
 
 void* client_thread(void *arg)
 {
+    int client_idx = *((int*)arg);
+    free(arg);
+
+    // Prepare buffer for reading client data
+    char buffer[MAX_MSG_SIZE];
+
     while (1) {
-        printf("LOG: CLIENT\n");
+        // Read n chars
+        int n = read(clients[client_idx].connection_fd, buffer, sizeof(buffer));
+
+        // If client disconnected, close the connection
+        if (n <= 0) {
+            close(clients[client_idx].connection_fd);
+            clients[client_idx].alive = 0;
+            break;
+        }
+
+        // If client wants to exit, disconnect it as well
+        if (strncmp(buffer, "EXIT", 4) == 0) {
+            close(clients[client_idx].connection_fd);
+            clients[client_idx].alive = 0;
+            break;
+        }
+
+        // Print message from client
+        printf("%s", buffer);
+
+        // Write message to other clients
+        for (size_t i = 0; i < MAX_CLIENTS_CONNECTED; i++) {
+            if (clients[i].alive && i != client_idx) {
+                write(clients[i].connection_fd, buffer, n);
+            }
+        }
     }
+
+    return NULL;
 }
 
 void sigint_handler(int _)
@@ -64,9 +97,8 @@ void sigint_handler(int _)
 
 int main(int argc, char **argv)
 {
-    int ret, length;
+    int ret;
     struct sockaddr_in server_address, client_address;
-    struct client_t clients[MAX_CLIENTS_CONNECTED];
 
     // No connected clients in the beginning
     for (size_t i = 0; i < MAX_CLIENTS_CONNECTED; ++i) {
@@ -83,7 +115,7 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    bzero(&server_address, sizeof(server_address));
+    memset(&server_address, 0, sizeof(server_address));
 
     // Assign IP and port
     server_address.sin_family = AF_INET;
@@ -109,39 +141,61 @@ int main(int argc, char **argv)
     printf(":%d\n", PORT);
 
     while (server_running) {
+        // Find dead client to use
         int free_client_slot = find_dead_client(clients, MAX_CLIENTS_CONNECTED);
 
         if (free_client_slot == -1) {
-            perror("Unable to connect more clients.\nMax number of clients reached.\n");
+            printf("Max number of clients reached\n");
+
             while (server_running && find_dead_client(clients, MAX_CLIENTS_CONNECTED) == -1) {
-                printf("LOG: MAX CLIENTS\n");
                 sleep(1);
             }
+
             continue;
         }
 
-        length = sizeof(client_address);
+        socklen_t length = sizeof(client_address);
         
         // Accept connection from new client
-        clients[free_client_slot].connection_fd = accept(socket_fd, (struct sockaddr*)&client_address, &length);
-        if (clients[free_client_slot].connection_fd == -1) {
-            perror("Accept from socket failed\n");
-            return 1;
+        int client_fd = accept(socket_fd, (struct sockaddr*)&client_address, &length);
+
+        if (client_fd == -1) {
+            if (!server_running) {
+                break;
+            }
+
+            perror("Accept failed");
+            continue;
         }
 
+        clients[free_client_slot].connection_fd = client_fd;
+        clients[free_client_slot].alive = 1;
+
+        int *arg = malloc(sizeof(int));
+        *arg = free_client_slot;
+
         // Start new thread for each client
-        pthread_create(&clients[free_client_slot].client_thread, NULL, client_thread, &clients[free_client_slot].connection_fd);
+        ret = pthread_create(&clients[free_client_slot].client_thread, NULL, client_thread, arg);
+        if (ret != 0) {
+            perror("pthread_create failed");
+            close(client_fd);
+            clients[free_client_slot].alive = 0;
+            free(arg);
+        }
     }
 
     // Cancel every running client thread
     for (size_t i = 0; i < MAX_CLIENTS_CONNECTED; ++i) {
         if (clients[i].alive) {
             pthread_cancel(clients[i].client_thread);
+            pthread_join(clients[i].client_thread, NULL);
+            close(clients[i].connection_fd);
         }
     }
 
-    shutdown(socket_fd, SHUT_RDWR);
-    close(socket_fd);
+    if (socket_fd != -1) {
+        close(socket_fd);
+    }
 
     return 0;
 }
