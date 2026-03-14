@@ -16,6 +16,22 @@
 void* client_receive(void *arg)
 {
     int socket_fd = *((int*)arg);
+    free(arg);
+
+    char buffer[MAX_MSG_SIZE + MAX_OVERHEAD_SIZE];
+
+    while (1) {
+        memset(buffer, 0, sizeof(buffer));
+
+        int n = read(socket_fd, buffer, sizeof(buffer));
+
+        if (n <= 0) {
+            close(socket_fd);
+            break;
+        }
+
+        printf("%s", buffer);
+    }
 
     return NULL;
 }
@@ -68,6 +84,8 @@ int main(int argc, char **argv)
         return 1;
     }
 
+    // Start receiver thread to read messages from other clients
+    *arg = socket_fd;
     ret = pthread_create(&receive_thread, NULL, client_receive, arg);
 
     // Prepare buffers for user data
@@ -79,10 +97,7 @@ int main(int argc, char **argv)
         memset(text_buffer, 0, sizeof(text_buffer));
         memset(msg_buffer, 0, sizeof(msg_buffer));
 
-        printf("[%s]: ", client_nick);
-
-        char c;
-        int n = 0;
+        int c, n = 0;
 
         // Read user data until \n or EOF appears
         while (n < MAX_MSG_SIZE) {
@@ -100,27 +115,32 @@ int main(int argc, char **argv)
             }
         }
 
+        // Let the server know when client wants to exit
         if (strncmp(text_buffer, "EXIT", 4) == 0) {
             write(socket_fd, text_buffer, strlen(text_buffer));
             printf("Disconnecting...\n");
             break;
         }
 
+        if (strlen(text_buffer) == 0) {
+            continue;
+        }
+
         // Prepare final message for sending in the form of [NICK]: TEXT
         snprintf(msg_buffer, sizeof(msg_buffer), "[%s]: %s", client_nick, text_buffer);
 
         // Write to server
-        ret = write(socket_fd, msg_buffer, sizeof(msg_buffer));
+        ret = write(socket_fd, msg_buffer, strlen(msg_buffer));
         if (ret <= 0) {
             perror("Server disconnected\n");
             break;
         }
     }
 
+    // End receiver thread
+    pthread_cancel(receive_thread);
+    pthread_join(receive_thread, NULL);
     close(socket_fd);
-    if (arg != NULL) {
-        free(arg);
-    }
 
     return 0;
 }

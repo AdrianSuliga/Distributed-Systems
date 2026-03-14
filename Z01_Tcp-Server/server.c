@@ -12,6 +12,8 @@
 #define MAX_CLIENTS_CONNECTED 32
 #define MAX_CLIENTS_QUEUED 16
 #define MAX_MSG_SIZE 256
+#define MAX_NICK_SIZE 16
+#define MAX_OVERHEAD_SIZE (MAX_NICK_SIZE + 4)
 #define PORT 6060
 
 struct client_t {
@@ -52,7 +54,7 @@ void* client_thread(void *arg)
     free(arg);
 
     // Prepare buffer for reading client data
-    char buffer[MAX_MSG_SIZE];
+    char buffer[MAX_MSG_SIZE + MAX_OVERHEAD_SIZE];
 
     while (1) {
         // Read n chars
@@ -72,15 +74,14 @@ void* client_thread(void *arg)
             break;
         }
 
-        // Print message from client
-        printf("%s", buffer);
-
         // Write message to other clients
         for (size_t i = 0; i < MAX_CLIENTS_CONNECTED; i++) {
             if (clients[i].alive && i != client_idx) {
                 write(clients[i].connection_fd, buffer, n);
             }
         }
+
+        memset(buffer, 0, sizeof(buffer));
     }
 
     return NULL;
