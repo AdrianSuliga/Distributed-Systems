@@ -21,6 +21,9 @@
 
 #define MAX_UDP_MSG_SIZE 2560
 
+#define MULTICAST_ADDR "239.0.0.1"
+
+#define MULTICAST_PORT 6061
 #define PORT 6060
 
 struct udp_message {

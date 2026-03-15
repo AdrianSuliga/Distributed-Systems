@@ -1,6 +1,8 @@
 #include "common.h"
 
-static volatile int tcp_socket_fd = -1, udp_socket_fd = -1, client_id = -1;
+static volatile int tcp_socket_fd = -1, udp_socket_fd = -1, 
+                    multicast_socket_fd = -1, client_id = -1,
+                    client_running = 1;
 
 static char udp_init[] = "INIT";
 static char ascii_art[] = 
@@ -84,6 +86,36 @@ void* udp_receive(void *_)
     return NULL;
 }
 
+void* multicast_receive(void *_)
+{
+    char buffer[sizeof(struct udp_message)];
+
+    while (1) {
+        memset(buffer, 0, sizeof(buffer));
+
+        int n = recv(multicast_socket_fd, buffer, sizeof(buffer), 0);
+
+        if (n == -1) {
+            close(multicast_socket_fd);
+            break;
+        }
+
+        struct udp_message msg;
+        memcpy(&msg, buffer, sizeof(msg));
+
+        if (msg.client_id != client_id) {
+            printf("%s", msg.message);
+        }
+    }
+
+    return NULL;
+}
+
+void sigint_handler(int _)
+{
+    client_running = 0;
+}
+
 int main(int argc, char **argv)
 {
     if (argc != 2) {
@@ -100,8 +132,11 @@ int main(int argc, char **argv)
 
     char* client_nick = argv[1];
     int ret;
-    struct sockaddr_in server_address;
-    pthread_t tcp_receive_thread, udp_receive_thread;
+    struct sockaddr_in server_address, multicast_address;
+    pthread_t tcp_receive_thread, udp_receive_thread, multicast_receive_thread;
+
+    // Handle Ctrl+C signal to safely terminate client
+    signal(SIGINT, sigint_handler);
 
     // Create TCP socket
     tcp_socket_fd = socket(AF_INET, SOCK_STREAM, 0);
@@ -117,12 +152,24 @@ int main(int argc, char **argv)
         return 1;
     }
 
+    // Create UDP multicast socket
+    multicast_socket_fd = socket(AF_INET, SOCK_DGRAM, 0);
+    if (multicast_socket_fd == -1) {
+        perror("Socket creation failed");
+        return 1;
+    }
+
     memset(&server_address, 0, sizeof(server_address));
+    memset(&multicast_address, 0, sizeof(multicast_address));
 
     // Assign IP and port
     server_address.sin_family = AF_INET;
     server_address.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
     server_address.sin_port = htons(PORT);
+
+    multicast_address.sin_family = AF_INET;
+    multicast_address.sin_addr.s_addr = inet_addr(MULTICAST_ADDR);
+    multicast_address.sin_port = htons(MULTICAST_PORT);
 
     // Connect client TCP socket to the server socket
     ret = connect(tcp_socket_fd, (struct sockaddr*)&server_address, sizeof(server_address));
@@ -138,6 +185,27 @@ int main(int argc, char **argv)
         return 1;
     }
 
+    // Setup multicast
+    int reuse = 1;
+    setsockopt(multicast_socket_fd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
+
+    struct sockaddr_in local;
+    memset(&local, 0, sizeof(local));
+    local.sin_family = AF_INET;
+    local.sin_addr.s_addr = htonl(INADDR_ANY);
+    local.sin_port = htons(MULTICAST_PORT);
+
+    ret = bind(multicast_socket_fd, (struct sockaddr*)&local, sizeof(local));
+    if (ret != 0) {
+        perror("Binding failed");
+        return 1;
+    }
+
+    struct ip_mreq mreq;
+    mreq.imr_multiaddr.s_addr = inet_addr(MULTICAST_ADDR);
+    mreq.imr_interface.s_addr = htonl(INADDR_ANY);
+    setsockopt(multicast_socket_fd, IPPROTO_IP, IP_ADD_MEMBERSHIP, &mreq, sizeof(mreq));
+
     // Start receiver thread to read messages from other clients
     ret = pthread_create(&tcp_receive_thread, NULL, tcp_receive, NULL);
     if (ret != 0) {
@@ -148,10 +216,18 @@ int main(int argc, char **argv)
     // Wait for assigning proper ID
     while (client_id == -1);
 
+    // Start UDP receive thread
     ret = pthread_create(&udp_receive_thread, NULL, udp_receive, NULL);
     if (ret != 0) {
         perror("pthread_create failed");
         close(udp_socket_fd);
+    }
+
+    // Start multicast receive thread
+    ret = pthread_create(&multicast_receive_thread, NULL, multicast_receive, NULL);
+    if (ret != 0) {
+        perror("pthread_create failed");
+        close(multicast_socket_fd);
     }
 
     // Send UDP init message
@@ -164,7 +240,7 @@ int main(int argc, char **argv)
     char msg_buffer[MAX_TCP_MSG_SIZE + MAX_OVERHEAD_SIZE];
     char text_buffer[MAX_TCP_MSG_SIZE];
 
-    while (1) {
+    while (client_running) {
         // Zero all buffers
         memset(text_buffer, 0, sizeof(text_buffer));
         memset(msg_buffer, 0, sizeof(msg_buffer));
@@ -199,12 +275,22 @@ int main(int argc, char **argv)
             continue;
         }
 
-        // Send UDP data when U is pressed
+        // Send UDP data to server when U is pressed
         if (strlen(text_buffer) == 2 && text_buffer[0] == 'U') {
             struct udp_message msg;
             msg.client_id = client_id;
             memcpy(msg.message, ascii_art, sizeof(ascii_art));
             send(udp_socket_fd, &msg, sizeof(msg.client_id) + sizeof(ascii_art), 0);
+            continue;
+        }
+
+        // Send UDP data to multicast when M is pressed
+        if (strlen(text_buffer) == 2 && text_buffer[0] == 'M') {
+            struct udp_message msg;
+            msg.client_id = client_id;
+            memcpy(msg.message, ascii_art, sizeof(ascii_art));
+            sendto(multicast_socket_fd, &msg, sizeof(msg.client_id) + sizeof(ascii_art), 0, 
+                   (struct sockaddr*)&multicast_address, sizeof(multicast_address));
             continue;
         }
 
@@ -219,13 +305,18 @@ int main(int argc, char **argv)
         }
     }
 
-    // End receiver thread
+    // End receiver threads
     pthread_cancel(tcp_receive_thread);
     pthread_cancel(udp_receive_thread);
+    pthread_cancel(multicast_receive_thread);
+
     pthread_join(tcp_receive_thread, NULL);
     pthread_join(udp_receive_thread, NULL);
+    pthread_join(multicast_receive_thread, NULL);
+
     close(tcp_socket_fd);
     close(udp_socket_fd);
+    close(multicast_socket_fd);
 
     return 0;
 }
