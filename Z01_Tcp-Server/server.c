@@ -1,9 +1,13 @@
 #include "common.h"
 
 struct client_t {
-    pthread_t client_thread;
+    int id;
     int alive;
+
+    pthread_t client_thread;
     int connection_fd;
+
+    struct sockaddr_in udp_address;
 };
 
 static struct client_t clients[MAX_CLIENTS_CONNECTED];
@@ -41,7 +45,15 @@ void* client_thread(void *arg)
     // Prepare buffer for reading client data
     char buffer[MAX_OVERHEAD_SIZE + MAX_TCP_MSG_SIZE];
 
+    buffer[0] = 'I';
+    buffer[1] = 'D';
+    buffer[2] = clients[client_idx].id;
+
+    write(clients[client_idx].connection_fd, buffer, 3);
+
     while (1) {
+        memset(buffer, 0, sizeof(buffer));
+
         // Read n chars
         int n = read(clients[client_idx].connection_fd, buffer, sizeof(buffer));
 
@@ -65,31 +77,45 @@ void* client_thread(void *arg)
                 write(clients[i].connection_fd, buffer, n);
             }
         }
-
-        memset(buffer, 0, sizeof(buffer));
     }
 
     return NULL;
 }
 
-void* udp_common_thread(void *arg)
+void* udp_common_thread(void *_)
 {
-    struct sockaddr_in client_address = *((struct sockaddr_in*)arg);
-    free(arg);
-
-    socklen_t length = sizeof(client_address);
-    char buffer[MAX_UDP_MSG_SIZE];
+    struct sockaddr_in client_address;
+    char buffer[sizeof(struct udp_message)];
+    socklen_t length;
 
     while (1) {
+        memset(buffer, 0, sizeof(buffer));
+        length = sizeof(client_address);
+
         int n = recvfrom(udp_socket_fd, buffer, sizeof(buffer), 0, (struct sockaddr*)&client_address, &length);
 
-        for (size_t i = 0; i < MAX_CLIENTS_CONNECTED; ++i) {
-            if (clients[i].alive) {
-                sendto(clients[i].connection_fd, buffer, sizeof(buffer), 0, (struct sockaddr*)&client_address, length);
-            }
+        if (n <= 0) {
+            continue;
         }
 
-        memset(buffer, 0, sizeof(buffer));
+        struct udp_message msg;
+        memcpy(&msg, buffer, sizeof(msg));
+
+        if (!strncmp(msg.message, "INIT", 4)) {
+            clients[msg.client_id].udp_address = client_address;
+        } else {
+            for (size_t i = 0; i < MAX_CLIENTS_CONNECTED; ++i) {
+                if (!clients[i].alive) {
+                    continue;
+                }
+
+                if (msg.client_id == clients[i].id) {
+                    continue;
+                }
+
+                sendto(udp_socket_fd, msg.message, n - sizeof(msg.client_id), 0, (struct sockaddr*)&clients[i].udp_address, sizeof(clients[i].udp_address));
+            }
+        }
     }
 
     return NULL;
@@ -111,8 +137,9 @@ int main(int argc, char **argv)
     struct sockaddr_in server_address, client_address;
     pthread_t udp_thread;
 
-    // No connected clients in the beginning
+    // No connected clients in the beginning, set IDs
     for (size_t i = 0; i < MAX_CLIENTS_CONNECTED; ++i) {
+        clients[i].id = i;
         clients[i].alive = 0;
     }
 
@@ -161,18 +188,10 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    struct sockaddr_in *udp_arg = malloc(sizeof(struct sockaddr_in));
-    if (udp_arg == NULL) {
-        perror("Malloc failed");
-        return 1;
-    }
-
-    *udp_arg = client_address;
-    ret = pthread_create(&udp_thread, NULL, udp_common_thread, udp_arg);
+    ret = pthread_create(&udp_thread, NULL, udp_common_thread, NULL);
     if (ret != 0) {
         perror("pthread_create faield");
         close(udp_socket_fd);
-        free(udp_arg);
     }
 
     printf("Socket listening on ");
@@ -220,6 +239,9 @@ int main(int argc, char **argv)
     }
 
     // Cancel every running client thread
+    pthread_cancel(udp_thread);
+    pthread_join(udp_thread, NULL);
+
     for (size_t i = 0; i < MAX_CLIENTS_CONNECTED; ++i) {
         if (clients[i].alive) {
             pthread_cancel(clients[i].client_thread);

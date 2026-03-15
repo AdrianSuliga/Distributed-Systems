@@ -1,7 +1,8 @@
 #include "common.h"
 
-static volatile int tcp_socket_fd = -1, udp_socket_fd = -1;
+static volatile int tcp_socket_fd = -1, udp_socket_fd = -1, client_id = -1;
 
+static char udp_init[] = "INIT";
 static char ascii_art[] = 
 "                                          \n"
 "                                       ^`'.\n"
@@ -52,24 +53,25 @@ void* tcp_receive(void *_)
             break;
         }
 
+        if (!strncmp(buffer, "ID", 2)) {
+            client_id = buffer[2];
+            continue;
+        }
+
         printf("%s", buffer);
     }
 
     return NULL;
 }
 
-void* udp_receive(void *arg)
+void* udp_receive(void *_)
 {
-    struct sockaddr_in address = *((struct sockaddr_in*)arg);
-    free(arg);
-
-    socklen_t length = sizeof(address);
     char buffer[MAX_UDP_MSG_SIZE];
 
     while (1) {
         memset(buffer, 0, sizeof(buffer));
 
-        int n = recvfrom(udp_socket_fd, buffer, sizeof(buffer), 0, (struct sockaddr*)&address, &length);
+        int n = recv(udp_socket_fd, buffer, sizeof(buffer), 0);
 
         if (n == -1) {
             close(udp_socket_fd);
@@ -84,7 +86,7 @@ void* udp_receive(void *arg)
 
 int main(int argc, char **argv)
 {
-    if (argc != 3) {
+    if (argc != 2) {
         printf("Unexpected number of arguments\n");
         printf("Got %d, expected 2\n", argc);
         printf("./client <CLIENT_NICK>\n");
@@ -101,23 +103,10 @@ int main(int argc, char **argv)
     struct sockaddr_in server_address;
     pthread_t tcp_receive_thread, udp_receive_thread;
 
-    int *arg = malloc(sizeof(int));
-    if (arg == NULL) {
-        perror("malloc failed");
-        return 1;
-    }
-
-    struct sockaddr_in *address = malloc(sizeof(struct sockaddr_in));
-    if (address == NULL) {
-        perror("malloc failed");
-        return 1;
-    }
-
     // Create TCP socket
     tcp_socket_fd = socket(AF_INET, SOCK_STREAM, 0);
     if (tcp_socket_fd == -1) {
         perror("Socket creation failed");
-        free(arg);
         return 1;
     }
 
@@ -125,7 +114,6 @@ int main(int argc, char **argv)
     udp_socket_fd = socket(AF_INET, SOCK_DGRAM, 0);
     if (udp_socket_fd == -1) {
         perror("Socket creation failed");
-        free(arg);
         return 1;
     }
 
@@ -140,7 +128,6 @@ int main(int argc, char **argv)
     ret = connect(tcp_socket_fd, (struct sockaddr*)&server_address, sizeof(server_address));
     if (ret != 0) {
         perror("Connecting to the server failed");
-        free(arg);
         return 1;
     }
 
@@ -148,25 +135,30 @@ int main(int argc, char **argv)
     ret = connect(udp_socket_fd, (struct sockaddr*)&server_address, sizeof(server_address));
     if (ret != 0) {
         perror("Connecting to the server failed");
-        free(arg);
         return 1;
     }
 
     // Start receiver thread to read messages from other clients
-    *arg = tcp_socket_fd;
-    ret = pthread_create(&tcp_receive_thread, NULL, tcp_receive, arg);
+    ret = pthread_create(&tcp_receive_thread, NULL, tcp_receive, NULL);
     if (ret != 0) {
         perror("pthread_create failed");
-        free(arg);
         close(tcp_socket_fd);
     }
 
-    ret = pthread_create(&udp_receive_thread, NULL, udp_receive, address);
+    // Wait for assigning proper ID
+    while (client_id == -1);
+
+    ret = pthread_create(&udp_receive_thread, NULL, udp_receive, NULL);
     if (ret != 0) {
         perror("pthread_create failed");
-        free(address);
         close(udp_socket_fd);
     }
+
+    // Send UDP init message
+    struct udp_message msg;
+    msg.client_id = client_id;
+    memcpy(msg.message, udp_init, sizeof(udp_init));
+    send(udp_socket_fd, &msg, sizeof(msg.client_id) + sizeof(udp_init), 0);
 
     // Prepare buffers for user data
     char msg_buffer[MAX_TCP_MSG_SIZE + MAX_OVERHEAD_SIZE];
@@ -202,12 +194,17 @@ int main(int argc, char **argv)
             break;
         }
 
-        if (strlen(text_buffer) == 1) { // Only newline typed
+        // Ignore when only newline typed
+        if (strlen(text_buffer) == 1) {
             continue;
         }
 
+        // Send UDP data when U is pressed
         if (strlen(text_buffer) == 2 && text_buffer[0] == 'U') {
-            sendto(udp_socket_fd, ascii_art, sizeof(ascii_art), 0, (struct sockaddr*)&server_address, sizeof(server_address));
+            struct udp_message msg;
+            msg.client_id = client_id;
+            memcpy(msg.message, ascii_art, sizeof(ascii_art));
+            send(udp_socket_fd, &msg, sizeof(msg.client_id) + sizeof(ascii_art), 0);
             continue;
         }
 
