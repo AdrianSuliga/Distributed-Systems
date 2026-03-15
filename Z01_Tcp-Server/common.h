@@ -15,7 +15,8 @@
 #include <strings.h>
 
 #define MAX_CLIENTS_CONNECTED 16
-#define MAX_MSG_SIZE 256
+#define MAX_TCP_MSG_SIZE 256
+#define MAX_UDP_MSG_SIZE 2560
 #define MAX_NICK_SIZE 16
 #define MAX_OVERHEAD_SIZE (MAX_NICK_SIZE + 4)
 #define PORT 6060

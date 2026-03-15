@@ -8,7 +8,8 @@ struct client_t {
 
 static struct client_t clients[MAX_CLIENTS_CONNECTED];
 static volatile sig_atomic_t server_running = 1;
-static volatile int socket_fd = -1;
+static volatile int tcp_socket_fd = -1;
+static volatile int udp_socket_fd = -1;
 
 static int find_dead_client(struct client_t *clients, size_t length)
 {
@@ -38,7 +39,7 @@ void* client_thread(void *arg)
     free(arg);
 
     // Prepare buffer for reading client data
-    char buffer[MAX_OVERHEAD_SIZE + MAX_MSG_SIZE];
+    char buffer[MAX_OVERHEAD_SIZE + MAX_TCP_MSG_SIZE];
 
     while (1) {
         // Read n chars
@@ -71,19 +72,44 @@ void* client_thread(void *arg)
     return NULL;
 }
 
+void* udp_common_thread(void *arg)
+{
+    struct sockaddr_in client_address = *((struct sockaddr_in*)arg);
+    free(arg);
+
+    socklen_t length = sizeof(client_address);
+    char buffer[MAX_UDP_MSG_SIZE];
+
+    while (1) {
+        int n = recvfrom(udp_socket_fd, buffer, sizeof(buffer), 0, (struct sockaddr*)&client_address, &length);
+
+        for (size_t i = 0; i < MAX_CLIENTS_CONNECTED; ++i) {
+            if (clients[i].alive) {
+                sendto(clients[i].connection_fd, buffer, sizeof(buffer), 0, (struct sockaddr*)&client_address, length);
+            }
+        }
+
+        memset(buffer, 0, sizeof(buffer));
+    }
+
+    return NULL;
+}
+
 void sigint_handler(int _)
 {
     server_running = 0;
-    // In main function calling accept() is blocking,
-    // closing socket in this handler makes accept 
+    // In main function calling accept() and recvfrom() is
+    // blocking, closing socket in this handler makes accept
     // return error.
-    close(socket_fd);
+    close(tcp_socket_fd);
+    close(udp_socket_fd);
 }
 
 int main(int argc, char **argv)
 {
     int ret;
     struct sockaddr_in server_address, client_address;
+    pthread_t udp_thread;
 
     // No connected clients in the beginning
     for (size_t i = 0; i < MAX_CLIENTS_CONNECTED; ++i) {
@@ -94,9 +120,16 @@ int main(int argc, char **argv)
     signal(SIGINT, sigint_handler);
 
     // Create TCP socket
-    socket_fd = socket(AF_INET, SOCK_STREAM, 0);
-    if (socket_fd == -1) {
-        perror("Socket creation failed\n");
+    tcp_socket_fd = socket(AF_INET, SOCK_STREAM, 0);
+    if (tcp_socket_fd == -1) {
+        perror("Socket creation failed");
+        return 1;
+    }
+
+    // Create UDP socket
+    udp_socket_fd = socket(AF_INET, SOCK_DGRAM, 0);
+    if (udp_socket_fd == -1) {
+        perror("Socket creation failed");
         return 1;
     }
 
@@ -107,18 +140,39 @@ int main(int argc, char **argv)
     server_address.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
     server_address.sin_port = htons(PORT);
 
-    // Bind socket to IP
-    ret = bind(socket_fd, (struct sockaddr*)&server_address, sizeof(server_address));
+    // Bind TCP socket to IP
+    ret = bind(tcp_socket_fd, (struct sockaddr*)&server_address, sizeof(server_address));
     if (ret != 0) {
-        perror("Socket bind failed\n");
+        perror("Socket bind failed");
+        return 1;
+    }
+
+    // Bind UDP socket to IP
+    ret = bind(udp_socket_fd, (struct sockaddr*)&server_address, sizeof(server_address));
+    if (ret != 0) {
+        perror("Socket bind failed");
         return 1;
     }
 
     // Listen for clients on server socket
-    ret = listen(socket_fd, 0);
+    ret = listen(tcp_socket_fd, 0);
     if (ret != 0) {
-        perror("Listen on socket failed\n");
+        perror("Listen on socket failed");
         return 1;
+    }
+
+    struct sockaddr_in *udp_arg = malloc(sizeof(struct sockaddr_in));
+    if (udp_arg == NULL) {
+        perror("Malloc failed");
+        return 1;
+    }
+
+    *udp_arg = client_address;
+    ret = pthread_create(&udp_thread, NULL, udp_common_thread, udp_arg);
+    if (ret != 0) {
+        perror("pthread_create faield");
+        close(udp_socket_fd);
+        free(udp_arg);
     }
 
     printf("Socket listening on ");
@@ -129,7 +183,7 @@ int main(int argc, char **argv)
         socklen_t length = sizeof(client_address);
 
         // Accept connection from new client
-        int client_fd = accept(socket_fd, (struct sockaddr*)&client_address, &length);
+        int client_fd = accept(tcp_socket_fd, (struct sockaddr*)&client_address, &length);
 
         if (client_fd == -1) {
             if (!server_running) {
@@ -174,8 +228,12 @@ int main(int argc, char **argv)
         }
     }
 
-    if (socket_fd != -1) {
-        close(socket_fd);
+    if (tcp_socket_fd != -1) {
+        close(tcp_socket_fd);
+    }
+
+    if (udp_socket_fd != -1) {
+        close(udp_socket_fd);
     }
 
     return 0;
