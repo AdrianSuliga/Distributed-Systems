@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dog Wiki</title>
+
+    <script>
+        function updateMode() {
+            const mode = document.querySelector('input[name="mode"]:checked').value;
+            const countField = document.getElementById("countField");
+            const breedName = document.getElementById("breedName");
+
+            if (mode === "many") {
+                countField.style.display = "block";
+            } else {
+                countField.style.display = "none";
+            }
+
+            if (mode == "breed") {
+                breedName.style.display = "block";
+            } else {
+                breedName.style.display = "none";
+            }
+        }
+
+        window.onload = updateMode;
+    </script>
+
+</head>
+
+<body>
+
+    <h1>Dog Wiki Search</h1>
+
+    <form action="/generate" method="get">
+
+        <h2>Search Mode</h2>
+
+        <label>
+            <input type="radio" name="mode" value="many" checked onchange="updateMode()">
+            Get many
+        </label>
+
+        <label>
+            <input type="radio" name="mode" value="random" onchange="updateMode()">
+            Random dog
+        </label>
+
+        <label>
+            <input type="radio" name="mode" value="breed" onchange="updateMode()">
+            Specific breed
+        </label>
+
+        <br><br>
+
+        <div id="countField">
+            <label>Number of results:</label>
+            <input type="number" name="count" value="3" min="1" max="1000">
+        </div>
+
+        <div id="breedName">
+            <label>Breed name:</label>
+            <input type="text" name="breed_name" placeholder="e.g. husky">
+        </div>
+
+        <h2>Additional settings</h2>
+
+        <h3>More images</h3>
+        <div id="countImages">
+            <label>Number of results:</label>
+            <input type="number" name="images_count" value="3" min="0" max="10"/>
+        </div>
+
+        <h3>Get general fun facts</h3>
+        <label>
+            <label>Number of results:</label>
+            <input type="number" name="fun_facts_count" value="1" min="0" max="5"/>
+        </label>
+
+        <h3>Include statistics</h3>
+        <label>
+            <input type="checkbox" name="get_statistics" value="1"> Yes
+        </label>
+
+        <br><br>
+
+        <button type="submit">Search Dogs</button>
+
+    </form>
+
+</body>
+
+</html>
