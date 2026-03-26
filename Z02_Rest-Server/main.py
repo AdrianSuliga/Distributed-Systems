@@ -3,7 +3,10 @@ from fastapi.responses import HTMLResponse
 from random import randint
 import httpx
 
-# API keyw
+# Timeout for API calls
+TIMEOUT = 30
+
+# API keys
 def read_key(path):
     with open(path) as f:
         return f.read()
@@ -76,78 +79,90 @@ async def start_response(mode: str, count: int = 1, breed_name: str = "",
 
     breed_source, images, statistics = [], [], []
 
-    # Get count number of breeds information
-    if mode == "many":        
-        async with httpx.AsyncClient() as client:
-            response = await client.get(f"{DOG_API_GENERIC}/breeds", headers=dog_headers, params={"limit": count})
+    async with httpx.AsyncClient(timeout=TIMEOUT) as client:
 
-        breed_source = response.json()
+        # Get count number of breeds information
+        if mode == "many":
+            try:
+                response = await client.get(f"{DOG_API_GENERIC}/breeds", headers=dog_headers, params={"limit": count})
+            except httpx.ReadTimeout:
+                return return_error(504, f"It took us too long to fetch {count} dog breeds.")
+
+            breed_source = response.json()
+            
+        # Draw random breed
+        elif mode == "random":
+            try:
+                response = await client.get(f"{DOG_API_GENERIC}/breeds", headers=dog_headers, params={})
+            except httpx.ReadTimeout:
+                return return_error(504, "It took us too long to fetch dog breeds.")
+
+            random_breed = response.json()[randint(0, len(response.json()))]
+
+            breed_source = [random_breed]
+            
+        # Search for specific breed
+        elif mode == "breed":
+            try:
+                response = await client.get(f"{DOG_API_GENERIC}/breeds/search", headers=dog_headers, params={"q": breed_name, "limit": 5})
+            except httpx.ReadTimeout:
+                return return_error(504, f"It took us to long to fetch {breed_name}.")
+
+            breed_source = response.json()
+
+        # Some error
+        else:
+            return return_error(400, f"Chosen unknown search option: {mode}")
+
+        # Extract only relevant breed information
+        breeds = [(breed.get("id"), breed.get("name"), breed.get("life_span"),
+                    breed.get("temperament"), breed.get("origin"),
+                    breed.get("description"), breed.get("history"),
+                    breed.get("image").get("url")) for breed in breed_source]
         
-    # Draw random breed
-    elif mode == "random":
-        async with httpx.AsyncClient() as client:
-            response = await client.get(f"{DOG_API_GENERIC}/breeds", headers=dog_headers, params={})
+        if len(breeds) == 0:
+            return return_error(404, "Couldn't find any dogs matching your criteria")
 
-        random_breed = response.json()[randint(0, len(response.json()))]
+        # Get up to images_count number of images of each breed
+        if images_count > 0:
+            for breed in breeds:
+                id = breed[0]
 
-        breed_source = [random_breed]
-        
-    # Search for specific breed
-    elif mode == "breed":
-        async with httpx.AsyncClient() as client:
-            response = await client.get(f"{DOG_API_GENERIC}/breeds/search", headers=dog_headers, params={"q": breed_name, "limit": 5})
+                try:
+                    response = await client.get(f"{DOG_API_GENERIC}/images/search", headers=dog_headers, params={"limit": images_count,
+                                                                                                                "breed_id": id})
+                except httpx.ReadTimeout:
+                    return return_error(504, f"It took us too long to fetch {images_count} images of {breed[1]}")
 
-        breed_source = response.json()
+                res_list = list(response.json())
 
-    # Some error
-    else:
-        return return_error(400, f"Chosen unknown search option: {mode}")
+                images.append([image.get("url") for image in res_list])
 
-    # Extract only relevant breed information
-    breeds = [(breed.get("id"), breed.get("name"), breed.get("life_span"),
-                   breed.get("temperament"), breed.get("origin"),
-                   breed.get("description"), breed.get("history"),
-                   breed.get("image").get("url")) for breed in breed_source]
-    
-    if len(breeds) == 0:
-        return return_error(404, "Couldn't find any dogs matching your criteria")
-
-    # Get up to images_count number of images of each breed
-    if images_count > 0:
-        for breed in breeds:
-            id = breed[0]
-
-            async with httpx.AsyncClient() as client:
-                response = await client.get(f"{DOG_API_GENERIC}/images/search", headers=dog_headers, params={"limit": images_count,
-                                                                                                             "breed_id": id})
+        # Get statistics about each breed
+        if get_statistics:
+            for breed in breeds:
+                name = breed[1]
                 
-            res_list = list(response.json())
+                try:
+                    response = await client.get(DOG_NINJA_API_GENERIC, headers=ninja_headers, params={"name": name})
+                except httpx.ReadTimeout:
+                    return return_error(504, f"It took us too long to fetch statistics for {name}")
 
-            images.append([image.get("url") for image in res_list])
+                res_list = list(response.json())
 
-    # Get statistics about each breed
-    if get_statistics:
-        for breed in breeds:
-            name = breed[1]
-            
-            async with httpx.AsyncClient() as client:
-                response = await client.get(DOG_NINJA_API_GENERIC, headers=ninja_headers, params={"name": name})
-            
-            res_list = list(response.json())
-
-            # If no stats for given breed than silently ignore
-            if res_list == []:
-                statistics.append(())
-            else:
-                res_dict = res_list[0]
-                statistics.append((res_dict.get("good_with_children"), res_dict.get("good_with_other_dogs"),
-                                   res_dict.get("good_with_strangers"), res_dict.get("shedding"), res_dict.get("grooming"),
-                                   res_dict.get("drooling"), res_dict.get("coat_length"), res_dict.get("playfulness"),
-                                   res_dict.get("protectiveness"), res_dict.get("trainability"), res_dict.get("energy"),
-                                   res_dict.get("barking"), res_dict.get("min_height_male"), res_dict.get("max_height_male"),
-                                   res_dict.get("min_weight_male"), res_dict.get("max_weight_male"),
-                                   res_dict.get("min_height_female"), res_dict.get("max_height_female"),
-                                   res_dict.get("min_weight_female"), res_dict.get("max_weight_female")))
+                # If no stats for given breed than silently ignore
+                if res_list == []:
+                    statistics.append(())
+                else:
+                    res_dict = res_list[0]
+                    statistics.append((res_dict.get("good_with_children"), res_dict.get("good_with_other_dogs"),
+                                    res_dict.get("good_with_strangers"), res_dict.get("shedding"), res_dict.get("grooming"),
+                                    res_dict.get("drooling"), res_dict.get("coat_length"), res_dict.get("playfulness"),
+                                    res_dict.get("protectiveness"), res_dict.get("trainability"), res_dict.get("energy"),
+                                    res_dict.get("barking"), res_dict.get("min_height_male"), res_dict.get("max_height_male"),
+                                    res_dict.get("min_weight_male"), res_dict.get("max_weight_male"),
+                                    res_dict.get("min_height_female"), res_dict.get("max_height_female"),
+                                    res_dict.get("min_weight_female"), res_dict.get("max_weight_female")))
 
     # Generate HTML content
     for i, breed in enumerate(breeds):
@@ -239,9 +254,12 @@ async def start_response(mode: str, count: int = 1, breed_name: str = "",
     if fun_facts_count > 0:
         fact_data: list = []
         
-        async with httpx.AsyncClient() as client:
-            response = await client.get(f"{DOG_FACTS_GENERIC}?limit={fun_facts_count}")
-        
+        async with httpx.AsyncClient(timeout=10.0) as client:
+            try:
+                response = await client.get(f"{DOG_FACTS_GENERIC}?limit={fun_facts_count}")
+            except httpx.ReadTimeout:
+                return return_error(504, "It took us to long to fetch dog fun facts.")
+
         fact_data = [d["attributes"]["body"] for d in response.json()["data"]]
 
         # If failed to retrieve enough information
