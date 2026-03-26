@@ -1,0 +1,240 @@
+{
+  "info": {
+    "_postman_id": "ef2eebb6-4ce2-46d5-8b62-b7c9d31f2d49",
+    "name": "DogSearch",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "40155553"
+  },
+  "item": [
+    {
+      "name": "Dogs as HTTP errors",
+      "request": {
+        "auth": {
+          "type": "apikey"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://http.dog/504.jpg",
+          "protocol": "https",
+          "host": [
+            "http",
+            "dog"
+          ],
+          "path": [
+            "504.jpg"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Dogs fun facts",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://dogapi.dog/api/v2/facts?limit=5",
+          "protocol": "https",
+          "host": [
+            "dogapi",
+            "dog"
+          ],
+          "path": [
+            "api",
+            "v2",
+            "facts"
+          ],
+          "query": [
+            {
+              "key": "limit",
+              "value": "5"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Dogs statistics",
+      "request": {
+        "auth": {
+          "type": "apikey",
+          "apikey": [
+            {
+              "key": "value",
+              "value": "uToeHopxOMlPUWe86Sd3iQEx07Ip89VLwRAJD6MQ",
+              "type": "string"
+            },
+            {
+              "key": "key",
+              "value": "X-Api-Key",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.api-ninjas.com/v1/dogs?name=akita",
+          "protocol": "https",
+          "host": [
+            "api",
+            "api-ninjas",
+            "com"
+          ],
+          "path": [
+            "v1",
+            "dogs"
+          ],
+          "query": [
+            {
+              "key": "name",
+              "value": "akita"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Dogs all breeds",
+      "request": {
+        "auth": {
+          "type": "apikey",
+          "apikey": [
+            {
+              "key": "value",
+              "value": "live_nx0pfVf4FSzYFYfjWEavKipikWzscS11VEL2RNlHI6AWRpBKac3uu83utqtevHjx",
+              "type": "string"
+            },
+            {
+              "key": "key",
+              "value": "x-api-key",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.thedogapi.com/v1/breeds?limit=5",
+          "protocol": "https",
+          "host": [
+            "api",
+            "thedogapi",
+            "com"
+          ],
+          "path": [
+            "v1",
+            "breeds"
+          ],
+          "query": [
+            {
+              "key": "limit",
+              "value": "5"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Dogs specific breed",
+      "request": {
+        "auth": {
+          "type": "apikey",
+          "apikey": [
+            {
+              "key": "value",
+              "value": "live_nx0pfVf4FSzYFYfjWEavKipikWzscS11VEL2RNlHI6AWRpBKac3uu83utqtevHjx",
+              "type": "string"
+            },
+            {
+              "key": "key",
+              "value": "x-api-key",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.thedogapi.com/v1/breeds/search?limit=1&q=akita",
+          "protocol": "https",
+          "host": [
+            "api",
+            "thedogapi",
+            "com"
+          ],
+          "path": [
+            "v1",
+            "breeds",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "limit",
+              "value": "1"
+            },
+            {
+              "key": "q",
+              "value": "akita"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Dogs breed images",
+      "request": {
+        "auth": {
+          "type": "apikey",
+          "apikey": [
+            {
+              "key": "value",
+              "value": "live_nx0pfVf4FSzYFYfjWEavKipikWzscS11VEL2RNlHI6AWRpBKac3uu83utqtevHjx",
+              "type": "string"
+            },
+            {
+              "key": "key",
+              "value": "x-api-key",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.thedogapi.com/v1/images/search?limit=3&breed_id=1",
+          "protocol": "https",
+          "host": [
+            "api",
+            "thedogapi",
+            "com"
+          ],
+          "path": [
+            "v1",
+            "images",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "limit",
+              "value": "3"
+            },
+            {
+              "key": "breed_id",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
