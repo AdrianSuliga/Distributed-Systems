@@ -1,7 +1,7 @@
 from fastapi import FastAPI, status
 from fastapi.responses import HTMLResponse
 from random import randint
-import httpx
+import httpx, asyncio
 
 # Timeout for API calls
 TIMEOUT = 30
@@ -97,7 +97,7 @@ async def start_response(mode: str, count: int = 1, breed_name: str = "",
             except httpx.ReadTimeout:
                 return return_error(504, "It took us too long to fetch dog breeds.")
 
-            random_breed = response.json()[randint(0, len(response.json()))]
+            random_breed = response.json()[randint(0, len(response.json()) - 1)]
 
             breed_source = [random_breed]
             
@@ -125,44 +125,60 @@ async def start_response(mode: str, count: int = 1, breed_name: str = "",
 
         # Get up to images_count number of images of each breed
         if images_count > 0:
-            for breed in breeds:
-                id = breed[0]
-
+            async def fetch_images(client, breed_id):
                 try:
-                    response = await client.get(f"{DOG_API_GENERIC}/images/search", headers=dog_headers, params={"limit": images_count,
-                                                                                                                "breed_id": id})
+                    response = await client.get(
+                        f"{DOG_API_GENERIC}/images/search",
+                        headers=dog_headers,
+                        params={"limit": images_count, "breed_id": breed_id}
+                    )
                 except httpx.ReadTimeout:
-                    return return_error(504, f"It took us too long to fetch {images_count} images of {breed[1]}")
+                    return return_error(504, "Timeout while fetching additional images.")
 
-                res_list = list(response.json())
+                res_list = response.json()
+                return [img.get("url") for img in res_list]
 
-                images.append([image.get("url") for image in res_list])
+            tasks = [fetch_images(client, breed[0]) for breed in breeds]
+
+            try:
+                images = await asyncio.gather(*tasks)
+            except httpx.ReadTimeout:
+                return return_error(504, "Timeout while fetching additional images")
 
         # Get statistics about each breed
         if get_statistics:
-            for breed in breeds:
-                name = breed[1]
-                
+            async def fetch_statistics(client, breed_name):
                 try:
-                    response = await client.get(DOG_NINJA_API_GENERIC, headers=ninja_headers, params={"name": name})
+                    response = await client.get(
+                        DOG_NINJA_API_GENERIC,
+                        headers=ninja_headers,
+                        params={"name": breed_name}
+                    )
                 except httpx.ReadTimeout:
-                    return return_error(504, f"It took us too long to fetch statistics for {name}")
+                    raise httpx.ReadTimeout(f"It took us too long to fetch statistics for {breed_name}")
 
-                res_list = list(response.json())
+                res_list = response.json()
 
-                # If no stats for given breed than silently ignore
-                if res_list == []:
-                    statistics.append(())
-                else:
-                    res_dict = res_list[0]
-                    statistics.append((res_dict.get("good_with_children"), res_dict.get("good_with_other_dogs"),
-                                    res_dict.get("good_with_strangers"), res_dict.get("shedding"), res_dict.get("grooming"),
-                                    res_dict.get("drooling"), res_dict.get("coat_length"), res_dict.get("playfulness"),
-                                    res_dict.get("protectiveness"), res_dict.get("trainability"), res_dict.get("energy"),
-                                    res_dict.get("barking"), res_dict.get("min_height_male"), res_dict.get("max_height_male"),
-                                    res_dict.get("min_weight_male"), res_dict.get("max_weight_male"),
-                                    res_dict.get("min_height_female"), res_dict.get("max_height_female"),
-                                    res_dict.get("min_weight_female"), res_dict.get("max_weight_female")))
+                if not res_list:
+                    return ()
+
+                res_dict = res_list[0]
+
+                return (res_dict.get("good_with_children"),res_dict.get("good_with_other_dogs"),
+                    res_dict.get("good_with_strangers"),res_dict.get("shedding"),res_dict.get("grooming"),
+                    res_dict.get("drooling"),res_dict.get("coat_length"),res_dict.get("playfulness"),
+                    res_dict.get("protectiveness"),res_dict.get("trainability"),res_dict.get("energy"),
+                    res_dict.get("barking"),res_dict.get("min_height_male"),res_dict.get("max_height_male"),
+                    res_dict.get("min_weight_male"),res_dict.get("max_weight_male"),res_dict.get("min_height_female"),
+                    res_dict.get("max_height_female"),res_dict.get("min_weight_female"),res_dict.get("max_weight_female"),
+                )
+
+            tasks = [fetch_statistics(client, breed[1]) for breed in breeds]
+
+            try:
+                statistics = await asyncio.gather(*tasks)
+            except httpx.ReadTimeout:
+                return return_error(504, "Timeout while fetching stats.")
 
     # Generate HTML content
     for i, breed in enumerate(breeds):
