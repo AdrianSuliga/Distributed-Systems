@@ -1,12 +1,27 @@
-#ifndef CONTRACT_ICE
-#define CONTRACT_ICE
-
 module Contract
 {
-    interface Calculator
-    {
-        idempotent long add(int a, int b);
-    };
-};
+    sequence<int> IntSeq;
 
-#endif
+    struct Person
+    {
+        string firstName;
+        string lastName;
+        string address;
+        int age;
+        int salary;
+        IntSeq previousSalaries;
+    };
+
+    struct PersonDescription
+    {
+        string description;
+        double avgSalary;
+    };
+
+    interface PersonRegistry
+    {
+        idempotent string echo();
+        idempotent double net(int salary, int age);
+        idempotent PersonDescription describe(Person person);
+    };
+}

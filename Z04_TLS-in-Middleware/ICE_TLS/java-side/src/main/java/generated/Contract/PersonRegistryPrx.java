@@ -15,45 +15,122 @@
 
 package Contract;
 
-public interface CalculatorPrx extends com.zeroc.Ice.ObjectPrx
+public interface PersonRegistryPrx extends com.zeroc.Ice.ObjectPrx
 {
-    default long add(int a, int b)
+    default String echo()
     {
-        return add(a, b, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+        return echo(com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default long add(int a, int b, java.util.Map<String, String> context)
+    default String echo(java.util.Map<String, String> context)
     {
-        return _iceI_addAsync(a, b, context, true).waitForResponse();
+        return _iceI_echoAsync(context, true).waitForResponse();
     }
 
-    default java.util.concurrent.CompletableFuture<java.lang.Long> addAsync(int a, int b)
+    default java.util.concurrent.CompletableFuture<java.lang.String> echoAsync()
     {
-        return _iceI_addAsync(a, b, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+        return _iceI_echoAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<java.lang.Long> addAsync(int a, int b, java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<java.lang.String> echoAsync(java.util.Map<String, String> context)
     {
-        return _iceI_addAsync(a, b, context, false);
+        return _iceI_echoAsync(context, false);
     }
 
     /**
      * @hidden
-     * @param iceP_a -
-     * @param iceP_b -
      * @param context -
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Long> _iceI_addAsync(int iceP_a, int iceP_b, java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.String> _iceI_echoAsync(java.util.Map<String, String> context, boolean sync)
     {
-        com.zeroc.IceInternal.OutgoingAsync<java.lang.Long> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "add", com.zeroc.Ice.OperationMode.Idempotent, sync, null);
+        com.zeroc.IceInternal.OutgoingAsync<java.lang.String> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "echo", com.zeroc.Ice.OperationMode.Idempotent, sync, null);
+        f.invoke(true, context, null, null, istr -> {
+                     String ret;
+                     ret = istr.readString();
+                     return ret;
+                 });
+        return f;
+    }
+
+    default double net(int salary, int age)
+    {
+        return net(salary, age, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default double net(int salary, int age, java.util.Map<String, String> context)
+    {
+        return _iceI_netAsync(salary, age, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<java.lang.Double> netAsync(int salary, int age)
+    {
+        return _iceI_netAsync(salary, age, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<java.lang.Double> netAsync(int salary, int age, java.util.Map<String, String> context)
+    {
+        return _iceI_netAsync(salary, age, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_salary -
+     * @param iceP_age -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Double> _iceI_netAsync(int iceP_salary, int iceP_age, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<java.lang.Double> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "net", com.zeroc.Ice.OperationMode.Idempotent, sync, null);
         f.invoke(true, context, null, ostr -> {
-                     ostr.writeInt(iceP_a);
-                     ostr.writeInt(iceP_b);
+                     ostr.writeInt(iceP_salary);
+                     ostr.writeInt(iceP_age);
                  }, istr -> {
-                     long ret;
-                     ret = istr.readLong();
+                     double ret;
+                     ret = istr.readDouble();
+                     return ret;
+                 });
+        return f;
+    }
+
+    default PersonDescription describe(Person person)
+    {
+        return describe(person, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default PersonDescription describe(Person person, java.util.Map<String, String> context)
+    {
+        return _iceI_describeAsync(person, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<PersonDescription> describeAsync(Person person)
+    {
+        return _iceI_describeAsync(person, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<PersonDescription> describeAsync(Person person, java.util.Map<String, String> context)
+    {
+        return _iceI_describeAsync(person, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_person -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<PersonDescription> _iceI_describeAsync(Person iceP_person, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<PersonDescription> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "describe", com.zeroc.Ice.OperationMode.Idempotent, sync, null);
+        f.invoke(true, context, null, ostr -> {
+                     Person.ice_write(ostr, iceP_person);
+                 }, istr -> {
+                     PersonDescription ret;
+                     ret = PersonDescription.ice_read(istr);
                      return ret;
                  });
         return f;
@@ -65,9 +142,9 @@ public interface CalculatorPrx extends com.zeroc.Ice.ObjectPrx
      * @param obj The untyped proxy.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static CalculatorPrx checkedCast(com.zeroc.Ice.ObjectPrx obj)
+    static PersonRegistryPrx checkedCast(com.zeroc.Ice.ObjectPrx obj)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, ice_staticId(), CalculatorPrx.class, _CalculatorPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, ice_staticId(), PersonRegistryPrx.class, _PersonRegistryPrxI.class);
     }
 
     /**
@@ -77,9 +154,9 @@ public interface CalculatorPrx extends com.zeroc.Ice.ObjectPrx
      * @param context The Context map to send with the invocation.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static CalculatorPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, java.util.Map<String, String> context)
+    static PersonRegistryPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, java.util.Map<String, String> context)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, context, ice_staticId(), CalculatorPrx.class, _CalculatorPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, context, ice_staticId(), PersonRegistryPrx.class, _PersonRegistryPrxI.class);
     }
 
     /**
@@ -89,9 +166,9 @@ public interface CalculatorPrx extends com.zeroc.Ice.ObjectPrx
      * @param facet The name of the desired facet.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static CalculatorPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
+    static PersonRegistryPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, ice_staticId(), CalculatorPrx.class, _CalculatorPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, ice_staticId(), PersonRegistryPrx.class, _PersonRegistryPrxI.class);
     }
 
     /**
@@ -102,9 +179,9 @@ public interface CalculatorPrx extends com.zeroc.Ice.ObjectPrx
      * @param context The Context map to send with the invocation.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static CalculatorPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet, java.util.Map<String, String> context)
+    static PersonRegistryPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet, java.util.Map<String, String> context)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, context, ice_staticId(), CalculatorPrx.class, _CalculatorPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, context, ice_staticId(), PersonRegistryPrx.class, _PersonRegistryPrxI.class);
     }
 
     /**
@@ -112,9 +189,9 @@ public interface CalculatorPrx extends com.zeroc.Ice.ObjectPrx
      * @param obj The untyped proxy.
      * @return A proxy for this type.
      **/
-    static CalculatorPrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj)
+    static PersonRegistryPrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj)
     {
-        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, CalculatorPrx.class, _CalculatorPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, PersonRegistryPrx.class, _PersonRegistryPrxI.class);
     }
 
     /**
@@ -123,9 +200,9 @@ public interface CalculatorPrx extends com.zeroc.Ice.ObjectPrx
      * @param facet The name of the desired facet.
      * @return A proxy for this type.
      **/
-    static CalculatorPrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
+    static PersonRegistryPrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
     {
-        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, facet, CalculatorPrx.class, _CalculatorPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, facet, PersonRegistryPrx.class, _PersonRegistryPrxI.class);
     }
 
     /**
@@ -134,9 +211,9 @@ public interface CalculatorPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified per-proxy context.
      **/
     @Override
-    default CalculatorPrx ice_context(java.util.Map<String, String> newContext)
+    default PersonRegistryPrx ice_context(java.util.Map<String, String> newContext)
     {
-        return (CalculatorPrx)_ice_context(newContext);
+        return (PersonRegistryPrx)_ice_context(newContext);
     }
 
     /**
@@ -145,9 +222,9 @@ public interface CalculatorPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified adapter ID.
      **/
     @Override
-    default CalculatorPrx ice_adapterId(String newAdapterId)
+    default PersonRegistryPrx ice_adapterId(String newAdapterId)
     {
-        return (CalculatorPrx)_ice_adapterId(newAdapterId);
+        return (PersonRegistryPrx)_ice_adapterId(newAdapterId);
     }
 
     /**
@@ -156,9 +233,9 @@ public interface CalculatorPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified endpoints.
      **/
     @Override
-    default CalculatorPrx ice_endpoints(com.zeroc.Ice.Endpoint[] newEndpoints)
+    default PersonRegistryPrx ice_endpoints(com.zeroc.Ice.Endpoint[] newEndpoints)
     {
-        return (CalculatorPrx)_ice_endpoints(newEndpoints);
+        return (PersonRegistryPrx)_ice_endpoints(newEndpoints);
     }
 
     /**
@@ -167,9 +244,9 @@ public interface CalculatorPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified locator cache timeout.
      **/
     @Override
-    default CalculatorPrx ice_locatorCacheTimeout(int newTimeout)
+    default PersonRegistryPrx ice_locatorCacheTimeout(int newTimeout)
     {
-        return (CalculatorPrx)_ice_locatorCacheTimeout(newTimeout);
+        return (PersonRegistryPrx)_ice_locatorCacheTimeout(newTimeout);
     }
 
     /**
@@ -178,9 +255,9 @@ public interface CalculatorPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified invocation timeout.
      **/
     @Override
-    default CalculatorPrx ice_invocationTimeout(int newTimeout)
+    default PersonRegistryPrx ice_invocationTimeout(int newTimeout)
     {
-        return (CalculatorPrx)_ice_invocationTimeout(newTimeout);
+        return (PersonRegistryPrx)_ice_invocationTimeout(newTimeout);
     }
 
     /**
@@ -189,9 +266,9 @@ public interface CalculatorPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified caching policy.
      **/
     @Override
-    default CalculatorPrx ice_connectionCached(boolean newCache)
+    default PersonRegistryPrx ice_connectionCached(boolean newCache)
     {
-        return (CalculatorPrx)_ice_connectionCached(newCache);
+        return (PersonRegistryPrx)_ice_connectionCached(newCache);
     }
 
     /**
@@ -200,9 +277,9 @@ public interface CalculatorPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified endpoint selection policy.
      **/
     @Override
-    default CalculatorPrx ice_endpointSelection(com.zeroc.Ice.EndpointSelectionType newType)
+    default PersonRegistryPrx ice_endpointSelection(com.zeroc.Ice.EndpointSelectionType newType)
     {
-        return (CalculatorPrx)_ice_endpointSelection(newType);
+        return (PersonRegistryPrx)_ice_endpointSelection(newType);
     }
 
     /**
@@ -213,9 +290,9 @@ public interface CalculatorPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified selection policy.
      **/
     @Override
-    default CalculatorPrx ice_secure(boolean b)
+    default PersonRegistryPrx ice_secure(boolean b)
     {
-        return (CalculatorPrx)_ice_secure(b);
+        return (PersonRegistryPrx)_ice_secure(b);
     }
 
     /**
@@ -224,9 +301,9 @@ public interface CalculatorPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified encoding version.
      **/
     @Override
-    default CalculatorPrx ice_encodingVersion(com.zeroc.Ice.EncodingVersion e)
+    default PersonRegistryPrx ice_encodingVersion(com.zeroc.Ice.EncodingVersion e)
     {
-        return (CalculatorPrx)_ice_encodingVersion(e);
+        return (PersonRegistryPrx)_ice_encodingVersion(e);
     }
 
     /**
@@ -237,9 +314,9 @@ public interface CalculatorPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified selection policy.
      **/
     @Override
-    default CalculatorPrx ice_preferSecure(boolean b)
+    default PersonRegistryPrx ice_preferSecure(boolean b)
     {
-        return (CalculatorPrx)_ice_preferSecure(b);
+        return (PersonRegistryPrx)_ice_preferSecure(b);
     }
 
     /**
@@ -248,9 +325,9 @@ public interface CalculatorPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified router.
      **/
     @Override
-    default CalculatorPrx ice_router(com.zeroc.Ice.RouterPrx router)
+    default PersonRegistryPrx ice_router(com.zeroc.Ice.RouterPrx router)
     {
-        return (CalculatorPrx)_ice_router(router);
+        return (PersonRegistryPrx)_ice_router(router);
     }
 
     /**
@@ -259,9 +336,9 @@ public interface CalculatorPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified locator.
      **/
     @Override
-    default CalculatorPrx ice_locator(com.zeroc.Ice.LocatorPrx locator)
+    default PersonRegistryPrx ice_locator(com.zeroc.Ice.LocatorPrx locator)
     {
-        return (CalculatorPrx)_ice_locator(locator);
+        return (PersonRegistryPrx)_ice_locator(locator);
     }
 
     /**
@@ -270,9 +347,9 @@ public interface CalculatorPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified collocation optimization.
      **/
     @Override
-    default CalculatorPrx ice_collocationOptimized(boolean b)
+    default PersonRegistryPrx ice_collocationOptimized(boolean b)
     {
-        return (CalculatorPrx)_ice_collocationOptimized(b);
+        return (PersonRegistryPrx)_ice_collocationOptimized(b);
     }
 
     /**
@@ -280,9 +357,9 @@ public interface CalculatorPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy that uses twoway invocations.
      **/
     @Override
-    default CalculatorPrx ice_twoway()
+    default PersonRegistryPrx ice_twoway()
     {
-        return (CalculatorPrx)_ice_twoway();
+        return (PersonRegistryPrx)_ice_twoway();
     }
 
     /**
@@ -290,9 +367,9 @@ public interface CalculatorPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy that uses oneway invocations.
      **/
     @Override
-    default CalculatorPrx ice_oneway()
+    default PersonRegistryPrx ice_oneway()
     {
-        return (CalculatorPrx)_ice_oneway();
+        return (PersonRegistryPrx)_ice_oneway();
     }
 
     /**
@@ -300,9 +377,9 @@ public interface CalculatorPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy that uses batch oneway invocations.
      **/
     @Override
-    default CalculatorPrx ice_batchOneway()
+    default PersonRegistryPrx ice_batchOneway()
     {
-        return (CalculatorPrx)_ice_batchOneway();
+        return (PersonRegistryPrx)_ice_batchOneway();
     }
 
     /**
@@ -310,9 +387,9 @@ public interface CalculatorPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy that uses datagram invocations.
      **/
     @Override
-    default CalculatorPrx ice_datagram()
+    default PersonRegistryPrx ice_datagram()
     {
-        return (CalculatorPrx)_ice_datagram();
+        return (PersonRegistryPrx)_ice_datagram();
     }
 
     /**
@@ -320,9 +397,9 @@ public interface CalculatorPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy that uses batch datagram invocations.
      **/
     @Override
-    default CalculatorPrx ice_batchDatagram()
+    default PersonRegistryPrx ice_batchDatagram()
     {
-        return (CalculatorPrx)_ice_batchDatagram();
+        return (PersonRegistryPrx)_ice_batchDatagram();
     }
 
     /**
@@ -331,9 +408,9 @@ public interface CalculatorPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified compression setting.
      **/
     @Override
-    default CalculatorPrx ice_compress(boolean co)
+    default PersonRegistryPrx ice_compress(boolean co)
     {
-        return (CalculatorPrx)_ice_compress(co);
+        return (PersonRegistryPrx)_ice_compress(co);
     }
 
     /**
@@ -342,9 +419,9 @@ public interface CalculatorPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified timeout.
      **/
     @Override
-    default CalculatorPrx ice_timeout(int t)
+    default PersonRegistryPrx ice_timeout(int t)
     {
-        return (CalculatorPrx)_ice_timeout(t);
+        return (PersonRegistryPrx)_ice_timeout(t);
     }
 
     /**
@@ -353,9 +430,9 @@ public interface CalculatorPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified connection ID.
      **/
     @Override
-    default CalculatorPrx ice_connectionId(String connectionId)
+    default PersonRegistryPrx ice_connectionId(String connectionId)
     {
-        return (CalculatorPrx)_ice_connectionId(connectionId);
+        return (PersonRegistryPrx)_ice_connectionId(connectionId);
     }
 
     /**
@@ -364,13 +441,13 @@ public interface CalculatorPrx extends com.zeroc.Ice.ObjectPrx
      * @return A fixed proxy bound to the given connection.
      **/
     @Override
-    default CalculatorPrx ice_fixed(com.zeroc.Ice.Connection connection)
+    default PersonRegistryPrx ice_fixed(com.zeroc.Ice.Connection connection)
     {
-        return (CalculatorPrx)_ice_fixed(connection);
+        return (PersonRegistryPrx)_ice_fixed(connection);
     }
 
     static String ice_staticId()
     {
-        return "::Contract::Calculator";
+        return "::Contract::PersonRegistry";
     }
 }

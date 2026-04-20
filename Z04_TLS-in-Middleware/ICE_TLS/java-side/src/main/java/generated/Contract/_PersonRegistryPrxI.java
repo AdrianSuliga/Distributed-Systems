@@ -16,7 +16,7 @@
 package Contract;
 
 /** @hidden */
-public class _CalculatorPrxI extends com.zeroc.Ice._ObjectPrxI implements CalculatorPrx
+public class _PersonRegistryPrxI extends com.zeroc.Ice._ObjectPrxI implements PersonRegistryPrx
 {
     /** @hidden */
     public static final long serialVersionUID = 0L;

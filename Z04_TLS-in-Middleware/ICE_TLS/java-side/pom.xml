@@ -22,7 +22,6 @@
     </properties>
 
     <dependencies>
-        <!-- ZeroC Ice runtime -->
         <dependency>
             <groupId>com.zeroc</groupId>
             <artifactId>ice</artifactId>
