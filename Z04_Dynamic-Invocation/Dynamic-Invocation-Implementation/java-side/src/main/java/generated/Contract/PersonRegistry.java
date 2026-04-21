@@ -23,6 +23,8 @@ public interface PersonRegistry extends com.zeroc.Ice.Object
 
     PersonDescription describe(Person person, com.zeroc.Ice.Current current);
 
+    Person[] add(Person person, com.zeroc.Ice.Current current);
+
     /** @hidden */
     static final String[] _iceIds =
     {
@@ -109,9 +111,31 @@ public interface PersonRegistry extends com.zeroc.Ice.Object
         return inS.setResult(ostr);
     }
 
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_add(PersonRegistry obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        Person iceP_person;
+        iceP_person = Person.ice_read(istr);
+        inS.endReadParams();
+        Person[] ret = obj.add(iceP_person, current);
+        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
+        PersonSeqHelper.write(ostr, ret);
+        inS.endWriteParams(ostr);
+        return inS.setResult(ostr);
+    }
+
     /** @hidden */
     final static String[] _iceOps =
     {
+        "add",
         "describe",
         "echo",
         "ice_id",
@@ -136,29 +160,33 @@ public interface PersonRegistry extends com.zeroc.Ice.Object
         {
             case 0:
             {
-                return _iceD_describe(this, in, current);
+                return _iceD_add(this, in, current);
             }
             case 1:
             {
-                return _iceD_echo(this, in, current);
+                return _iceD_describe(this, in, current);
             }
             case 2:
             {
-                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
+                return _iceD_echo(this, in, current);
             }
             case 3:
             {
-                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
             }
             case 4:
             {
-                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
             }
             case 5:
             {
-                return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
             }
             case 6:
+            {
+                return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
+            }
+            case 7:
             {
                 return _iceD_net(this, in, current);
             }

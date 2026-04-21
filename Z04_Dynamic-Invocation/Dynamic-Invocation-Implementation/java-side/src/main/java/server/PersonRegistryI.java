@@ -1,8 +1,12 @@
 package server;
 
 import com.zeroc.Ice.Current;
+import java.util.List;
+import java.util.ArrayList;
 
 public class PersonRegistryI implements Contract.PersonRegistry {
+    private final List<Contract.Person> people = new ArrayList<>();
+
     @Override
     public String echo(Current __current) {
         System.out.println("Servant " + __current.id + " echoing");
@@ -30,5 +34,14 @@ public class PersonRegistryI implements Contract.PersonRegistry {
                             person.address + " and earns " + person.salary + " PLN per month.";
 
         return new Contract.PersonDescription(description, avgSalary);
+    }
+
+    @Override
+    public Contract.Person[] add(Contract.Person person, Current __current) {
+        System.out.println("Servant " + __current.id + " adding " + person.firstName + " " + person.lastName);
+
+        people.add(person);
+
+        return people.toArray(new Contract.Person[0]);
     }
 }

@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     try {
         communicator = Ice::initialize(argc, argv);
 
-        Ice::ObjectPrx base = communicator->stringToProxy("contract/registry:tcp -h 127.0.0.1 -p 10000");
+        Ice::ObjectPrx base = communicator->stringToProxy("contract/registry:tcp -h 127.0.0.2 -p 10000");
 
         std::cout << "Connection established, enter command:\n";
 
@@ -110,16 +110,79 @@ int main(int argc, char *argv[])
                         std::cout << description << '\n';
                         std::cout << "AVG SALARY: " << avg_salary << '\n';
                     } else {
-                        std::cout << "desc invocation failed\n";
+                        std::cerr << "desc invocation failed\n";
                     }
 
                 } catch (const Ice::LocalException &ex) {
                     std::cout << "Local exception: " << ex << std::endl;
                 }
 
-            } else if (cmd == "stream") {
+            } else if (cmd == "add") {
 
+                std::vector<int> salaryList = {4000, 6700, 10000, 13000};
 
+                try {
+
+                    Ice::OutputStream out(base->ice_getCommunicator());
+
+                    out.startEncapsulation();
+                    out.write("Andrzej");
+                    out.write("Nowak-Wiśniewski");
+                    out.write("Czysta 13, 30-121 Kraków");
+                    out.write(34);
+                    out.write(14400);
+                    out.write(salaryList);
+                    out.endEncapsulation();
+
+                    std::pair<const Ice::Byte*, const Ice::Byte*> data = out.finished();
+                    std::vector<Ice::Byte> inParams(data.first, data.second);
+
+                    if (base->ice_invoke(cmd, Ice::Normal, inParams, outParams)) {
+                        Ice::InputStream in(base->ice_getCommunicator(), outParams);
+
+                        in.startEncapsulation();
+                        Ice::Int count = in.readSize();
+
+                        std::cout << "Data about " << count << " subjects received\n";
+
+                        for (int i = 0; i < count; ++i) {
+                            std::string firstName;
+                            std::string lastName;
+                            std::string address;
+                            Ice::Int age;
+                            Ice::Int salary;
+                            std::vector<Ice::Int> previousSalaries;
+                            
+                            in.read(firstName);
+                            in.read(lastName);
+                            in.read(address);
+                            in.read(age);
+                            in.read(salary);
+                            in.read(previousSalaries);
+
+                            std::cout << "Person #" << i + 1 << "\n";
+                            std::cout << firstName << " " << lastName << "\n";
+                            std::cout << address << "\n";
+                            std::cout << "Age: " << age << "\n";
+                            std::cout << "Salary: " << salary << "\n";
+                            std::cout << "Previous salaries: [ ";
+                            
+                            for (auto s : previousSalaries) {
+                                std::cout << s << " ";
+                            }
+
+                            std::cout << "]\n\n";
+                        }
+
+                        in.endEncapsulation();
+
+                    } else {
+                        std::cerr << "add invocation failed\n";
+                    }
+
+                } catch (const Ice::LocalException &ex) {
+                    std::cout << "Local exception: " << ex << std::endl;
+                }
 
             } else if (cmd == "x") {
 

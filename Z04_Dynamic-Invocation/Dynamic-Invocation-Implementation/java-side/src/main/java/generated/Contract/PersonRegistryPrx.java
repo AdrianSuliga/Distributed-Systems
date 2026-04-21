@@ -136,6 +136,46 @@ public interface PersonRegistryPrx extends com.zeroc.Ice.ObjectPrx
         return f;
     }
 
+    default Person[] add(Person person)
+    {
+        return add(person, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default Person[] add(Person person, java.util.Map<String, String> context)
+    {
+        return _iceI_addAsync(person, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Person[]> addAsync(Person person)
+    {
+        return _iceI_addAsync(person, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Person[]> addAsync(Person person, java.util.Map<String, String> context)
+    {
+        return _iceI_addAsync(person, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_person -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Person[]> _iceI_addAsync(Person iceP_person, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Person[]> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "add", null, sync, null);
+        f.invoke(true, context, null, ostr -> {
+                     Person.ice_write(ostr, iceP_person);
+                 }, istr -> {
+                     Person[] ret;
+                     ret = PersonSeqHelper.read(istr);
+                     return ret;
+                 });
+        return f;
+    }
+
     /**
      * Contacts the remote server to verify that the object implements this type.
      * Raises a local exception if a communication error occurs.

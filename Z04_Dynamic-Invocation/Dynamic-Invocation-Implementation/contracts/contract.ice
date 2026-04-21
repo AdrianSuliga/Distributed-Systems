@@ -12,6 +12,8 @@ module Contract
         IntSeq previousSalaries;
     };
 
+    sequence<Person> PersonSeq;
+
     struct PersonDescription
     {
         string description;
@@ -23,5 +25,6 @@ module Contract
         idempotent string echo();
         idempotent double net(int salary, int age);
         idempotent PersonDescription describe(Person person);
+        PersonSeq add(Person person);
     };
 }
