@@ -1,0 +1,16 @@
+services:
+  dev:
+    build: .
+    container_name: tls-exercise
+    working_dir: /workspace
+
+    volumes:
+      - ./:/workspace
+
+    ports:
+      - "10010:10010/tcp"
+      - "10010:10010/udp"
+      - "9090-9091:9090-9091/tcp"
+      - "50041:50041/tcp"
+
+    tty: true
