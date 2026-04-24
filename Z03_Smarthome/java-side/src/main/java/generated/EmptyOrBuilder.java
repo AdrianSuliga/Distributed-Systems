@@ -6,13 +6,7 @@
 package generated;
 
 @com.google.protobuf.Generated
-public interface ArithmeticOpResultOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:test.ArithmeticOpResult)
+public interface EmptyOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:test.Empty)
     com.google.protobuf.MessageOrBuilder {
-
-  /**
-   * <code>int32 res = 1;</code>
-   * @return The res.
-   */
-  int getRes();
 }

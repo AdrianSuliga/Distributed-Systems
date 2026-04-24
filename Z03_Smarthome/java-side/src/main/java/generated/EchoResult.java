@@ -6,13 +6,13 @@
 package generated;
 
 /**
- * Protobuf type {@code test.ArithmeticOpArguments}
+ * Protobuf type {@code test.EchoResult}
  */
 @com.google.protobuf.Generated
-public final class ArithmeticOpArguments extends
+public final class EchoResult extends
     com.google.protobuf.GeneratedMessage implements
-    // @@protoc_insertion_point(message_implements:test.ArithmeticOpArguments)
-    ArithmeticOpArgumentsOrBuilder {
+    // @@protoc_insertion_point(message_implements:test.EchoResult)
+    EchoResultOrBuilder {
 private static final long serialVersionUID = 0L;
   static {
     com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
@@ -21,53 +21,71 @@ private static final long serialVersionUID = 0L;
       /* minor= */ 34,
       /* patch= */ 1,
       /* suffix= */ "",
-      "ArithmeticOpArguments");
+      "EchoResult");
   }
-  // Use ArithmeticOpArguments.newBuilder() to construct.
-  private ArithmeticOpArguments(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+  // Use EchoResult.newBuilder() to construct.
+  private EchoResult(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
     super(builder);
   }
-  private ArithmeticOpArguments() {
+  private EchoResult() {
+    res_ = "";
   }
 
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return generated.TestC.internal_static_test_ArithmeticOpArguments_descriptor;
+    return generated.TestC.internal_static_test_EchoResult_descriptor;
   }
 
   @java.lang.Override
   public com.google.protobuf.Descriptors.Descriptor getDescriptorForType() {
-    return generated.TestC.internal_static_test_ArithmeticOpArguments_descriptor;
+    return generated.TestC.internal_static_test_EchoResult_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return generated.TestC.internal_static_test_ArithmeticOpArguments_fieldAccessorTable
+    return generated.TestC.internal_static_test_EchoResult_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            generated.ArithmeticOpArguments.class, generated.ArithmeticOpArguments.Builder.class);
+            generated.EchoResult.class, generated.EchoResult.Builder.class);
   }
 
-  public static final int ARG1_FIELD_NUMBER = 1;
-  private int arg1_ = 0;
+  public static final int RES_FIELD_NUMBER = 1;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object res_ = "";
   /**
-   * <code>int32 arg1 = 1;</code>
-   * @return The arg1.
+   * <code>string res = 1;</code>
+   * @return The res.
    */
   @java.lang.Override
-  public int getArg1() {
-    return arg1_;
+  public java.lang.String getRes() {
+    java.lang.Object ref = res_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      res_ = s;
+      return s;
+    }
   }
-
-  public static final int ARG2_FIELD_NUMBER = 2;
-  private int arg2_ = 0;
   /**
-   * <code>int32 arg2 = 2;</code>
-   * @return The arg2.
+   * <code>string res = 1;</code>
+   * @return The bytes for res.
    */
   @java.lang.Override
-  public int getArg2() {
-    return arg2_;
+  public com.google.protobuf.ByteString
+      getResBytes() {
+    java.lang.Object ref = res_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      res_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
   }
 
   private byte memoizedIsInitialized = -1;
@@ -84,11 +102,8 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (arg1_ != 0) {
-      output.writeInt32(1, arg1_);
-    }
-    if (arg2_ != 0) {
-      output.writeInt32(2, arg2_);
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(res_)) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 1, res_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -99,13 +114,8 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (arg1_ != 0) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(1, arg1_);
-    }
-    if (arg2_ != 0) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(2, arg2_);
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(res_)) {
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(1, res_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -117,15 +127,13 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof generated.ArithmeticOpArguments)) {
+    if (!(obj instanceof generated.EchoResult)) {
       return super.equals(obj);
     }
-    generated.ArithmeticOpArguments other = (generated.ArithmeticOpArguments) obj;
+    generated.EchoResult other = (generated.EchoResult) obj;
 
-    if (getArg1()
-        != other.getArg1()) return false;
-    if (getArg2()
-        != other.getArg2()) return false;
+    if (!getRes()
+        .equals(other.getRes())) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -137,53 +145,51 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + ARG1_FIELD_NUMBER;
-    hash = (53 * hash) + getArg1();
-    hash = (37 * hash) + ARG2_FIELD_NUMBER;
-    hash = (53 * hash) + getArg2();
+    hash = (37 * hash) + RES_FIELD_NUMBER;
+    hash = (53 * hash) + getRes().hashCode();
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
   }
 
-  public static generated.ArithmeticOpArguments parseFrom(
+  public static generated.EchoResult parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static generated.ArithmeticOpArguments parseFrom(
+  public static generated.EchoResult parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static generated.ArithmeticOpArguments parseFrom(
+  public static generated.EchoResult parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static generated.ArithmeticOpArguments parseFrom(
+  public static generated.EchoResult parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static generated.ArithmeticOpArguments parseFrom(byte[] data)
+  public static generated.EchoResult parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static generated.ArithmeticOpArguments parseFrom(
+  public static generated.EchoResult parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static generated.ArithmeticOpArguments parseFrom(java.io.InputStream input)
+  public static generated.EchoResult parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessage
         .parseWithIOException(PARSER, input);
   }
-  public static generated.ArithmeticOpArguments parseFrom(
+  public static generated.EchoResult parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -191,26 +197,26 @@ private static final long serialVersionUID = 0L;
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
 
-  public static generated.ArithmeticOpArguments parseDelimitedFrom(java.io.InputStream input)
+  public static generated.EchoResult parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessage
         .parseDelimitedWithIOException(PARSER, input);
   }
 
-  public static generated.ArithmeticOpArguments parseDelimitedFrom(
+  public static generated.EchoResult parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessage
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static generated.ArithmeticOpArguments parseFrom(
+  public static generated.EchoResult parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessage
         .parseWithIOException(PARSER, input);
   }
-  public static generated.ArithmeticOpArguments parseFrom(
+  public static generated.EchoResult parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -223,7 +229,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(generated.ArithmeticOpArguments prototype) {
+  public static Builder newBuilder(generated.EchoResult prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -239,26 +245,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code test.ArithmeticOpArguments}
+   * Protobuf type {@code test.EchoResult}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:test.ArithmeticOpArguments)
-      generated.ArithmeticOpArgumentsOrBuilder {
+      // @@protoc_insertion_point(builder_implements:test.EchoResult)
+      generated.EchoResultOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return generated.TestC.internal_static_test_ArithmeticOpArguments_descriptor;
+      return generated.TestC.internal_static_test_EchoResult_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return generated.TestC.internal_static_test_ArithmeticOpArguments_fieldAccessorTable
+      return generated.TestC.internal_static_test_EchoResult_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              generated.ArithmeticOpArguments.class, generated.ArithmeticOpArguments.Builder.class);
+              generated.EchoResult.class, generated.EchoResult.Builder.class);
     }
 
-    // Construct using generated.ArithmeticOpArguments.newBuilder()
+    // Construct using generated.EchoResult.newBuilder()
     private Builder() {
 
     }
@@ -272,25 +278,24 @@ private static final long serialVersionUID = 0L;
     public Builder clear() {
       super.clear();
       bitField0_ = 0;
-      arg1_ = 0;
-      arg2_ = 0;
+      res_ = "";
       return this;
     }
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return generated.TestC.internal_static_test_ArithmeticOpArguments_descriptor;
+      return generated.TestC.internal_static_test_EchoResult_descriptor;
     }
 
     @java.lang.Override
-    public generated.ArithmeticOpArguments getDefaultInstanceForType() {
-      return generated.ArithmeticOpArguments.getDefaultInstance();
+    public generated.EchoResult getDefaultInstanceForType() {
+      return generated.EchoResult.getDefaultInstance();
     }
 
     @java.lang.Override
-    public generated.ArithmeticOpArguments build() {
-      generated.ArithmeticOpArguments result = buildPartial();
+    public generated.EchoResult build() {
+      generated.EchoResult result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -298,40 +303,36 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public generated.ArithmeticOpArguments buildPartial() {
-      generated.ArithmeticOpArguments result = new generated.ArithmeticOpArguments(this);
+    public generated.EchoResult buildPartial() {
+      generated.EchoResult result = new generated.EchoResult(this);
       if (bitField0_ != 0) { buildPartial0(result); }
       onBuilt();
       return result;
     }
 
-    private void buildPartial0(generated.ArithmeticOpArguments result) {
+    private void buildPartial0(generated.EchoResult result) {
       int from_bitField0_ = bitField0_;
       if (((from_bitField0_ & 0x00000001) != 0)) {
-        result.arg1_ = arg1_;
-      }
-      if (((from_bitField0_ & 0x00000002) != 0)) {
-        result.arg2_ = arg2_;
+        result.res_ = res_;
       }
     }
 
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof generated.ArithmeticOpArguments) {
-        return mergeFrom((generated.ArithmeticOpArguments)other);
+      if (other instanceof generated.EchoResult) {
+        return mergeFrom((generated.EchoResult)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(generated.ArithmeticOpArguments other) {
-      if (other == generated.ArithmeticOpArguments.getDefaultInstance()) return this;
-      if (other.getArg1() != 0) {
-        setArg1(other.getArg1());
-      }
-      if (other.getArg2() != 0) {
-        setArg2(other.getArg2());
+    public Builder mergeFrom(generated.EchoResult other) {
+      if (other == generated.EchoResult.getDefaultInstance()) return this;
+      if (!other.getRes().isEmpty()) {
+        res_ = other.res_;
+        bitField0_ |= 0x00000001;
+        onChanged();
       }
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
@@ -359,16 +360,11 @@ private static final long serialVersionUID = 0L;
             case 0:
               done = true;
               break;
-            case 8: {
-              arg1_ = input.readInt32();
+            case 10: {
+              res_ = input.readStringRequireUtf8();
               bitField0_ |= 0x00000001;
               break;
-            } // case 8
-            case 16: {
-              arg2_ = input.readInt32();
-              bitField0_ |= 0x00000002;
-              break;
-            } // case 16
+            } // case 10
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -386,87 +382,95 @@ private static final long serialVersionUID = 0L;
     }
     private int bitField0_;
 
-    private int arg1_ ;
+    private java.lang.Object res_ = "";
     /**
-     * <code>int32 arg1 = 1;</code>
-     * @return The arg1.
+     * <code>string res = 1;</code>
+     * @return The res.
      */
-    @java.lang.Override
-    public int getArg1() {
-      return arg1_;
+    public java.lang.String getRes() {
+      java.lang.Object ref = res_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        res_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
     }
     /**
-     * <code>int32 arg1 = 1;</code>
-     * @param value The arg1 to set.
+     * <code>string res = 1;</code>
+     * @return The bytes for res.
+     */
+    public com.google.protobuf.ByteString
+        getResBytes() {
+      java.lang.Object ref = res_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        res_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string res = 1;</code>
+     * @param value The res to set.
      * @return This builder for chaining.
      */
-    public Builder setArg1(int value) {
-
-      arg1_ = value;
+    public Builder setRes(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      res_ = value;
       bitField0_ |= 0x00000001;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 arg1 = 1;</code>
+     * <code>string res = 1;</code>
      * @return This builder for chaining.
      */
-    public Builder clearArg1() {
+    public Builder clearRes() {
+      res_ = getDefaultInstance().getRes();
       bitField0_ = (bitField0_ & ~0x00000001);
-      arg1_ = 0;
       onChanged();
       return this;
     }
-
-    private int arg2_ ;
     /**
-     * <code>int32 arg2 = 2;</code>
-     * @return The arg2.
-     */
-    @java.lang.Override
-    public int getArg2() {
-      return arg2_;
-    }
-    /**
-     * <code>int32 arg2 = 2;</code>
-     * @param value The arg2 to set.
+     * <code>string res = 1;</code>
+     * @param value The bytes for res to set.
      * @return This builder for chaining.
      */
-    public Builder setArg2(int value) {
-
-      arg2_ = value;
-      bitField0_ |= 0x00000002;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>int32 arg2 = 2;</code>
-     * @return This builder for chaining.
-     */
-    public Builder clearArg2() {
-      bitField0_ = (bitField0_ & ~0x00000002);
-      arg2_ = 0;
+    public Builder setResBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      res_ = value;
+      bitField0_ |= 0x00000001;
       onChanged();
       return this;
     }
 
-    // @@protoc_insertion_point(builder_scope:test.ArithmeticOpArguments)
+    // @@protoc_insertion_point(builder_scope:test.EchoResult)
   }
 
-  // @@protoc_insertion_point(class_scope:test.ArithmeticOpArguments)
-  private static final generated.ArithmeticOpArguments DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:test.EchoResult)
+  private static final generated.EchoResult DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new generated.ArithmeticOpArguments();
+    DEFAULT_INSTANCE = new generated.EchoResult();
   }
 
-  public static generated.ArithmeticOpArguments getDefaultInstance() {
+  public static generated.EchoResult getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<ArithmeticOpArguments>
-      PARSER = new com.google.protobuf.AbstractParser<ArithmeticOpArguments>() {
+  private static final com.google.protobuf.Parser<EchoResult>
+      PARSER = new com.google.protobuf.AbstractParser<EchoResult>() {
     @java.lang.Override
-    public ArithmeticOpArguments parsePartialFrom(
+    public EchoResult parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -485,17 +489,17 @@ private static final long serialVersionUID = 0L;
     }
   };
 
-  public static com.google.protobuf.Parser<ArithmeticOpArguments> parser() {
+  public static com.google.protobuf.Parser<EchoResult> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<ArithmeticOpArguments> getParserForType() {
+  public com.google.protobuf.Parser<EchoResult> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public generated.ArithmeticOpArguments getDefaultInstanceForType() {
+  public generated.EchoResult getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

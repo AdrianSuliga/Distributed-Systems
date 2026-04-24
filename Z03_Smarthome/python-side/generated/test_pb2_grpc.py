@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-import contract_pb2 as contract__pb2
+import test_pb2 as test__pb2
 
 GRPC_GENERATED_VERSION = '1.80.0'
 GRPC_VERSION = grpc.__version__
@@ -18,14 +18,14 @@ except ImportError:
 if _version_not_supported:
     raise RuntimeError(
         f'The grpc package installed is at version {GRPC_VERSION},'
-        + ' but the generated code in contract_pb2_grpc.py depends on'
+        + ' but the generated code in test_pb2_grpc.py depends on'
         + f' grpcio>={GRPC_GENERATED_VERSION}.'
         + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
         + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
     )
 
 
-class CalculatorStub(object):
+class TestStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -34,15 +34,26 @@ class CalculatorStub(object):
         Args:
             channel: A grpc.Channel.
         """
+        self.Echo = channel.unary_unary(
+                '/test.Test/Echo',
+                request_serializer=test__pb2.Empty.SerializeToString,
+                response_deserializer=test__pb2.EchoResult.FromString,
+                _registered_method=True)
         self.Add = channel.unary_unary(
-                '/contract.Calculator/Add',
-                request_serializer=contract__pb2.ArithmeticOpArguments.SerializeToString,
-                response_deserializer=contract__pb2.ArithmeticOpResult.FromString,
+                '/test.Test/Add',
+                request_serializer=test__pb2.ArithmeticOpArguments.SerializeToString,
+                response_deserializer=test__pb2.ArithmeticOpResult.FromString,
                 _registered_method=True)
 
 
-class CalculatorServicer(object):
+class TestServicer(object):
     """Missing associated documentation comment in .proto file."""
+
+    def Echo(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def Add(self, request, context):
         """Missing associated documentation comment in .proto file."""
@@ -51,23 +62,55 @@ class CalculatorServicer(object):
         raise NotImplementedError('Method not implemented!')
 
 
-def add_CalculatorServicer_to_server(servicer, server):
+def add_TestServicer_to_server(servicer, server):
     rpc_method_handlers = {
+            'Echo': grpc.unary_unary_rpc_method_handler(
+                    servicer.Echo,
+                    request_deserializer=test__pb2.Empty.FromString,
+                    response_serializer=test__pb2.EchoResult.SerializeToString,
+            ),
             'Add': grpc.unary_unary_rpc_method_handler(
                     servicer.Add,
-                    request_deserializer=contract__pb2.ArithmeticOpArguments.FromString,
-                    response_serializer=contract__pb2.ArithmeticOpResult.SerializeToString,
+                    request_deserializer=test__pb2.ArithmeticOpArguments.FromString,
+                    response_serializer=test__pb2.ArithmeticOpResult.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'contract.Calculator', rpc_method_handlers)
+            'test.Test', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('contract.Calculator', rpc_method_handlers)
+    server.add_registered_method_handlers('test.Test', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
-class Calculator(object):
+class Test(object):
     """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def Echo(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/test.Test/Echo',
+            test__pb2.Empty.SerializeToString,
+            test__pb2.EchoResult.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Add(request,
@@ -83,9 +126,9 @@ class Calculator(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/contract.Calculator/Add',
-            contract__pb2.ArithmeticOpArguments.SerializeToString,
-            contract__pb2.ArithmeticOpResult.FromString,
+            '/test.Test/Add',
+            test__pb2.ArithmeticOpArguments.SerializeToString,
+            test__pb2.ArithmeticOpResult.FromString,
             options,
             channel_credentials,
             insecure,

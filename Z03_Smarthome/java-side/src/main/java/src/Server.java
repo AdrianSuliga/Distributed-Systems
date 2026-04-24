@@ -26,7 +26,7 @@ public class Server {
         } catch(UnknownHostException e) { }
 
         server = ServerBuilder.forPort(port).executor((Executors.newFixedThreadPool(16)))
-                .addService(new CalculatorImpl())
+                .addService(new TestImpl())
                 .build()
                 .start();
         logger.info("Server started, listening on " + port);

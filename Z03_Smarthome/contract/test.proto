@@ -3,9 +3,13 @@ syntax = "proto3";
 
 option java_multiple_files = true;
 option java_package = "generated";
-option java_outer_classname = "Contract";
+option java_outer_classname = "TestC";
 
-package contract;
+package test;
+
+message Empty {
+
+}
 
 message ArithmeticOpArguments {
   int32 arg1 = 1;
@@ -16,6 +20,11 @@ message ArithmeticOpResult {
   int32 res = 1;
 }
 
-service Calculator {
+message EchoResult {
+  string res = 1;
+}
+
+service Test {
+  rpc Echo(Empty) returns (EchoResult) {}
   rpc Add(ArithmeticOpArguments) returns (ArithmeticOpResult) {}
 }

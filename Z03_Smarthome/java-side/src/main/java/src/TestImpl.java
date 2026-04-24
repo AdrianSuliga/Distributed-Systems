@@ -1,10 +1,18 @@
 package src;
 
-import generated.ArithmeticOpArguments;
-import generated.ArithmeticOpResult;
-import generated.CalculatorGrpc;
+import generated.*;
 
-public class CalculatorImpl extends CalculatorGrpc.CalculatorImplBase {
+public class TestImpl extends TestGrpc.TestImplBase {
+    @Override
+    public void echo(Empty request, io.grpc.stub.StreamObserver<EchoResult> responseObserver)
+    {
+        String message = "ECHO";
+        EchoResult result = EchoResult.newBuilder().setRes(message).build();
+
+        responseObserver.onNext(result);
+        responseObserver.onCompleted();
+    }
+
     @Override
     public void add(ArithmeticOpArguments request, io.grpc.stub.StreamObserver<ArithmeticOpResult> responseObserver)
     {

@@ -5,13 +5,44 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
 /**
  */
 @io.grpc.stub.annotations.GrpcGenerated
-public final class CalculatorGrpc {
+public final class TestGrpc {
 
-  private CalculatorGrpc() {}
+  private TestGrpc() {}
 
-  public static final java.lang.String SERVICE_NAME = "contract.Calculator";
+  public static final java.lang.String SERVICE_NAME = "test.Test";
 
   // Static method descriptors that strictly reflect the proto.
+  private static volatile io.grpc.MethodDescriptor<generated.Empty,
+      generated.EchoResult> getEchoMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "Echo",
+      requestType = generated.Empty.class,
+      responseType = generated.EchoResult.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<generated.Empty,
+      generated.EchoResult> getEchoMethod() {
+    io.grpc.MethodDescriptor<generated.Empty, generated.EchoResult> getEchoMethod;
+    if ((getEchoMethod = TestGrpc.getEchoMethod) == null) {
+      synchronized (TestGrpc.class) {
+        if ((getEchoMethod = TestGrpc.getEchoMethod) == null) {
+          TestGrpc.getEchoMethod = getEchoMethod =
+              io.grpc.MethodDescriptor.<generated.Empty, generated.EchoResult>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Echo"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  generated.Empty.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  generated.EchoResult.getDefaultInstance()))
+              .setSchemaDescriptor(new TestMethodDescriptorSupplier("Echo"))
+              .build();
+        }
+      }
+    }
+    return getEchoMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<generated.ArithmeticOpArguments,
       generated.ArithmeticOpResult> getAddMethod;
 
@@ -23,10 +54,10 @@ public final class CalculatorGrpc {
   public static io.grpc.MethodDescriptor<generated.ArithmeticOpArguments,
       generated.ArithmeticOpResult> getAddMethod() {
     io.grpc.MethodDescriptor<generated.ArithmeticOpArguments, generated.ArithmeticOpResult> getAddMethod;
-    if ((getAddMethod = CalculatorGrpc.getAddMethod) == null) {
-      synchronized (CalculatorGrpc.class) {
-        if ((getAddMethod = CalculatorGrpc.getAddMethod) == null) {
-          CalculatorGrpc.getAddMethod = getAddMethod =
+    if ((getAddMethod = TestGrpc.getAddMethod) == null) {
+      synchronized (TestGrpc.class) {
+        if ((getAddMethod = TestGrpc.getAddMethod) == null) {
+          TestGrpc.getAddMethod = getAddMethod =
               io.grpc.MethodDescriptor.<generated.ArithmeticOpArguments, generated.ArithmeticOpResult>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Add"))
@@ -35,7 +66,7 @@ public final class CalculatorGrpc {
                   generated.ArithmeticOpArguments.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   generated.ArithmeticOpResult.getDefaultInstance()))
-              .setSchemaDescriptor(new CalculatorMethodDescriptorSupplier("Add"))
+              .setSchemaDescriptor(new TestMethodDescriptorSupplier("Add"))
               .build();
         }
       }
@@ -46,65 +77,72 @@ public final class CalculatorGrpc {
   /**
    * Creates a new async stub that supports all call types for the service
    */
-  public static CalculatorStub newStub(io.grpc.Channel channel) {
-    io.grpc.stub.AbstractStub.StubFactory<CalculatorStub> factory =
-      new io.grpc.stub.AbstractStub.StubFactory<CalculatorStub>() {
+  public static TestStub newStub(io.grpc.Channel channel) {
+    io.grpc.stub.AbstractStub.StubFactory<TestStub> factory =
+      new io.grpc.stub.AbstractStub.StubFactory<TestStub>() {
         @java.lang.Override
-        public CalculatorStub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-          return new CalculatorStub(channel, callOptions);
+        public TestStub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
+          return new TestStub(channel, callOptions);
         }
       };
-    return CalculatorStub.newStub(factory, channel);
+    return TestStub.newStub(factory, channel);
   }
 
   /**
    * Creates a new blocking-style stub that supports all types of calls on the service
    */
-  public static CalculatorBlockingV2Stub newBlockingV2Stub(
+  public static TestBlockingV2Stub newBlockingV2Stub(
       io.grpc.Channel channel) {
-    io.grpc.stub.AbstractStub.StubFactory<CalculatorBlockingV2Stub> factory =
-      new io.grpc.stub.AbstractStub.StubFactory<CalculatorBlockingV2Stub>() {
+    io.grpc.stub.AbstractStub.StubFactory<TestBlockingV2Stub> factory =
+      new io.grpc.stub.AbstractStub.StubFactory<TestBlockingV2Stub>() {
         @java.lang.Override
-        public CalculatorBlockingV2Stub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-          return new CalculatorBlockingV2Stub(channel, callOptions);
+        public TestBlockingV2Stub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
+          return new TestBlockingV2Stub(channel, callOptions);
         }
       };
-    return CalculatorBlockingV2Stub.newStub(factory, channel);
+    return TestBlockingV2Stub.newStub(factory, channel);
   }
 
   /**
    * Creates a new blocking-style stub that supports unary and streaming output calls on the service
    */
-  public static CalculatorBlockingStub newBlockingStub(
+  public static TestBlockingStub newBlockingStub(
       io.grpc.Channel channel) {
-    io.grpc.stub.AbstractStub.StubFactory<CalculatorBlockingStub> factory =
-      new io.grpc.stub.AbstractStub.StubFactory<CalculatorBlockingStub>() {
+    io.grpc.stub.AbstractStub.StubFactory<TestBlockingStub> factory =
+      new io.grpc.stub.AbstractStub.StubFactory<TestBlockingStub>() {
         @java.lang.Override
-        public CalculatorBlockingStub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-          return new CalculatorBlockingStub(channel, callOptions);
+        public TestBlockingStub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
+          return new TestBlockingStub(channel, callOptions);
         }
       };
-    return CalculatorBlockingStub.newStub(factory, channel);
+    return TestBlockingStub.newStub(factory, channel);
   }
 
   /**
    * Creates a new ListenableFuture-style stub that supports unary calls on the service
    */
-  public static CalculatorFutureStub newFutureStub(
+  public static TestFutureStub newFutureStub(
       io.grpc.Channel channel) {
-    io.grpc.stub.AbstractStub.StubFactory<CalculatorFutureStub> factory =
-      new io.grpc.stub.AbstractStub.StubFactory<CalculatorFutureStub>() {
+    io.grpc.stub.AbstractStub.StubFactory<TestFutureStub> factory =
+      new io.grpc.stub.AbstractStub.StubFactory<TestFutureStub>() {
         @java.lang.Override
-        public CalculatorFutureStub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-          return new CalculatorFutureStub(channel, callOptions);
+        public TestFutureStub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
+          return new TestFutureStub(channel, callOptions);
         }
       };
-    return CalculatorFutureStub.newStub(factory, channel);
+    return TestFutureStub.newStub(factory, channel);
   }
 
   /**
    */
   public interface AsyncService {
+
+    /**
+     */
+    default void echo(generated.Empty request,
+        io.grpc.stub.StreamObserver<generated.EchoResult> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getEchoMethod(), responseObserver);
+    }
 
     /**
      */
@@ -115,30 +153,38 @@ public final class CalculatorGrpc {
   }
 
   /**
-   * Base class for the server implementation of the service Calculator.
+   * Base class for the server implementation of the service Test.
    */
-  public static abstract class CalculatorImplBase
+  public static abstract class TestImplBase
       implements io.grpc.BindableService, AsyncService {
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
-      return CalculatorGrpc.bindService(this);
+      return TestGrpc.bindService(this);
     }
   }
 
   /**
-   * A stub to allow clients to do asynchronous rpc calls to service Calculator.
+   * A stub to allow clients to do asynchronous rpc calls to service Test.
    */
-  public static final class CalculatorStub
-      extends io.grpc.stub.AbstractAsyncStub<CalculatorStub> {
-    private CalculatorStub(
+  public static final class TestStub
+      extends io.grpc.stub.AbstractAsyncStub<TestStub> {
+    private TestStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
     }
 
     @java.lang.Override
-    protected CalculatorStub build(
+    protected TestStub build(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      return new CalculatorStub(channel, callOptions);
+      return new TestStub(channel, callOptions);
+    }
+
+    /**
+     */
+    public void echo(generated.Empty request,
+        io.grpc.stub.StreamObserver<generated.EchoResult> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getEchoMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -151,19 +197,26 @@ public final class CalculatorGrpc {
   }
 
   /**
-   * A stub to allow clients to do synchronous rpc calls to service Calculator.
+   * A stub to allow clients to do synchronous rpc calls to service Test.
    */
-  public static final class CalculatorBlockingV2Stub
-      extends io.grpc.stub.AbstractBlockingStub<CalculatorBlockingV2Stub> {
-    private CalculatorBlockingV2Stub(
+  public static final class TestBlockingV2Stub
+      extends io.grpc.stub.AbstractBlockingStub<TestBlockingV2Stub> {
+    private TestBlockingV2Stub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
     }
 
     @java.lang.Override
-    protected CalculatorBlockingV2Stub build(
+    protected TestBlockingV2Stub build(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      return new CalculatorBlockingV2Stub(channel, callOptions);
+      return new TestBlockingV2Stub(channel, callOptions);
+    }
+
+    /**
+     */
+    public generated.EchoResult echo(generated.Empty request) throws io.grpc.StatusException {
+      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
+          getChannel(), getEchoMethod(), getCallOptions(), request);
     }
 
     /**
@@ -175,19 +228,26 @@ public final class CalculatorGrpc {
   }
 
   /**
-   * A stub to allow clients to do limited synchronous rpc calls to service Calculator.
+   * A stub to allow clients to do limited synchronous rpc calls to service Test.
    */
-  public static final class CalculatorBlockingStub
-      extends io.grpc.stub.AbstractBlockingStub<CalculatorBlockingStub> {
-    private CalculatorBlockingStub(
+  public static final class TestBlockingStub
+      extends io.grpc.stub.AbstractBlockingStub<TestBlockingStub> {
+    private TestBlockingStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
     }
 
     @java.lang.Override
-    protected CalculatorBlockingStub build(
+    protected TestBlockingStub build(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      return new CalculatorBlockingStub(channel, callOptions);
+      return new TestBlockingStub(channel, callOptions);
+    }
+
+    /**
+     */
+    public generated.EchoResult echo(generated.Empty request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getEchoMethod(), getCallOptions(), request);
     }
 
     /**
@@ -199,19 +259,27 @@ public final class CalculatorGrpc {
   }
 
   /**
-   * A stub to allow clients to do ListenableFuture-style rpc calls to service Calculator.
+   * A stub to allow clients to do ListenableFuture-style rpc calls to service Test.
    */
-  public static final class CalculatorFutureStub
-      extends io.grpc.stub.AbstractFutureStub<CalculatorFutureStub> {
-    private CalculatorFutureStub(
+  public static final class TestFutureStub
+      extends io.grpc.stub.AbstractFutureStub<TestFutureStub> {
+    private TestFutureStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
     }
 
     @java.lang.Override
-    protected CalculatorFutureStub build(
+    protected TestFutureStub build(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      return new CalculatorFutureStub(channel, callOptions);
+      return new TestFutureStub(channel, callOptions);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<generated.EchoResult> echo(
+        generated.Empty request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getEchoMethod(), getCallOptions()), request);
     }
 
     /**
@@ -223,7 +291,8 @@ public final class CalculatorGrpc {
     }
   }
 
-  private static final int METHODID_ADD = 0;
+  private static final int METHODID_ECHO = 0;
+  private static final int METHODID_ADD = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -242,6 +311,10 @@ public final class CalculatorGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_ECHO:
+          serviceImpl.echo((generated.Empty) request,
+              (io.grpc.stub.StreamObserver<generated.EchoResult>) responseObserver);
+          break;
         case METHODID_ADD:
           serviceImpl.add((generated.ArithmeticOpArguments) request,
               (io.grpc.stub.StreamObserver<generated.ArithmeticOpResult>) responseObserver);
@@ -265,6 +338,13 @@ public final class CalculatorGrpc {
   public static final io.grpc.ServerServiceDefinition bindService(AsyncService service) {
     return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
         .addMethod(
+          getEchoMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              generated.Empty,
+              generated.EchoResult>(
+                service, METHODID_ECHO)))
+        .addMethod(
           getAddMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
@@ -274,32 +354,32 @@ public final class CalculatorGrpc {
         .build();
   }
 
-  private static abstract class CalculatorBaseDescriptorSupplier
+  private static abstract class TestBaseDescriptorSupplier
       implements io.grpc.protobuf.ProtoFileDescriptorSupplier, io.grpc.protobuf.ProtoServiceDescriptorSupplier {
-    CalculatorBaseDescriptorSupplier() {}
+    TestBaseDescriptorSupplier() {}
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
-      return generated.Contract.getDescriptor();
+      return generated.TestC.getDescriptor();
     }
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.ServiceDescriptor getServiceDescriptor() {
-      return getFileDescriptor().findServiceByName("Calculator");
+      return getFileDescriptor().findServiceByName("Test");
     }
   }
 
-  private static final class CalculatorFileDescriptorSupplier
-      extends CalculatorBaseDescriptorSupplier {
-    CalculatorFileDescriptorSupplier() {}
+  private static final class TestFileDescriptorSupplier
+      extends TestBaseDescriptorSupplier {
+    TestFileDescriptorSupplier() {}
   }
 
-  private static final class CalculatorMethodDescriptorSupplier
-      extends CalculatorBaseDescriptorSupplier
+  private static final class TestMethodDescriptorSupplier
+      extends TestBaseDescriptorSupplier
       implements io.grpc.protobuf.ProtoMethodDescriptorSupplier {
     private final java.lang.String methodName;
 
-    CalculatorMethodDescriptorSupplier(java.lang.String methodName) {
+    TestMethodDescriptorSupplier(java.lang.String methodName) {
       this.methodName = methodName;
     }
 
@@ -314,11 +394,12 @@ public final class CalculatorGrpc {
   public static io.grpc.ServiceDescriptor getServiceDescriptor() {
     io.grpc.ServiceDescriptor result = serviceDescriptor;
     if (result == null) {
-      synchronized (CalculatorGrpc.class) {
+      synchronized (TestGrpc.class) {
         result = serviceDescriptor;
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
-              .setSchemaDescriptor(new CalculatorFileDescriptorSupplier())
+              .setSchemaDescriptor(new TestFileDescriptorSupplier())
+              .addMethod(getEchoMethod())
               .addMethod(getAddMethod())
               .build();
         }
