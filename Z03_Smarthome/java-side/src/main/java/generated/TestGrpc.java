@@ -9,14 +9,14 @@ public final class TestGrpc {
 
   private TestGrpc() {}
 
-  public static final java.lang.String SERVICE_NAME = "test.Test";
+  public static final java.lang.String SERVICE_NAME = "contract.Test";
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<generated.Empty,
       generated.EchoResult> getEchoMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "Echo",
+      fullMethodName = SERVICE_NAME + '/' + "echo",
       requestType = generated.Empty.class,
       responseType = generated.EchoResult.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
@@ -29,13 +29,13 @@ public final class TestGrpc {
           TestGrpc.getEchoMethod = getEchoMethod =
               io.grpc.MethodDescriptor.<generated.Empty, generated.EchoResult>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Echo"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "echo"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   generated.Empty.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   generated.EchoResult.getDefaultInstance()))
-              .setSchemaDescriptor(new TestMethodDescriptorSupplier("Echo"))
+              .setSchemaDescriptor(new TestMethodDescriptorSupplier("echo"))
               .build();
         }
       }
@@ -47,7 +47,7 @@ public final class TestGrpc {
       generated.ArithmeticOpResult> getAddMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "Add",
+      fullMethodName = SERVICE_NAME + '/' + "add",
       requestType = generated.ArithmeticOpArguments.class,
       responseType = generated.ArithmeticOpResult.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
@@ -60,13 +60,13 @@ public final class TestGrpc {
           TestGrpc.getAddMethod = getAddMethod =
               io.grpc.MethodDescriptor.<generated.ArithmeticOpArguments, generated.ArithmeticOpResult>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Add"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "add"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   generated.ArithmeticOpArguments.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   generated.ArithmeticOpResult.getDefaultInstance()))
-              .setSchemaDescriptor(new TestMethodDescriptorSupplier("Add"))
+              .setSchemaDescriptor(new TestMethodDescriptorSupplier("add"))
               .build();
         }
       }
@@ -360,7 +360,7 @@ public final class TestGrpc {
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
-      return generated.TestC.getDescriptor();
+      return generated.Contract.getDescriptor();
     }
 
     @java.lang.Override

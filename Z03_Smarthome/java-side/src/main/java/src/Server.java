@@ -1,6 +1,10 @@
 package src;
 
 import io.grpc.ServerBuilder;
+import model.LEDStrip;
+import model.OutdoorLamp;
+import model.RGBLamp;
+import repository.DeviceRepository;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -23,10 +27,18 @@ public class Server {
     {
         try {
             socket = new InetSocketAddress(InetAddress.getByName(address), port);
-        } catch(UnknownHostException e) { }
+        } catch (UnknownHostException e) { }
+
+        DeviceRepository repo = new DeviceRepository();
+
+        repo.addDevice(new RGBLamp(1, "RGB Lamp Tracer Smart Desk 1"));
+        repo.addDevice(new RGBLamp(2, "RGB Lamp Tracer Smart Desk 2"));
+        repo.addDevice(new LEDStrip(3, "LED strip 5m Govee Strip"));
+        repo.addDevice(new OutdoorLamp(4, "Outdoor Govee Detection Lamp"));
 
         server = ServerBuilder.forPort(port).executor((Executors.newFixedThreadPool(16)))
                 .addService(new TestImpl())
+                .addService(new RegistryImpl(repo))
                 .build()
                 .start();
         logger.info("Server started, listening on " + port);

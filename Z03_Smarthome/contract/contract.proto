@@ -1,0 +1,353 @@
+
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "generated";
+option java_outer_classname = "Contract";
+
+package contract;
+
+/********* ENUM *********/
+
+enum DeviceType {
+  LIGHT = 0;
+  CAMERA = 1;
+  FRIDGE = 2;
+}
+
+enum LightType {
+  RGB_LAMP = 0;
+  LED_STRIP = 1;
+  OUTDOOR_LAMP = 2;
+}
+
+enum CameraType {
+  INDOOR = 0;
+  OUTDOOR = 1;
+  THERMAL = 2;
+}
+
+enum FridgeType {
+  KITCHEN = 0;
+  HOSPITAL = 1;
+  FREEZER = 2;
+}
+
+enum StatusEnum {
+  OK = 0;
+  ERROR = 1;
+}
+
+enum Effect {
+  NONE = 0;
+  PULSE = 1;
+  RAINBOW = 2;
+}
+
+enum Animation {
+  NOT_SET = 0;
+  WAVE = 1;
+  FADE = 2;
+  BLINK = 3;
+}
+
+enum DetectionMode {
+  RANGE_10M = 0;
+  RANGE_50M = 1;
+  RANGE_100M = 2;
+}
+
+enum SensitivityMode {
+  SMALL = 0;
+  MEDIUM = 1;
+  HIGH = 2;
+}
+
+enum ImgFormat {
+  JPG = 0;
+  PNG = 1;
+  SVG = 2;
+}
+
+enum PrivacyMode {
+  OFF = 0;
+  AUDIO_OFF = 1;
+  IMAGE_OFF = 2;
+  ALL_OFF = 3;
+}
+
+/******** ERRORS ********/
+
+message UnsupportedOperationError {
+  int32 id = 1;
+  string name = 2;
+  string msg = 3;
+}
+
+message DeviceNotFoundError {
+  int32 id = 1;
+  string msg = 2;
+}
+
+message InvalidArgumentError {
+  int32 id = 1;
+  string name = 2;
+  string msg = 3;
+}
+
+message DeviceError {
+  oneof error {
+    UnsupportedOperationError unsupported = 1;
+    DeviceNotFoundError notFound = 2;
+    InvalidArgumentError invalid = 3;
+  }
+}
+
+/********* TEST *********/
+
+message Empty {
+
+}
+
+message EchoResult {
+  string res = 1;
+}
+
+message ArithmeticOpArguments {
+  int32 arg1 = 1;
+  int32 arg2 = 2;
+}
+
+message ArithmeticOpResult {
+  int32 res = 1;
+}
+
+service Test {
+  rpc echo(Empty) returns (EchoResult) {}
+  rpc add(ArithmeticOpArguments) returns (ArithmeticOpResult) {}
+}
+
+/******** REGISTRY *******/
+
+message LightDeviceInfo {
+  int32 id = 1;
+  string name = 2;
+  LightType type = 3;
+}
+
+message CameraDeviceInfo {
+  int32 id = 1;
+  string name = 2;
+  CameraType type = 3;
+}
+
+message FridgeDeviceInfo {
+  int32 id = 1;
+  string name = 2;
+  FridgeType type = 3;
+}
+
+message DeviceList {
+  repeated LightDeviceInfo light_devices = 1;
+  repeated CameraDeviceInfo camera_devices = 2;
+  repeated FridgeDeviceInfo fridge_devices = 3;
+}
+
+service Registry {
+  rpc listDevices(Empty) returns (DeviceList) {}
+}
+
+/********* DEVICE ********/
+
+message DeviceId {
+  int32 id = 1;
+}
+
+message Status {
+  StatusEnum status = 1;
+}
+
+service Device {
+  rpc turnON(DeviceId) returns (Status) {}
+  rpc turnOFF(DeviceId) returns (Status) {}
+}
+
+/********* LIGHT *********/
+
+message Time {
+  int32 year = 1;
+  int32 month = 2;
+  int32 day = 3;
+  int32 hour = 4;
+  int32 minute = 5;
+  int32 second = 6;
+}
+
+message BrigthnessRequest {
+  int32 id = 1;
+  /* 0 - 100 */
+  int32 brightness = 2;
+}
+
+message PowerUsageStatsPerDay {
+  /* YYYY-MM-DD HH:MM:SS */
+  Time time = 1;
+  /* In kWh */
+  double consumption = 2;
+}
+
+message PowerUsageStats {
+  int32 id = 1;
+  repeated PowerUsageStatsPerDay stats = 2;
+}
+
+message ScheduleRequest {
+  int32 id = 1;
+  /* YYYY-MM-DD HH:MM:SS */
+  Time time = 2;
+}
+
+message RGBRequest {
+  int32 id = 1;
+  /* RGB 0 - 255 */
+  int32 red = 2;
+  int32 green = 3;
+  int32 blue = 4;
+}
+
+message HueRequest {
+  int32 id = 1;
+  int32 hue = 2;
+}
+
+message EffectRequest {
+  int32 id = 1;
+  Effect effect = 2;
+}
+
+message AnimationRequest {
+  int32 id = 1;
+  Animation animation = 2;
+}
+
+message MotionRequest {
+  int32 id = 1;
+  DetectionMode mode = 2;
+}
+
+message SensitivityRequest {
+  int32 id = 1;
+  SensitivityMode mode = 2;
+}
+
+message WeatherRequest {
+  int32 id = 1;
+  bool enabled = 2;
+}
+
+service Light {
+  rpc Toggle(DeviceId) returns (Status) {}
+  rpc setBrightness(BrigthnessRequest) returns (Status) {}
+  rpc getPowerUsage(DeviceId) returns (PowerUsageStats) {}
+  rpc scheduleON(ScheduleRequest) returns (Status) {}
+  rpc scheduleOFF(ScheduleRequest) returns (Status) {}
+}
+
+service AdvancedLight {
+  rpc setRGB(RGBRequest) returns (Status) {}
+  rpc setHue(HueRequest) returns (Status) {}
+  rpc setEffect(EffectRequest) returns (Status) {}
+  rpc setStripAnimation(AnimationRequest) returns (Status) {}
+  rpc setMotionDetecion(MotionRequest) returns (Status) {}
+  rpc setMotionSensitivity(SensitivityRequest) returns (Status) {}
+  rpc setWeatherMode(WeatherRequest) returns (Status) {}
+}
+
+/******* MONITORING ******/
+
+message MoveRequest {
+  int32 id = 1;
+  int32 pan = 2;
+  int32 tilt = 3;
+  int32 zoom = 4;
+}
+
+message CaptureOneRequest {
+  int32 id = 1;
+  ImgFormat format = 2;
+}
+
+message CaptureManyRequest {
+  repeated CaptureOneRequest req = 1;
+}
+
+message Image {
+  string url = 1;
+  int32 width = 2;
+  int32 height = 3;
+  int32 size = 4;
+}
+
+message Images {
+  repeated Image images = 1;
+}
+
+message Recording {
+  string url = 1;
+  int32 length = 2;
+  int32 size = 3;
+}
+
+message PatrolPoint {
+  int32 pan = 1;
+  int32 tilt = 2;
+  int32 zoom = 3;
+  int32 stayTime = 4;
+}
+
+message PatrolRequest {
+  int32 id = 1;
+  repeated PatrolPoint points = 2;
+  repeated Time active = 3;
+}
+
+message PrivacyRequest {
+  int32 id = 1;
+  PrivacyMode mode = 2;
+}
+
+message AudioRequest {
+  int32 id = 1;
+  string audioUrl = 2;
+  int32 repeat = 3;
+}
+
+message TemperatureAlarmRequest {
+  int32 id = 1;
+  int32 threshold = 2;
+}
+
+message TemperatureRangeRequest {
+  int32 id = 1;
+  int32 min = 2;
+  int32 max = 3;
+}
+
+service Monitoring {
+  rpc move(MoveRequest) returns (Status) {}
+  rpc captureImage(CaptureOneRequest) returns (Image) {}
+  rpc captureImages(CaptureManyRequest) returns (Images) {}
+  rpc startRecording(DeviceId) returns (Status) {}
+  rpc endRecording(DeviceId) returns (Recording) {}
+  rpc configurePatrol(PatrolRequest) returns (Status) {}
+}
+
+service AdvancedMonitoring {
+  rpc setPrivacyMode(PrivacyRequest) returns (Status) {}
+  rpc playAudio(AudioRequest) returns (Status) {}
+  rpc setWeatherMode(WeatherRequest) returns (Status) {}
+  rpc setTemperatureAlarm(TemperatureAlarmRequest) returns (Status) {}
+  rpc setTemperatureRange(TemperatureRangeRequest) returns (Status) {}
+}
+
+/******** FRIDGES ********/

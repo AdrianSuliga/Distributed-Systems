@@ -6,6 +6,7 @@ public class TestImpl extends TestGrpc.TestImplBase {
     @Override
     public void echo(Empty request, io.grpc.stub.StreamObserver<EchoResult> responseObserver)
     {
+        System.out.println("echo request ()");
         String message = "ECHO";
         EchoResult result = EchoResult.newBuilder().setRes(message).build();
 
