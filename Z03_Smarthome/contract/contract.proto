@@ -324,13 +324,13 @@ message AudioRequest {
 
 message TemperatureAlarmRequest {
   int32 id = 1;
-  int32 threshold = 2;
+  double threshold = 2;
 }
 
 message TemperatureRangeRequest {
   int32 id = 1;
-  int32 min = 2;
-  int32 max = 3;
+  double min = 2;
+  double max = 3;
 }
 
 service Monitoring {
@@ -346,8 +346,7 @@ service AdvancedMonitoring {
   rpc setPrivacyMode(PrivacyRequest) returns (Status) {}
   rpc playAudio(AudioRequest) returns (Status) {}
   rpc setWeatherMode(WeatherRequest) returns (Status) {}
+  rpc disableTemperatureAlarm(DeviceId) returns (Status) {}
   rpc setTemperatureAlarm(TemperatureAlarmRequest) returns (Status) {}
   rpc setTemperatureRange(TemperatureRangeRequest) returns (Status) {}
 }
-
-/******** FRIDGES ********/

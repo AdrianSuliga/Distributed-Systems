@@ -28,7 +28,12 @@ class GrpcClient:
                     res = self.test_stub.echo(req)
                     print(res.res)
                 elif cmd == "add":
-                    req = pb2.ArithmeticOpArguments(arg1=44, arg2=55)
+
+                    if len(args) != 2:
+                        print("Correct Usage: add <n1> <n2>")
+                        continue
+
+                    req = pb2.ArithmeticOpArguments(arg1=int(args[0]), arg2=int(args[1]))
                     res = self.test_stub.add(req)
                     print(res.res)
 
@@ -47,14 +52,70 @@ class GrpcClient:
                     for device in res.camera_devices:
                         print("[", device.id, "|", device.name, "|", device.type, "]")
                     print("===========================================")
-                    print()
 
-                    print("================== FRIDGE =================")
-                    for device in res.fridge_devices:
-                        print("[", device.id, "|", device.name, "|", device.type, "]")
+                elif cmd == "help":
+                    print("================== DEVICE =================")
+                    print(" - turnOn <id>")
+                    print(" - turnOff <id>")
                     print("===========================================")
                     print()
 
+                    print("============== COMMON LIGHT ===============")
+                    print(" - toggle <id>")
+                    print(" - setBrightness <id> <brightness>")
+                    print(" - getPowerUsage <id>")
+                    print(" - scheduleOn <id> <yyyy:mm:dd hh:mm:ss>")
+                    print(" - scheduleOff <id> <yyyy:mm:dd hh:mm:ss>")
+                    print("===========================================")
+                    print()
+
+                    print("=============== RGB LIGHT =================")
+                    print(" - setColor <id> <red> <green> <blue>")
+                    print(" - setHue <id> <hue>")
+                    print(" - setEffect <id> <0|1|2>")
+                    print("===========================================")
+                    print()
+
+                    print("=============== LED LIGHT =================")
+                    print(" - setAnimation <id> <0|1|2|3>")
+                    print("===========================================")
+                    print()
+
+                    print("============= OUTDOOR LIGHT ===============")
+                    print(" - setMotionDetection <id> <0|1|2>")
+                    print(" - setMotionSensitivity <id> <0|1|2>")
+                    print(" - setWeatherMode <id> <0|1>")
+                    print("===========================================")
+                    print()
+
+                    print("============ COMMON MONITORING ============")
+                    print(" - move <id> <pan> <tilt> <zoom>")
+                    print(" - takePhoto <id> <0|1|2>")
+                    print(" - takePhotos <id> [<0|1|2>, ...]")
+                    print(" - startRecording <id>")
+                    print(" - stopRecording <id>")
+                    print(" - configurePatrol <id> [(pan, tilt, zoom, stayTime), ...] [hh:mm:ss, ...]")
+                    print("===========================================")
+                    print()
+
+                    print("============ INDOOR MONITORING ============")
+                    print(" - setPrivacyMode <id> <0|1|2|3>")
+                    print(" - playAudio <id> <url> <repeat>")
+                    print("===========================================")
+                    print()
+
+                    print("=========== OUTDOOR MONITORING ============")
+                    print(" - setWeatherMode <id> <0|1>")
+                    print("===========================================")
+                    print()
+
+                    print("=========== THERMAL MONITORING ============")
+                    print(" - disableTempAlarm <id>")
+                    print(" - enableTempAlarm <id> <threshold>")
+                    print(" - setTempRange <id> <min> <max>")
+                    print("===========================================")
+
+                # LIGHT
                 elif cmd == "exit":
                     break
                 else:

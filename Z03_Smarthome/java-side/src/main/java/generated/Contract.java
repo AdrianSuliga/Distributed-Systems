@@ -288,9 +288,9 @@ public final class Contract extends com.google.protobuf.GeneratedFile {
       "ract.PrivacyMode\"<\n\014AudioRequest\022\n\n\002id\030\001" +
       " \001(\005\022\020\n\010audioUrl\030\002 \001(\t\022\016\n\006repeat\030\003 \001(\005\"8" +
       "\n\027TemperatureAlarmRequest\022\n\n\002id\030\001 \001(\005\022\021\n" +
-      "\tthreshold\030\002 \001(\005\"?\n\027TemperatureRangeRequ" +
-      "est\022\n\n\002id\030\001 \001(\005\022\013\n\003min\030\002 \001(\005\022\013\n\003max\030\003 \001(" +
-      "\005*/\n\nDeviceType\022\t\n\005LIGHT\020\000\022\n\n\006CAMERA\020\001\022\n" +
+      "\tthreshold\030\002 \001(\001\"?\n\027TemperatureRangeRequ" +
+      "est\022\n\n\002id\030\001 \001(\005\022\013\n\003min\030\002 \001(\001\022\013\n\003max\030\003 \001(" +
+      "\001*/\n\nDeviceType\022\t\n\005LIGHT\020\000\022\n\n\006CAMERA\020\001\022\n" +
       "\n\006FRIDGE\020\002*:\n\tLightType\022\014\n\010RGB_LAMP\020\000\022\r\n" +
       "\tLED_STRIP\020\001\022\020\n\014OUTDOOR_LAMP\020\002*2\n\nCamera" +
       "Type\022\n\n\006INDOOR\020\000\022\013\n\007OUTDOOR\020\001\022\013\n\007THERMAL" +
@@ -340,17 +340,19 @@ public final class Contract extends com.google.protobuf.GeneratedFile {
       "eId\032\020.contract.Status\"\000\0229\n\014endRecording\022" +
       "\022.contract.DeviceId\032\023.contract.Recording" +
       "\"\000\022>\n\017configurePatrol\022\027.contract.PatrolR" +
-      "equest\032\020.contract.Status\"\0002\351\002\n\022AdvancedM" +
+      "equest\032\020.contract.Status\"\0002\254\003\n\022AdvancedM" +
       "onitoring\022>\n\016setPrivacyMode\022\030.contract.P" +
       "rivacyRequest\032\020.contract.Status\"\000\0227\n\tpla" +
       "yAudio\022\026.contract.AudioRequest\032\020.contrac" +
       "t.Status\"\000\022>\n\016setWeatherMode\022\030.contract." +
-      "WeatherRequest\032\020.contract.Status\"\000\022L\n\023se" +
-      "tTemperatureAlarm\022!.contract.Temperature" +
-      "AlarmRequest\032\020.contract.Status\"\000\022L\n\023setT" +
-      "emperatureRange\022!.contract.TemperatureRa" +
-      "ngeRequest\032\020.contract.Status\"\000B\027\n\tgenera" +
-      "tedB\010ContractP\001b\006proto3"
+      "WeatherRequest\032\020.contract.Status\"\000\022A\n\027di" +
+      "sabelTemperatureAlarm\022\022.contract.DeviceI" +
+      "d\032\020.contract.Status\"\000\022L\n\023setTemperatureA" +
+      "larm\022!.contract.TemperatureAlarmRequest\032" +
+      "\020.contract.Status\"\000\022L\n\023setTemperatureRan" +
+      "ge\022!.contract.TemperatureRangeRequest\032\020." +
+      "contract.Status\"\000B\027\n\tgeneratedB\010Contract" +
+      "P\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

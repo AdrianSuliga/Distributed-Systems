@@ -17,14 +17,14 @@ public interface TemperatureRangeRequestOrBuilder extends
   int getId();
 
   /**
-   * <code>int32 min = 2;</code>
+   * <code>double min = 2;</code>
    * @return The min.
    */
-  int getMin();
+  double getMin();
 
   /**
-   * <code>int32 max = 3;</code>
+   * <code>double max = 3;</code>
    * @return The max.
    */
-  int getMax();
+  double getMax();
 }

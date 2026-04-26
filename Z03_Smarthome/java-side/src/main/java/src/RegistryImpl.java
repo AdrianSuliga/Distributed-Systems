@@ -1,6 +1,7 @@
 package src;
 
 import generated.*;
+import model.CameraBase;
 import model.DeviceBase;
 import model.LightBase;
 import repository.DeviceRepository;
@@ -33,7 +34,14 @@ public class RegistryImpl extends RegistryGrpc.RegistryImplBase {
                 }
 
                 case DeviceType.CAMERA -> {
+                    CameraBase cameraDevice = (CameraBase)device;
 
+                    CameraDeviceInfo.Builder cameraInfo = CameraDeviceInfo.newBuilder()
+                            .setId(device.getId())
+                            .setName(device.getName())
+                            .setType(cameraDevice.getCameraType());
+
+                    response.addCameraDevices(cameraInfo.build());
                 }
 
                 case DeviceType.FRIDGE -> {

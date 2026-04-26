@@ -1,9 +1,7 @@
 package src;
 
 import io.grpc.ServerBuilder;
-import model.LEDStrip;
-import model.OutdoorLamp;
-import model.RGBLamp;
+import model.*;
 import repository.DeviceRepository;
 
 import java.io.IOException;
@@ -35,6 +33,11 @@ public class Server {
         repo.addDevice(new RGBLamp(2, "RGB Lamp Tracer Smart Desk 2"));
         repo.addDevice(new LEDStrip(3, "LED strip 5m Govee Strip"));
         repo.addDevice(new OutdoorLamp(4, "Outdoor Govee Detection Lamp"));
+
+        repo.addDevice(new IndoorCamera(5, "Eufy Indoor Cam"));
+        repo.addDevice(new OutdoorCamera(6, "Tapo TP-LINK security camera 1"));
+        repo.addDevice(new OutdoorCamera(7, "Tapo TP-LINK security camera 2"));
+        repo.addDevice(new ThermalCamera(8, "FLIR Thermal Camera"));
 
         server = ServerBuilder.forPort(port).executor((Executors.newFixedThreadPool(16)))
                 .addService(new TestImpl())

@@ -1212,6 +1212,11 @@ class AdvancedMonitoringStub(object):
                 request_serializer=contract__pb2.WeatherRequest.SerializeToString,
                 response_deserializer=contract__pb2.Status.FromString,
                 _registered_method=True)
+        self.disabelTemperatureAlarm = channel.unary_unary(
+                '/contract.AdvancedMonitoring/disabelTemperatureAlarm',
+                request_serializer=contract__pb2.DeviceId.SerializeToString,
+                response_deserializer=contract__pb2.Status.FromString,
+                _registered_method=True)
         self.setTemperatureAlarm = channel.unary_unary(
                 '/contract.AdvancedMonitoring/setTemperatureAlarm',
                 request_serializer=contract__pb2.TemperatureAlarmRequest.SerializeToString,
@@ -1245,6 +1250,12 @@ class AdvancedMonitoringServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def disabelTemperatureAlarm(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def setTemperatureAlarm(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -1273,6 +1284,11 @@ def add_AdvancedMonitoringServicer_to_server(servicer, server):
             'setWeatherMode': grpc.unary_unary_rpc_method_handler(
                     servicer.setWeatherMode,
                     request_deserializer=contract__pb2.WeatherRequest.FromString,
+                    response_serializer=contract__pb2.Status.SerializeToString,
+            ),
+            'disabelTemperatureAlarm': grpc.unary_unary_rpc_method_handler(
+                    servicer.disabelTemperatureAlarm,
+                    request_deserializer=contract__pb2.DeviceId.FromString,
                     response_serializer=contract__pb2.Status.SerializeToString,
             ),
             'setTemperatureAlarm': grpc.unary_unary_rpc_method_handler(
@@ -1366,6 +1382,33 @@ class AdvancedMonitoring(object):
             target,
             '/contract.AdvancedMonitoring/setWeatherMode',
             contract__pb2.WeatherRequest.SerializeToString,
+            contract__pb2.Status.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def disabelTemperatureAlarm(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/contract.AdvancedMonitoring/disabelTemperatureAlarm',
+            contract__pb2.DeviceId.SerializeToString,
             contract__pb2.Status.FromString,
             options,
             channel_credentials,

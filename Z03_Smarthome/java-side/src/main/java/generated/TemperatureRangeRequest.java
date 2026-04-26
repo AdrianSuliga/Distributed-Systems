@@ -60,24 +60,24 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int MIN_FIELD_NUMBER = 2;
-  private int min_ = 0;
+  private double min_ = 0D;
   /**
-   * <code>int32 min = 2;</code>
+   * <code>double min = 2;</code>
    * @return The min.
    */
   @java.lang.Override
-  public int getMin() {
+  public double getMin() {
     return min_;
   }
 
   public static final int MAX_FIELD_NUMBER = 3;
-  private int max_ = 0;
+  private double max_ = 0D;
   /**
-   * <code>int32 max = 3;</code>
+   * <code>double max = 3;</code>
    * @return The max.
    */
   @java.lang.Override
-  public int getMax() {
+  public double getMax() {
     return max_;
   }
 
@@ -98,11 +98,11 @@ private static final long serialVersionUID = 0L;
     if (id_ != 0) {
       output.writeInt32(1, id_);
     }
-    if (min_ != 0) {
-      output.writeInt32(2, min_);
+    if (java.lang.Double.doubleToRawLongBits(min_) != 0) {
+      output.writeDouble(2, min_);
     }
-    if (max_ != 0) {
-      output.writeInt32(3, max_);
+    if (java.lang.Double.doubleToRawLongBits(max_) != 0) {
+      output.writeDouble(3, max_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -117,13 +117,13 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeInt32Size(1, id_);
     }
-    if (min_ != 0) {
+    if (java.lang.Double.doubleToRawLongBits(min_) != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(2, min_);
+        .computeDoubleSize(2, min_);
     }
-    if (max_ != 0) {
+    if (java.lang.Double.doubleToRawLongBits(max_) != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(3, max_);
+        .computeDoubleSize(3, max_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -142,10 +142,12 @@ private static final long serialVersionUID = 0L;
 
     if (getId()
         != other.getId()) return false;
-    if (getMin()
-        != other.getMin()) return false;
-    if (getMax()
-        != other.getMax()) return false;
+    if (java.lang.Double.doubleToLongBits(getMin())
+        != java.lang.Double.doubleToLongBits(
+            other.getMin())) return false;
+    if (java.lang.Double.doubleToLongBits(getMax())
+        != java.lang.Double.doubleToLongBits(
+            other.getMax())) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -160,9 +162,11 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + ID_FIELD_NUMBER;
     hash = (53 * hash) + getId();
     hash = (37 * hash) + MIN_FIELD_NUMBER;
-    hash = (53 * hash) + getMin();
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        java.lang.Double.doubleToLongBits(getMin()));
     hash = (37 * hash) + MAX_FIELD_NUMBER;
-    hash = (53 * hash) + getMax();
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        java.lang.Double.doubleToLongBits(getMax()));
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -295,8 +299,8 @@ private static final long serialVersionUID = 0L;
       super.clear();
       bitField0_ = 0;
       id_ = 0;
-      min_ = 0;
-      max_ = 0;
+      min_ = 0D;
+      max_ = 0D;
       return this;
     }
 
@@ -356,10 +360,10 @@ private static final long serialVersionUID = 0L;
       if (other.getId() != 0) {
         setId(other.getId());
       }
-      if (other.getMin() != 0) {
+      if (java.lang.Double.doubleToRawLongBits(other.getMin()) != 0) {
         setMin(other.getMin());
       }
-      if (other.getMax() != 0) {
+      if (java.lang.Double.doubleToRawLongBits(other.getMax()) != 0) {
         setMax(other.getMax());
       }
       this.mergeUnknownFields(other.getUnknownFields());
@@ -393,16 +397,16 @@ private static final long serialVersionUID = 0L;
               bitField0_ |= 0x00000001;
               break;
             } // case 8
-            case 16: {
-              min_ = input.readInt32();
+            case 17: {
+              min_ = input.readDouble();
               bitField0_ |= 0x00000002;
               break;
-            } // case 16
-            case 24: {
-              max_ = input.readInt32();
+            } // case 17
+            case 25: {
+              max_ = input.readDouble();
               bitField0_ |= 0x00000004;
               break;
-            } // case 24
+            } // case 25
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -452,21 +456,21 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int min_ ;
+    private double min_ ;
     /**
-     * <code>int32 min = 2;</code>
+     * <code>double min = 2;</code>
      * @return The min.
      */
     @java.lang.Override
-    public int getMin() {
+    public double getMin() {
       return min_;
     }
     /**
-     * <code>int32 min = 2;</code>
+     * <code>double min = 2;</code>
      * @param value The min to set.
      * @return This builder for chaining.
      */
-    public Builder setMin(int value) {
+    public Builder setMin(double value) {
 
       min_ = value;
       bitField0_ |= 0x00000002;
@@ -474,31 +478,31 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>int32 min = 2;</code>
+     * <code>double min = 2;</code>
      * @return This builder for chaining.
      */
     public Builder clearMin() {
       bitField0_ = (bitField0_ & ~0x00000002);
-      min_ = 0;
+      min_ = 0D;
       onChanged();
       return this;
     }
 
-    private int max_ ;
+    private double max_ ;
     /**
-     * <code>int32 max = 3;</code>
+     * <code>double max = 3;</code>
      * @return The max.
      */
     @java.lang.Override
-    public int getMax() {
+    public double getMax() {
       return max_;
     }
     /**
-     * <code>int32 max = 3;</code>
+     * <code>double max = 3;</code>
      * @param value The max to set.
      * @return This builder for chaining.
      */
-    public Builder setMax(int value) {
+    public Builder setMax(double value) {
 
       max_ = value;
       bitField0_ |= 0x00000004;
@@ -506,12 +510,12 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>int32 max = 3;</code>
+     * <code>double max = 3;</code>
      * @return This builder for chaining.
      */
     public Builder clearMax() {
       bitField0_ = (bitField0_ & ~0x00000004);
-      max_ = 0;
+      max_ = 0D;
       onChanged();
       return this;
     }

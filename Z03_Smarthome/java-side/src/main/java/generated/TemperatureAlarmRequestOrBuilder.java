@@ -17,8 +17,8 @@ public interface TemperatureAlarmRequestOrBuilder extends
   int getId();
 
   /**
-   * <code>int32 threshold = 2;</code>
+   * <code>double threshold = 2;</code>
    * @return The threshold.
    */
-  int getThreshold();
+  double getThreshold();
 }

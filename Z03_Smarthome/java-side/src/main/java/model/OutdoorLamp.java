@@ -30,6 +30,7 @@ public class OutdoorLamp extends LightBase {
         if (this.weatherMode) {
             System.out.println("Weather mode is already enabled");
         } else {
+            System.out.println("Enabling weather mode for " + this.name);
             this.weatherMode = true;
         }
     }
@@ -38,6 +39,7 @@ public class OutdoorLamp extends LightBase {
         if (!this.weatherMode) {
             System.out.println("Weather mode is already disabled");
         } else {
+            System.out.println("Disabling weather mode for " + this.name);
             this.weatherMode = false;
         }
     }

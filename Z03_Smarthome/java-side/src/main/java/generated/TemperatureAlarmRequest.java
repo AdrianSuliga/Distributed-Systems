@@ -60,13 +60,13 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int THRESHOLD_FIELD_NUMBER = 2;
-  private int threshold_ = 0;
+  private double threshold_ = 0D;
   /**
-   * <code>int32 threshold = 2;</code>
+   * <code>double threshold = 2;</code>
    * @return The threshold.
    */
   @java.lang.Override
-  public int getThreshold() {
+  public double getThreshold() {
     return threshold_;
   }
 
@@ -87,8 +87,8 @@ private static final long serialVersionUID = 0L;
     if (id_ != 0) {
       output.writeInt32(1, id_);
     }
-    if (threshold_ != 0) {
-      output.writeInt32(2, threshold_);
+    if (java.lang.Double.doubleToRawLongBits(threshold_) != 0) {
+      output.writeDouble(2, threshold_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -103,9 +103,9 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeInt32Size(1, id_);
     }
-    if (threshold_ != 0) {
+    if (java.lang.Double.doubleToRawLongBits(threshold_) != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(2, threshold_);
+        .computeDoubleSize(2, threshold_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -124,8 +124,9 @@ private static final long serialVersionUID = 0L;
 
     if (getId()
         != other.getId()) return false;
-    if (getThreshold()
-        != other.getThreshold()) return false;
+    if (java.lang.Double.doubleToLongBits(getThreshold())
+        != java.lang.Double.doubleToLongBits(
+            other.getThreshold())) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -140,7 +141,8 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + ID_FIELD_NUMBER;
     hash = (53 * hash) + getId();
     hash = (37 * hash) + THRESHOLD_FIELD_NUMBER;
-    hash = (53 * hash) + getThreshold();
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        java.lang.Double.doubleToLongBits(getThreshold()));
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -273,7 +275,7 @@ private static final long serialVersionUID = 0L;
       super.clear();
       bitField0_ = 0;
       id_ = 0;
-      threshold_ = 0;
+      threshold_ = 0D;
       return this;
     }
 
@@ -330,7 +332,7 @@ private static final long serialVersionUID = 0L;
       if (other.getId() != 0) {
         setId(other.getId());
       }
-      if (other.getThreshold() != 0) {
+      if (java.lang.Double.doubleToRawLongBits(other.getThreshold()) != 0) {
         setThreshold(other.getThreshold());
       }
       this.mergeUnknownFields(other.getUnknownFields());
@@ -364,11 +366,11 @@ private static final long serialVersionUID = 0L;
               bitField0_ |= 0x00000001;
               break;
             } // case 8
-            case 16: {
-              threshold_ = input.readInt32();
+            case 17: {
+              threshold_ = input.readDouble();
               bitField0_ |= 0x00000002;
               break;
-            } // case 16
+            } // case 17
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -418,21 +420,21 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int threshold_ ;
+    private double threshold_ ;
     /**
-     * <code>int32 threshold = 2;</code>
+     * <code>double threshold = 2;</code>
      * @return The threshold.
      */
     @java.lang.Override
-    public int getThreshold() {
+    public double getThreshold() {
       return threshold_;
     }
     /**
-     * <code>int32 threshold = 2;</code>
+     * <code>double threshold = 2;</code>
      * @param value The threshold to set.
      * @return This builder for chaining.
      */
-    public Builder setThreshold(int value) {
+    public Builder setThreshold(double value) {
 
       threshold_ = value;
       bitField0_ |= 0x00000002;
@@ -440,12 +442,12 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>int32 threshold = 2;</code>
+     * <code>double threshold = 2;</code>
      * @return This builder for chaining.
      */
     public Builder clearThreshold() {
       bitField0_ = (bitField0_ & ~0x00000002);
-      threshold_ = 0;
+      threshold_ = 0D;
       onChanged();
       return this;
     }
