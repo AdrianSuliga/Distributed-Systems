@@ -19,10 +19,6 @@ public enum DeviceType
    * <code>CAMERA = 1;</code>
    */
   CAMERA(1),
-  /**
-   * <code>FRIDGE = 2;</code>
-   */
-  FRIDGE(2),
   UNRECOGNIZED(-1),
   ;
 
@@ -43,10 +39,6 @@ public enum DeviceType
    * <code>CAMERA = 1;</code>
    */
   public static final int CAMERA_VALUE = 1;
-  /**
-   * <code>FRIDGE = 2;</code>
-   */
-  public static final int FRIDGE_VALUE = 2;
 
 
   public final int getNumber() {
@@ -75,7 +67,6 @@ public enum DeviceType
     switch (value) {
       case 0: return LIGHT;
       case 1: return CAMERA;
-      case 2: return FRIDGE;
       default: return null;
     }
   }

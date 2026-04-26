@@ -106,34 +106,34 @@ public final class AdvancedMonitoringGrpc {
   }
 
   private static volatile io.grpc.MethodDescriptor<generated.DeviceId,
-      generated.Status> getDisabelTemperatureAlarmMethod;
+      generated.Status> getDisableTemperatureAlarmMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "disabelTemperatureAlarm",
+      fullMethodName = SERVICE_NAME + '/' + "disableTemperatureAlarm",
       requestType = generated.DeviceId.class,
       responseType = generated.Status.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<generated.DeviceId,
-      generated.Status> getDisabelTemperatureAlarmMethod() {
-    io.grpc.MethodDescriptor<generated.DeviceId, generated.Status> getDisabelTemperatureAlarmMethod;
-    if ((getDisabelTemperatureAlarmMethod = AdvancedMonitoringGrpc.getDisabelTemperatureAlarmMethod) == null) {
+      generated.Status> getDisableTemperatureAlarmMethod() {
+    io.grpc.MethodDescriptor<generated.DeviceId, generated.Status> getDisableTemperatureAlarmMethod;
+    if ((getDisableTemperatureAlarmMethod = AdvancedMonitoringGrpc.getDisableTemperatureAlarmMethod) == null) {
       synchronized (AdvancedMonitoringGrpc.class) {
-        if ((getDisabelTemperatureAlarmMethod = AdvancedMonitoringGrpc.getDisabelTemperatureAlarmMethod) == null) {
-          AdvancedMonitoringGrpc.getDisabelTemperatureAlarmMethod = getDisabelTemperatureAlarmMethod =
+        if ((getDisableTemperatureAlarmMethod = AdvancedMonitoringGrpc.getDisableTemperatureAlarmMethod) == null) {
+          AdvancedMonitoringGrpc.getDisableTemperatureAlarmMethod = getDisableTemperatureAlarmMethod =
               io.grpc.MethodDescriptor.<generated.DeviceId, generated.Status>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "disabelTemperatureAlarm"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "disableTemperatureAlarm"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   generated.DeviceId.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   generated.Status.getDefaultInstance()))
-              .setSchemaDescriptor(new AdvancedMonitoringMethodDescriptorSupplier("disabelTemperatureAlarm"))
+              .setSchemaDescriptor(new AdvancedMonitoringMethodDescriptorSupplier("disableTemperatureAlarm"))
               .build();
         }
       }
     }
-    return getDisabelTemperatureAlarmMethod;
+    return getDisableTemperatureAlarmMethod;
   }
 
   private static volatile io.grpc.MethodDescriptor<generated.TemperatureAlarmRequest,
@@ -284,9 +284,9 @@ public final class AdvancedMonitoringGrpc {
 
     /**
      */
-    default void disabelTemperatureAlarm(generated.DeviceId request,
+    default void disableTemperatureAlarm(generated.DeviceId request,
         io.grpc.stub.StreamObserver<generated.Status> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDisabelTemperatureAlarmMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDisableTemperatureAlarmMethod(), responseObserver);
     }
 
     /**
@@ -357,10 +357,10 @@ public final class AdvancedMonitoringGrpc {
 
     /**
      */
-    public void disabelTemperatureAlarm(generated.DeviceId request,
+    public void disableTemperatureAlarm(generated.DeviceId request,
         io.grpc.stub.StreamObserver<generated.Status> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getDisabelTemperatureAlarmMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getDisableTemperatureAlarmMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -419,9 +419,9 @@ public final class AdvancedMonitoringGrpc {
 
     /**
      */
-    public generated.Status disabelTemperatureAlarm(generated.DeviceId request) throws io.grpc.StatusException {
+    public generated.Status disableTemperatureAlarm(generated.DeviceId request) throws io.grpc.StatusException {
       return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getDisabelTemperatureAlarmMethod(), getCallOptions(), request);
+          getChannel(), getDisableTemperatureAlarmMethod(), getCallOptions(), request);
     }
 
     /**
@@ -478,9 +478,9 @@ public final class AdvancedMonitoringGrpc {
 
     /**
      */
-    public generated.Status disabelTemperatureAlarm(generated.DeviceId request) {
+    public generated.Status disableTemperatureAlarm(generated.DeviceId request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getDisabelTemperatureAlarmMethod(), getCallOptions(), request);
+          getChannel(), getDisableTemperatureAlarmMethod(), getCallOptions(), request);
     }
 
     /**
@@ -540,10 +540,10 @@ public final class AdvancedMonitoringGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<generated.Status> disabelTemperatureAlarm(
+    public com.google.common.util.concurrent.ListenableFuture<generated.Status> disableTemperatureAlarm(
         generated.DeviceId request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getDisabelTemperatureAlarmMethod(), getCallOptions()), request);
+          getChannel().newCall(getDisableTemperatureAlarmMethod(), getCallOptions()), request);
     }
 
     /**
@@ -566,7 +566,7 @@ public final class AdvancedMonitoringGrpc {
   private static final int METHODID_SET_PRIVACY_MODE = 0;
   private static final int METHODID_PLAY_AUDIO = 1;
   private static final int METHODID_SET_WEATHER_MODE = 2;
-  private static final int METHODID_DISABEL_TEMPERATURE_ALARM = 3;
+  private static final int METHODID_DISABLE_TEMPERATURE_ALARM = 3;
   private static final int METHODID_SET_TEMPERATURE_ALARM = 4;
   private static final int METHODID_SET_TEMPERATURE_RANGE = 5;
 
@@ -599,8 +599,8 @@ public final class AdvancedMonitoringGrpc {
           serviceImpl.setWeatherMode((generated.WeatherRequest) request,
               (io.grpc.stub.StreamObserver<generated.Status>) responseObserver);
           break;
-        case METHODID_DISABEL_TEMPERATURE_ALARM:
-          serviceImpl.disabelTemperatureAlarm((generated.DeviceId) request,
+        case METHODID_DISABLE_TEMPERATURE_ALARM:
+          serviceImpl.disableTemperatureAlarm((generated.DeviceId) request,
               (io.grpc.stub.StreamObserver<generated.Status>) responseObserver);
           break;
         case METHODID_SET_TEMPERATURE_ALARM:
@@ -651,12 +651,12 @@ public final class AdvancedMonitoringGrpc {
               generated.Status>(
                 service, METHODID_SET_WEATHER_MODE)))
         .addMethod(
-          getDisabelTemperatureAlarmMethod(),
+          getDisableTemperatureAlarmMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
               generated.DeviceId,
               generated.Status>(
-                service, METHODID_DISABEL_TEMPERATURE_ALARM)))
+                service, METHODID_DISABLE_TEMPERATURE_ALARM)))
         .addMethod(
           getSetTemperatureAlarmMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
@@ -722,7 +722,7 @@ public final class AdvancedMonitoringGrpc {
               .addMethod(getSetPrivacyModeMethod())
               .addMethod(getPlayAudioMethod())
               .addMethod(getSetWeatherModeMethod())
-              .addMethod(getDisabelTemperatureAlarmMethod())
+              .addMethod(getDisableTemperatureAlarmMethod())
               .addMethod(getSetTemperatureAlarmMethod())
               .addMethod(getSetTemperatureRangeMethod())
               .build();

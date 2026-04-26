@@ -97,7 +97,7 @@ public enum StatusEnum
   }
   public static com.google.protobuf.Descriptors.EnumDescriptor
       getDescriptor() {
-    return generated.Contract.getDescriptor().getEnumType(4);
+    return generated.Contract.getDescriptor().getEnumType(3);
   }
 
   private static final StatusEnum[] VALUES = values();

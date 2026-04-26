@@ -42,6 +42,7 @@ public class Server {
         server = ServerBuilder.forPort(port).executor((Executors.newFixedThreadPool(16)))
                 .addService(new TestImpl())
                 .addService(new RegistryImpl(repo))
+                .addService(new DeviceImpl(repo))
                 .build()
                 .start();
         logger.info("Server started, listening on " + port);

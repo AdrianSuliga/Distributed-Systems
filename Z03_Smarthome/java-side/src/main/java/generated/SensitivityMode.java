@@ -106,7 +106,7 @@ public enum SensitivityMode
   }
   public static com.google.protobuf.Descriptors.EnumDescriptor
       getDescriptor() {
-    return generated.Contract.getDescriptor().getEnumType(8);
+    return generated.Contract.getDescriptor().getEnumType(7);
   }
 
   private static final SensitivityMode[] VALUES = values();

@@ -106,7 +106,7 @@ public enum ImgFormat
   }
   public static com.google.protobuf.Descriptors.EnumDescriptor
       getDescriptor() {
-    return generated.Contract.getDescriptor().getEnumType(9);
+    return generated.Contract.getDescriptor().getEnumType(8);
   }
 
   private static final ImgFormat[] VALUES = values();

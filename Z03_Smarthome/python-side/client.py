@@ -12,6 +12,7 @@ class GrpcClient:
         self.channel = grpc.insecure_channel(f"{host}:{port}")
         self.test_stub = pb2_grpc.TestStub(self.channel)
         self.registry_stub = pb2_grpc.RegistryStub(self.channel)
+        self.device_stub = pb2_grpc.DeviceStub(self.channel)
     
     def shutdown(self):
         self.channel.close()
@@ -55,8 +56,8 @@ class GrpcClient:
 
                 elif cmd == "help":
                     print("================== DEVICE =================")
-                    print(" - turnOn <id>")
-                    print(" - turnOff <id>")
+                    print(" - turnON <id>")
+                    print(" - turnOFF <id>")
                     print("===========================================")
                     print()
 
@@ -115,11 +116,196 @@ class GrpcClient:
                     print(" - setTempRange <id> <min> <max>")
                     print("===========================================")
 
+                # DEVICE
+                elif cmd == "turnON":
+                    req = pb2.DeviceId(id=int(args[0]))
+                    res = self.device_stub.turnON(req)
+                    print(res.status)
+
+                elif cmd == "turnOFF":
+                    req = pb2.DeviceId(id=int(args[0]))
+                    res = self.device_stub.turnOFF(req)
+                    print(res.status)
+
                 # LIGHT
+                elif cmd == "toggle":
+                    req = pb2.DeviceId(id=int(args[0]))
+                    res = self.device_stub.Toggle(req)
+                    print(res)
+
+                elif cmd == "setBrightness":
+                    req = pb2.BrigthnessRequest(
+                        id=int(args[0]),
+                        brightness=int(args[1])
+                    )
+                    res = self.device_stub.setBrightness(req)
+                    print(res)
+
+                elif cmd == "getPowerUsage":
+                    req = pb2.DeviceId(id=int(args[0]))
+                    res = self.device_stub.getPowerUsage(req)
+
+                    print("Device:", res.id)
+                    for stat in res.stats:
+                        t = stat.time
+                        print(
+                            f"{t.year:04}-{t.month:02}-{t.day:02} "
+                            f"{t.hour:02}:{t.minute:02}:{t.second:02} | "
+                            f"{stat.consumption} kWh"
+                        )
+
+                elif cmd == "scheduleOn":
+                    date_part = args[1]
+                    time_part = args[2]
+
+                    y, m, d = map(int, date_part.split(":"))
+                    hh, mm, ss = map(int, time_part.split(":"))
+
+                    req = pb2.ScheduleRequest(
+                        id=int(args[0]),
+                        time=pb2.Time(
+                            year=y,
+                            month=m,
+                            day=d,
+                            hour=hh,
+                            minute=mm,
+                            second=ss
+                        )
+                    )
+
+                    res = self.device_stub.scheduleON(req)
+                    print(res)
+
+                elif cmd == "scheduleOff":
+                    date_part = args[1]
+                    time_part = args[2]
+
+                    y, m, d = map(int, date_part.split(":"))
+                    hh, mm, ss = map(int, time_part.split(":"))
+
+                    req = pb2.ScheduleRequest(
+                        id=int(args[0]),
+                        time=pb2.Time(
+                            year=y,
+                            month=m,
+                            day=d,
+                            hour=hh,
+                            minute=mm,
+                            second=ss
+                        )
+                    )
+
+                    res = self.device_stub.scheduleOFF(req)
+                    print(res)
+
+                elif cmd == "setColor":
+                    req = pb2.RGBRequest(
+                        id=int(args[0]),
+                        red=int(args[1]),
+                        green=int(args[2]),
+                        blue=int(args[3])
+                    )
+                    res = self.device_stub.setRGB(req)
+                    print(res)
+
+                elif cmd == "setHue":
+                    req = pb2.HueRequest(
+                        id=int(args[0]),
+                        hue=int(args[1])
+                    )
+                    res = self.device_stub.setHue(req)
+                    print(res)
+
+                elif cmd == "setEffect":
+                    req = pb2.EffectRequest(
+                        id=int(args[0]),
+                        effect=int(args[1])
+                    )
+                    res = self.device_stub.setEffect(req)
+                    print(res)
+
+                elif cmd == "setAnimation":
+                    req = pb2.AnimationRequest(
+                        id=int(args[0]),
+                        animation=int(args[1])
+                    )
+                    res = self.device_stub.setStripAnimation(req)
+                    print(res)
+
+                elif cmd == "setMotionDetection":
+                    req = pb2.MotionRequest(
+                        id=int(args[0]),
+                        mode=int(args[1])
+                    )
+                    res = self.device_stub.setMotionDetecion(req)
+                    print(res)
+
+                elif cmd == "setMotionSensitivity":
+                    req = pb2.SensitivityRequest(
+                        id=int(args[0]),
+                        mode=int(args[1])
+                    )
+                    res = self.device_stub.setMotionSensitivity(req)
+                    print(res)
+
+                elif cmd == "setWeatherMode":
+                    req = pb2.WeatherRequest(
+                        id=int(args[0]),
+                        enabled=bool(int(args[1]))
+                    )
+                    res = self.device_stub.setWeatherMode(req)
+                    print(res)
+
+                elif cmd == "setEffect":
+                    req = pb2.EffectRequest(
+                        id=int(args[0]),
+                        effect=pb2.Effect.Value(args[1])
+                    )
+                    res = self.device_stub.setEffect(req)
+                    print(res.status)
+
+                elif cmd == "setAnimation":
+                    req = pb2.AnimationRequest(
+                        id=int(args[0]),
+                        animation=pb2.Animation.Value(args[1])
+                    )
+                    res = self.device_stub.setStripAnimation(req)
+                    print(res.status)
+
+                elif cmd == "setMotionDetection":
+                    req = pb2.MotionRequest(
+                        id=int(args[0]),
+                        mode=pb2.DetectionMode.Value(args[1])
+                    )
+                    res = self.device_stub.setMotionDetecion(req)
+                    print(res.status)
+
+                elif cmd == "setMotionSensitivity":
+                    req = pb2.SensitivityRequest(
+                        id=int(args[0]),
+                        mode=pb2.SensitivityMode.Value(args[1])
+                    )
+                    res = self.device_stub.setMotionSensitivity(req)
+                    print(res.status)
+
+                elif cmd == "setWeatherMode":
+                    req = pb2.WeatherRequest(
+                        id=int(args[0]),
+                        enabled=bool(int(args[1]))
+                    )
+
+                    res = self.device_stub.setWeatherMode(req)
+                    print(res)
+
+                
+
+                # OTHER
                 elif cmd == "exit":
                     break
+
                 else:
                     print("???")
+
             except Exception as e:
                 print("ERROR:", e)
         

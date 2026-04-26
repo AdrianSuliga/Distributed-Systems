@@ -12,7 +12,6 @@ package contract;
 enum DeviceType {
   LIGHT = 0;
   CAMERA = 1;
-  FRIDGE = 2;
 }
 
 enum LightType {
@@ -25,12 +24,6 @@ enum CameraType {
   INDOOR = 0;
   OUTDOOR = 1;
   THERMAL = 2;
-}
-
-enum FridgeType {
-  KITCHEN = 0;
-  HOSPITAL = 1;
-  FREEZER = 2;
 }
 
 enum StatusEnum {
@@ -141,16 +134,9 @@ message CameraDeviceInfo {
   CameraType type = 3;
 }
 
-message FridgeDeviceInfo {
-  int32 id = 1;
-  string name = 2;
-  FridgeType type = 3;
-}
-
 message DeviceList {
   repeated LightDeviceInfo light_devices = 1;
   repeated CameraDeviceInfo camera_devices = 2;
-  repeated FridgeDeviceInfo fridge_devices = 3;
 }
 
 service Registry {

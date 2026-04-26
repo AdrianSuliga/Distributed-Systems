@@ -106,7 +106,7 @@ public enum DetectionMode
   }
   public static com.google.protobuf.Descriptors.EnumDescriptor
       getDescriptor() {
-    return generated.Contract.getDescriptor().getEnumType(7);
+    return generated.Contract.getDescriptor().getEnumType(6);
   }
 
   private static final DetectionMode[] VALUES = values();

@@ -44,12 +44,8 @@ public class RegistryImpl extends RegistryGrpc.RegistryImplBase {
                     response.addCameraDevices(cameraInfo.build());
                 }
 
-                case DeviceType.FRIDGE -> {
-
-                }
-
                 default -> {
-
+                    System.out.println("How did we get here?");
                 }
             }
         }

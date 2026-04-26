@@ -30,7 +30,6 @@ private static final long serialVersionUID = 0L;
   private DeviceList() {
     lightDevices_ = java.util.Collections.emptyList();
     cameraDevices_ = java.util.Collections.emptyList();
-    fridgeDevices_ = java.util.Collections.emptyList();
   }
 
   public static final com.google.protobuf.Descriptors.Descriptor
@@ -133,47 +132,6 @@ private static final long serialVersionUID = 0L;
     return cameraDevices_.get(index);
   }
 
-  public static final int FRIDGE_DEVICES_FIELD_NUMBER = 3;
-  @SuppressWarnings("serial")
-  private java.util.List<generated.FridgeDeviceInfo> fridgeDevices_;
-  /**
-   * <code>repeated .contract.FridgeDeviceInfo fridge_devices = 3;</code>
-   */
-  @java.lang.Override
-  public java.util.List<generated.FridgeDeviceInfo> getFridgeDevicesList() {
-    return fridgeDevices_;
-  }
-  /**
-   * <code>repeated .contract.FridgeDeviceInfo fridge_devices = 3;</code>
-   */
-  @java.lang.Override
-  public java.util.List<? extends generated.FridgeDeviceInfoOrBuilder> 
-      getFridgeDevicesOrBuilderList() {
-    return fridgeDevices_;
-  }
-  /**
-   * <code>repeated .contract.FridgeDeviceInfo fridge_devices = 3;</code>
-   */
-  @java.lang.Override
-  public int getFridgeDevicesCount() {
-    return fridgeDevices_.size();
-  }
-  /**
-   * <code>repeated .contract.FridgeDeviceInfo fridge_devices = 3;</code>
-   */
-  @java.lang.Override
-  public generated.FridgeDeviceInfo getFridgeDevices(int index) {
-    return fridgeDevices_.get(index);
-  }
-  /**
-   * <code>repeated .contract.FridgeDeviceInfo fridge_devices = 3;</code>
-   */
-  @java.lang.Override
-  public generated.FridgeDeviceInfoOrBuilder getFridgeDevicesOrBuilder(
-      int index) {
-    return fridgeDevices_.get(index);
-  }
-
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -193,9 +151,6 @@ private static final long serialVersionUID = 0L;
     }
     for (int i = 0; i < cameraDevices_.size(); i++) {
       output.writeMessage(2, cameraDevices_.get(i));
-    }
-    for (int i = 0; i < fridgeDevices_.size(); i++) {
-      output.writeMessage(3, fridgeDevices_.get(i));
     }
     getUnknownFields().writeTo(output);
   }
@@ -224,15 +179,6 @@ private static final long serialVersionUID = 0L;
           }
           size += 1 * count;
         }
-
-        {
-          final int count = fridgeDevices_.size();
-          for (int i = 0; i < count; i++) {
-            size += com.google.protobuf.CodedOutputStream
-              .computeMessageSizeNoTag(fridgeDevices_.get(i));
-          }
-          size += 1 * count;
-        }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
     return size;
@@ -252,8 +198,6 @@ private static final long serialVersionUID = 0L;
         .equals(other.getLightDevicesList())) return false;
     if (!getCameraDevicesList()
         .equals(other.getCameraDevicesList())) return false;
-    if (!getFridgeDevicesList()
-        .equals(other.getFridgeDevicesList())) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -272,10 +216,6 @@ private static final long serialVersionUID = 0L;
     if (getCameraDevicesCount() > 0) {
       hash = (37 * hash) + CAMERA_DEVICES_FIELD_NUMBER;
       hash = (53 * hash) + getCameraDevicesList().hashCode();
-    }
-    if (getFridgeDevicesCount() > 0) {
-      hash = (37 * hash) + FRIDGE_DEVICES_FIELD_NUMBER;
-      hash = (53 * hash) + getFridgeDevicesList().hashCode();
     }
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
@@ -422,13 +362,6 @@ private static final long serialVersionUID = 0L;
         cameraDevicesBuilder_.clear();
       }
       bitField0_ = (bitField0_ & ~0x00000002);
-      if (fridgeDevicesBuilder_ == null) {
-        fridgeDevices_ = java.util.Collections.emptyList();
-      } else {
-        fridgeDevices_ = null;
-        fridgeDevicesBuilder_.clear();
-      }
-      bitField0_ = (bitField0_ & ~0x00000004);
       return this;
     }
 
@@ -479,15 +412,6 @@ private static final long serialVersionUID = 0L;
         result.cameraDevices_ = cameraDevices_;
       } else {
         result.cameraDevices_ = cameraDevicesBuilder_.build();
-      }
-      if (fridgeDevicesBuilder_ == null) {
-        if (((bitField0_ & 0x00000004) != 0)) {
-          fridgeDevices_ = java.util.Collections.unmodifiableList(fridgeDevices_);
-          bitField0_ = (bitField0_ & ~0x00000004);
-        }
-        result.fridgeDevices_ = fridgeDevices_;
-      } else {
-        result.fridgeDevices_ = fridgeDevicesBuilder_.build();
       }
     }
 
@@ -559,32 +483,6 @@ private static final long serialVersionUID = 0L;
           }
         }
       }
-      if (fridgeDevicesBuilder_ == null) {
-        if (!other.fridgeDevices_.isEmpty()) {
-          if (fridgeDevices_.isEmpty()) {
-            fridgeDevices_ = other.fridgeDevices_;
-            bitField0_ = (bitField0_ & ~0x00000004);
-          } else {
-            ensureFridgeDevicesIsMutable();
-            fridgeDevices_.addAll(other.fridgeDevices_);
-          }
-          onChanged();
-        }
-      } else {
-        if (!other.fridgeDevices_.isEmpty()) {
-          if (fridgeDevicesBuilder_.isEmpty()) {
-            fridgeDevicesBuilder_.dispose();
-            fridgeDevicesBuilder_ = null;
-            fridgeDevices_ = other.fridgeDevices_;
-            bitField0_ = (bitField0_ & ~0x00000004);
-            fridgeDevicesBuilder_ = 
-              com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
-                 internalGetFridgeDevicesFieldBuilder() : null;
-          } else {
-            fridgeDevicesBuilder_.addAllMessages(other.fridgeDevices_);
-          }
-        }
-      }
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
       return this;
@@ -637,19 +535,6 @@ private static final long serialVersionUID = 0L;
               }
               break;
             } // case 18
-            case 26: {
-              generated.FridgeDeviceInfo m =
-                  input.readMessage(
-                      generated.FridgeDeviceInfo.parser(),
-                      extensionRegistry);
-              if (fridgeDevicesBuilder_ == null) {
-                ensureFridgeDevicesIsMutable();
-                fridgeDevices_.add(m);
-              } else {
-                fridgeDevicesBuilder_.addMessage(m);
-              }
-              break;
-            } // case 26
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -1145,246 +1030,6 @@ private static final long serialVersionUID = 0L;
         cameraDevices_ = null;
       }
       return cameraDevicesBuilder_;
-    }
-
-    private java.util.List<generated.FridgeDeviceInfo> fridgeDevices_ =
-      java.util.Collections.emptyList();
-    private void ensureFridgeDevicesIsMutable() {
-      if (!((bitField0_ & 0x00000004) != 0)) {
-        fridgeDevices_ = new java.util.ArrayList<generated.FridgeDeviceInfo>(fridgeDevices_);
-        bitField0_ |= 0x00000004;
-       }
-    }
-
-    private com.google.protobuf.RepeatedFieldBuilder<
-        generated.FridgeDeviceInfo, generated.FridgeDeviceInfo.Builder, generated.FridgeDeviceInfoOrBuilder> fridgeDevicesBuilder_;
-
-    /**
-     * <code>repeated .contract.FridgeDeviceInfo fridge_devices = 3;</code>
-     */
-    public java.util.List<generated.FridgeDeviceInfo> getFridgeDevicesList() {
-      if (fridgeDevicesBuilder_ == null) {
-        return java.util.Collections.unmodifiableList(fridgeDevices_);
-      } else {
-        return fridgeDevicesBuilder_.getMessageList();
-      }
-    }
-    /**
-     * <code>repeated .contract.FridgeDeviceInfo fridge_devices = 3;</code>
-     */
-    public int getFridgeDevicesCount() {
-      if (fridgeDevicesBuilder_ == null) {
-        return fridgeDevices_.size();
-      } else {
-        return fridgeDevicesBuilder_.getCount();
-      }
-    }
-    /**
-     * <code>repeated .contract.FridgeDeviceInfo fridge_devices = 3;</code>
-     */
-    public generated.FridgeDeviceInfo getFridgeDevices(int index) {
-      if (fridgeDevicesBuilder_ == null) {
-        return fridgeDevices_.get(index);
-      } else {
-        return fridgeDevicesBuilder_.getMessage(index);
-      }
-    }
-    /**
-     * <code>repeated .contract.FridgeDeviceInfo fridge_devices = 3;</code>
-     */
-    public Builder setFridgeDevices(
-        int index, generated.FridgeDeviceInfo value) {
-      if (fridgeDevicesBuilder_ == null) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        ensureFridgeDevicesIsMutable();
-        fridgeDevices_.set(index, value);
-        onChanged();
-      } else {
-        fridgeDevicesBuilder_.setMessage(index, value);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .contract.FridgeDeviceInfo fridge_devices = 3;</code>
-     */
-    public Builder setFridgeDevices(
-        int index, generated.FridgeDeviceInfo.Builder builderForValue) {
-      if (fridgeDevicesBuilder_ == null) {
-        ensureFridgeDevicesIsMutable();
-        fridgeDevices_.set(index, builderForValue.build());
-        onChanged();
-      } else {
-        fridgeDevicesBuilder_.setMessage(index, builderForValue.build());
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .contract.FridgeDeviceInfo fridge_devices = 3;</code>
-     */
-    public Builder addFridgeDevices(generated.FridgeDeviceInfo value) {
-      if (fridgeDevicesBuilder_ == null) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        ensureFridgeDevicesIsMutable();
-        fridgeDevices_.add(value);
-        onChanged();
-      } else {
-        fridgeDevicesBuilder_.addMessage(value);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .contract.FridgeDeviceInfo fridge_devices = 3;</code>
-     */
-    public Builder addFridgeDevices(
-        int index, generated.FridgeDeviceInfo value) {
-      if (fridgeDevicesBuilder_ == null) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        ensureFridgeDevicesIsMutable();
-        fridgeDevices_.add(index, value);
-        onChanged();
-      } else {
-        fridgeDevicesBuilder_.addMessage(index, value);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .contract.FridgeDeviceInfo fridge_devices = 3;</code>
-     */
-    public Builder addFridgeDevices(
-        generated.FridgeDeviceInfo.Builder builderForValue) {
-      if (fridgeDevicesBuilder_ == null) {
-        ensureFridgeDevicesIsMutable();
-        fridgeDevices_.add(builderForValue.build());
-        onChanged();
-      } else {
-        fridgeDevicesBuilder_.addMessage(builderForValue.build());
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .contract.FridgeDeviceInfo fridge_devices = 3;</code>
-     */
-    public Builder addFridgeDevices(
-        int index, generated.FridgeDeviceInfo.Builder builderForValue) {
-      if (fridgeDevicesBuilder_ == null) {
-        ensureFridgeDevicesIsMutable();
-        fridgeDevices_.add(index, builderForValue.build());
-        onChanged();
-      } else {
-        fridgeDevicesBuilder_.addMessage(index, builderForValue.build());
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .contract.FridgeDeviceInfo fridge_devices = 3;</code>
-     */
-    public Builder addAllFridgeDevices(
-        java.lang.Iterable<? extends generated.FridgeDeviceInfo> values) {
-      if (fridgeDevicesBuilder_ == null) {
-        ensureFridgeDevicesIsMutable();
-        com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, fridgeDevices_);
-        onChanged();
-      } else {
-        fridgeDevicesBuilder_.addAllMessages(values);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .contract.FridgeDeviceInfo fridge_devices = 3;</code>
-     */
-    public Builder clearFridgeDevices() {
-      if (fridgeDevicesBuilder_ == null) {
-        fridgeDevices_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000004);
-        onChanged();
-      } else {
-        fridgeDevicesBuilder_.clear();
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .contract.FridgeDeviceInfo fridge_devices = 3;</code>
-     */
-    public Builder removeFridgeDevices(int index) {
-      if (fridgeDevicesBuilder_ == null) {
-        ensureFridgeDevicesIsMutable();
-        fridgeDevices_.remove(index);
-        onChanged();
-      } else {
-        fridgeDevicesBuilder_.remove(index);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .contract.FridgeDeviceInfo fridge_devices = 3;</code>
-     */
-    public generated.FridgeDeviceInfo.Builder getFridgeDevicesBuilder(
-        int index) {
-      return internalGetFridgeDevicesFieldBuilder().getBuilder(index);
-    }
-    /**
-     * <code>repeated .contract.FridgeDeviceInfo fridge_devices = 3;</code>
-     */
-    public generated.FridgeDeviceInfoOrBuilder getFridgeDevicesOrBuilder(
-        int index) {
-      if (fridgeDevicesBuilder_ == null) {
-        return fridgeDevices_.get(index);  } else {
-        return fridgeDevicesBuilder_.getMessageOrBuilder(index);
-      }
-    }
-    /**
-     * <code>repeated .contract.FridgeDeviceInfo fridge_devices = 3;</code>
-     */
-    public java.util.List<? extends generated.FridgeDeviceInfoOrBuilder> 
-         getFridgeDevicesOrBuilderList() {
-      if (fridgeDevicesBuilder_ != null) {
-        return fridgeDevicesBuilder_.getMessageOrBuilderList();
-      } else {
-        return java.util.Collections.unmodifiableList(fridgeDevices_);
-      }
-    }
-    /**
-     * <code>repeated .contract.FridgeDeviceInfo fridge_devices = 3;</code>
-     */
-    public generated.FridgeDeviceInfo.Builder addFridgeDevicesBuilder() {
-      return internalGetFridgeDevicesFieldBuilder().addBuilder(
-          generated.FridgeDeviceInfo.getDefaultInstance());
-    }
-    /**
-     * <code>repeated .contract.FridgeDeviceInfo fridge_devices = 3;</code>
-     */
-    public generated.FridgeDeviceInfo.Builder addFridgeDevicesBuilder(
-        int index) {
-      return internalGetFridgeDevicesFieldBuilder().addBuilder(
-          index, generated.FridgeDeviceInfo.getDefaultInstance());
-    }
-    /**
-     * <code>repeated .contract.FridgeDeviceInfo fridge_devices = 3;</code>
-     */
-    public java.util.List<generated.FridgeDeviceInfo.Builder> 
-         getFridgeDevicesBuilderList() {
-      return internalGetFridgeDevicesFieldBuilder().getBuilderList();
-    }
-    private com.google.protobuf.RepeatedFieldBuilder<
-        generated.FridgeDeviceInfo, generated.FridgeDeviceInfo.Builder, generated.FridgeDeviceInfoOrBuilder> 
-        internalGetFridgeDevicesFieldBuilder() {
-      if (fridgeDevicesBuilder_ == null) {
-        fridgeDevicesBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-            generated.FridgeDeviceInfo, generated.FridgeDeviceInfo.Builder, generated.FridgeDeviceInfoOrBuilder>(
-                fridgeDevices_,
-                ((bitField0_ & 0x00000004) != 0),
-                getParentForChildren(),
-                isClean());
-        fridgeDevices_ = null;
-      }
-      return fridgeDevicesBuilder_;
     }
 
     // @@protoc_insertion_point(builder_scope:contract.DeviceList)

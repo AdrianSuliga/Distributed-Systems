@@ -57,28 +57,4 @@ public interface DeviceListOrBuilder extends
    */
   generated.CameraDeviceInfoOrBuilder getCameraDevicesOrBuilder(
       int index);
-
-  /**
-   * <code>repeated .contract.FridgeDeviceInfo fridge_devices = 3;</code>
-   */
-  java.util.List<generated.FridgeDeviceInfo> 
-      getFridgeDevicesList();
-  /**
-   * <code>repeated .contract.FridgeDeviceInfo fridge_devices = 3;</code>
-   */
-  generated.FridgeDeviceInfo getFridgeDevices(int index);
-  /**
-   * <code>repeated .contract.FridgeDeviceInfo fridge_devices = 3;</code>
-   */
-  int getFridgeDevicesCount();
-  /**
-   * <code>repeated .contract.FridgeDeviceInfo fridge_devices = 3;</code>
-   */
-  java.util.List<? extends generated.FridgeDeviceInfoOrBuilder> 
-      getFridgeDevicesOrBuilderList();
-  /**
-   * <code>repeated .contract.FridgeDeviceInfo fridge_devices = 3;</code>
-   */
-  generated.FridgeDeviceInfoOrBuilder getFridgeDevicesOrBuilder(
-      int index);
 }

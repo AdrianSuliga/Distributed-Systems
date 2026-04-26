@@ -115,7 +115,7 @@ public enum PrivacyMode
   }
   public static com.google.protobuf.Descriptors.EnumDescriptor
       getDescriptor() {
-    return generated.Contract.getDescriptor().getEnumType(10);
+    return generated.Contract.getDescriptor().getEnumType(9);
   }
 
   private static final PrivacyMode[] VALUES = values();

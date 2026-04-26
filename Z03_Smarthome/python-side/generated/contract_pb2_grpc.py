@@ -1212,8 +1212,8 @@ class AdvancedMonitoringStub(object):
                 request_serializer=contract__pb2.WeatherRequest.SerializeToString,
                 response_deserializer=contract__pb2.Status.FromString,
                 _registered_method=True)
-        self.disabelTemperatureAlarm = channel.unary_unary(
-                '/contract.AdvancedMonitoring/disabelTemperatureAlarm',
+        self.disableTemperatureAlarm = channel.unary_unary(
+                '/contract.AdvancedMonitoring/disableTemperatureAlarm',
                 request_serializer=contract__pb2.DeviceId.SerializeToString,
                 response_deserializer=contract__pb2.Status.FromString,
                 _registered_method=True)
@@ -1250,7 +1250,7 @@ class AdvancedMonitoringServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def disabelTemperatureAlarm(self, request, context):
+    def disableTemperatureAlarm(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -1286,8 +1286,8 @@ def add_AdvancedMonitoringServicer_to_server(servicer, server):
                     request_deserializer=contract__pb2.WeatherRequest.FromString,
                     response_serializer=contract__pb2.Status.SerializeToString,
             ),
-            'disabelTemperatureAlarm': grpc.unary_unary_rpc_method_handler(
-                    servicer.disabelTemperatureAlarm,
+            'disableTemperatureAlarm': grpc.unary_unary_rpc_method_handler(
+                    servicer.disableTemperatureAlarm,
                     request_deserializer=contract__pb2.DeviceId.FromString,
                     response_serializer=contract__pb2.Status.SerializeToString,
             ),
@@ -1394,7 +1394,7 @@ class AdvancedMonitoring(object):
             _registered_method=True)
 
     @staticmethod
-    def disabelTemperatureAlarm(request,
+    def disableTemperatureAlarm(request,
             target,
             options=(),
             channel_credentials=None,
@@ -1407,7 +1407,7 @@ class AdvancedMonitoring(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/contract.AdvancedMonitoring/disabelTemperatureAlarm',
+            '/contract.AdvancedMonitoring/disableTemperatureAlarm',
             contract__pb2.DeviceId.SerializeToString,
             contract__pb2.Status.FromString,
             options,

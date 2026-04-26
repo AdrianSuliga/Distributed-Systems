@@ -77,11 +77,6 @@ public final class Contract extends com.google.protobuf.GeneratedFile {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_contract_CameraDeviceInfo_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_contract_FridgeDeviceInfo_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_contract_FridgeDeviceInfo_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_contract_DeviceList_descriptor;
   static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -242,117 +237,112 @@ public final class Contract extends com.google.protobuf.GeneratedFile {
       "name\030\002 \001(\t\022!\n\004type\030\003 \001(\0162\023.contract.Ligh" +
       "tType\"P\n\020CameraDeviceInfo\022\n\n\002id\030\001 \001(\005\022\014\n" +
       "\004name\030\002 \001(\t\022\"\n\004type\030\003 \001(\0162\024.contract.Cam" +
-      "eraType\"P\n\020FridgeDeviceInfo\022\n\n\002id\030\001 \001(\005\022" +
-      "\014\n\004name\030\002 \001(\t\022\"\n\004type\030\003 \001(\0162\024.contract.F" +
-      "ridgeType\"\246\001\n\nDeviceList\0220\n\rlight_device" +
-      "s\030\001 \003(\0132\031.contract.LightDeviceInfo\0222\n\016ca" +
-      "mera_devices\030\002 \003(\0132\032.contract.CameraDevi" +
-      "ceInfo\0222\n\016fridge_devices\030\003 \003(\0132\032.contrac" +
-      "t.FridgeDeviceInfo\"\026\n\010DeviceId\022\n\n\002id\030\001 \001" +
-      "(\005\".\n\006Status\022$\n\006status\030\001 \001(\0162\024.contract." +
-      "StatusEnum\"^\n\004Time\022\014\n\004year\030\001 \001(\005\022\r\n\005mont" +
-      "h\030\002 \001(\005\022\013\n\003day\030\003 \001(\005\022\014\n\004hour\030\004 \001(\005\022\016\n\006mi" +
-      "nute\030\005 \001(\005\022\016\n\006second\030\006 \001(\005\"3\n\021Brigthness" +
-      "Request\022\n\n\002id\030\001 \001(\005\022\022\n\nbrightness\030\002 \001(\005\"" +
-      "J\n\025PowerUsageStatsPerDay\022\034\n\004time\030\001 \001(\0132\016" +
-      ".contract.Time\022\023\n\013consumption\030\002 \001(\001\"M\n\017P" +
-      "owerUsageStats\022\n\n\002id\030\001 \001(\005\022.\n\005stats\030\002 \003(" +
-      "\0132\037.contract.PowerUsageStatsPerDay\";\n\017Sc" +
-      "heduleRequest\022\n\n\002id\030\001 \001(\005\022\034\n\004time\030\002 \001(\0132" +
-      "\016.contract.Time\"B\n\nRGBRequest\022\n\n\002id\030\001 \001(" +
-      "\005\022\013\n\003red\030\002 \001(\005\022\r\n\005green\030\003 \001(\005\022\014\n\004blue\030\004 " +
-      "\001(\005\"%\n\nHueRequest\022\n\n\002id\030\001 \001(\005\022\013\n\003hue\030\002 \001" +
-      "(\005\"=\n\rEffectRequest\022\n\n\002id\030\001 \001(\005\022 \n\006effec" +
-      "t\030\002 \001(\0162\020.contract.Effect\"F\n\020AnimationRe" +
-      "quest\022\n\n\002id\030\001 \001(\005\022&\n\tanimation\030\002 \001(\0162\023.c" +
-      "ontract.Animation\"B\n\rMotionRequest\022\n\n\002id" +
-      "\030\001 \001(\005\022%\n\004mode\030\002 \001(\0162\027.contract.Detectio" +
-      "nMode\"I\n\022SensitivityRequest\022\n\n\002id\030\001 \001(\005\022" +
-      "\'\n\004mode\030\002 \001(\0162\031.contract.SensitivityMode" +
-      "\"-\n\016WeatherRequest\022\n\n\002id\030\001 \001(\005\022\017\n\007enable" +
-      "d\030\002 \001(\010\"B\n\013MoveRequest\022\n\n\002id\030\001 \001(\005\022\013\n\003pa" +
-      "n\030\002 \001(\005\022\014\n\004tilt\030\003 \001(\005\022\014\n\004zoom\030\004 \001(\005\"D\n\021C" +
-      "aptureOneRequest\022\n\n\002id\030\001 \001(\005\022#\n\006format\030\002" +
-      " \001(\0162\023.contract.ImgFormat\">\n\022CaptureMany" +
-      "Request\022(\n\003req\030\001 \003(\0132\033.contract.CaptureO" +
-      "neRequest\"A\n\005Image\022\013\n\003url\030\001 \001(\t\022\r\n\005width" +
-      "\030\002 \001(\005\022\016\n\006height\030\003 \001(\005\022\014\n\004size\030\004 \001(\005\")\n\006" +
-      "Images\022\037\n\006images\030\001 \003(\0132\017.contract.Image\"" +
-      "6\n\tRecording\022\013\n\003url\030\001 \001(\t\022\016\n\006length\030\002 \001(" +
-      "\005\022\014\n\004size\030\003 \001(\005\"H\n\013PatrolPoint\022\013\n\003pan\030\001 " +
-      "\001(\005\022\014\n\004tilt\030\002 \001(\005\022\014\n\004zoom\030\003 \001(\005\022\020\n\010stayT" +
-      "ime\030\004 \001(\005\"b\n\rPatrolRequest\022\n\n\002id\030\001 \001(\005\022%" +
-      "\n\006points\030\002 \003(\0132\025.contract.PatrolPoint\022\036\n" +
-      "\006active\030\003 \003(\0132\016.contract.Time\"A\n\016Privacy" +
-      "Request\022\n\n\002id\030\001 \001(\005\022#\n\004mode\030\002 \001(\0162\025.cont" +
-      "ract.PrivacyMode\"<\n\014AudioRequest\022\n\n\002id\030\001" +
-      " \001(\005\022\020\n\010audioUrl\030\002 \001(\t\022\016\n\006repeat\030\003 \001(\005\"8" +
-      "\n\027TemperatureAlarmRequest\022\n\n\002id\030\001 \001(\005\022\021\n" +
-      "\tthreshold\030\002 \001(\001\"?\n\027TemperatureRangeRequ" +
-      "est\022\n\n\002id\030\001 \001(\005\022\013\n\003min\030\002 \001(\001\022\013\n\003max\030\003 \001(" +
-      "\001*/\n\nDeviceType\022\t\n\005LIGHT\020\000\022\n\n\006CAMERA\020\001\022\n" +
-      "\n\006FRIDGE\020\002*:\n\tLightType\022\014\n\010RGB_LAMP\020\000\022\r\n" +
-      "\tLED_STRIP\020\001\022\020\n\014OUTDOOR_LAMP\020\002*2\n\nCamera" +
-      "Type\022\n\n\006INDOOR\020\000\022\013\n\007OUTDOOR\020\001\022\013\n\007THERMAL" +
-      "\020\002*4\n\nFridgeType\022\013\n\007KITCHEN\020\000\022\014\n\010HOSPITA" +
-      "L\020\001\022\013\n\007FREEZER\020\002*\037\n\nStatusEnum\022\006\n\002OK\020\000\022\t" +
-      "\n\005ERROR\020\001**\n\006Effect\022\010\n\004NONE\020\000\022\t\n\005PULSE\020\001" +
-      "\022\013\n\007RAINBOW\020\002*7\n\tAnimation\022\013\n\007NOT_SET\020\000\022" +
-      "\010\n\004WAVE\020\001\022\010\n\004FADE\020\002\022\t\n\005BLINK\020\003*=\n\rDetect" +
-      "ionMode\022\r\n\tRANGE_10M\020\000\022\r\n\tRANGE_50M\020\001\022\016\n" +
-      "\nRANGE_100M\020\002*2\n\017SensitivityMode\022\t\n\005SMAL" +
-      "L\020\000\022\n\n\006MEDIUM\020\001\022\010\n\004HIGH\020\002*&\n\tImgFormat\022\007" +
-      "\n\003JPG\020\000\022\007\n\003PNG\020\001\022\007\n\003SVG\020\002*A\n\013PrivacyMode" +
-      "\022\007\n\003OFF\020\000\022\r\n\tAUDIO_OFF\020\001\022\r\n\tIMAGE_OFF\020\002\022" +
-      "\013\n\007ALL_OFF\020\0032\177\n\004Test\022/\n\004echo\022\017.contract." +
-      "Empty\032\024.contract.EchoResult\"\000\022F\n\003add\022\037.c" +
-      "ontract.ArithmeticOpArguments\032\034.contract" +
-      ".ArithmeticOpResult\"\0002B\n\010Registry\0226\n\013lis" +
-      "tDevices\022\017.contract.Empty\032\024.contract.Dev" +
-      "iceList\"\0002m\n\006Device\0220\n\006turnON\022\022.contract" +
-      ".DeviceId\032\020.contract.Status\"\000\0221\n\007turnOFF" +
-      "\022\022.contract.DeviceId\032\020.contract.Status\"\000" +
-      "2\270\002\n\005Light\0220\n\006Toggle\022\022.contract.DeviceId" +
-      "\032\020.contract.Status\"\000\022@\n\rsetBrightness\022\033." +
-      "contract.BrigthnessRequest\032\020.contract.St" +
-      "atus\"\000\022@\n\rgetPowerUsage\022\022.contract.Devic" +
-      "eId\032\031.contract.PowerUsageStats\"\000\022;\n\nsche" +
-      "duleON\022\031.contract.ScheduleRequest\032\020.cont" +
-      "ract.Status\"\000\022<\n\013scheduleOFF\022\031.contract." +
-      "ScheduleRequest\032\020.contract.Status\"\0002\302\003\n\r" +
-      "AdvancedLight\0222\n\006setRGB\022\024.contract.RGBRe" +
-      "quest\032\020.contract.Status\"\000\0222\n\006setHue\022\024.co" +
-      "ntract.HueRequest\032\020.contract.Status\"\000\0228\n" +
-      "\tsetEffect\022\027.contract.EffectRequest\032\020.co" +
-      "ntract.Status\"\000\022C\n\021setStripAnimation\022\032.c" +
-      "ontract.AnimationRequest\032\020.contract.Stat" +
-      "us\"\000\022@\n\021setMotionDetecion\022\027.contract.Mot" +
-      "ionRequest\032\020.contract.Status\"\000\022H\n\024setMot" +
-      "ionSensitivity\022\034.contract.SensitivityReq" +
-      "uest\032\020.contract.Status\"\000\022>\n\016setWeatherMo" +
-      "de\022\030.contract.WeatherRequest\032\020.contract." +
-      "Status\"\0002\367\002\n\nMonitoring\0221\n\004move\022\025.contra" +
-      "ct.MoveRequest\032\020.contract.Status\"\000\022>\n\014ca" +
-      "ptureImage\022\033.contract.CaptureOneRequest\032" +
-      "\017.contract.Image\"\000\022A\n\rcaptureImages\022\034.co" +
-      "ntract.CaptureManyRequest\032\020.contract.Ima" +
-      "ges\"\000\0228\n\016startRecording\022\022.contract.Devic" +
-      "eId\032\020.contract.Status\"\000\0229\n\014endRecording\022" +
-      "\022.contract.DeviceId\032\023.contract.Recording" +
-      "\"\000\022>\n\017configurePatrol\022\027.contract.PatrolR" +
-      "equest\032\020.contract.Status\"\0002\254\003\n\022AdvancedM" +
-      "onitoring\022>\n\016setPrivacyMode\022\030.contract.P" +
-      "rivacyRequest\032\020.contract.Status\"\000\0227\n\tpla" +
-      "yAudio\022\026.contract.AudioRequest\032\020.contrac" +
-      "t.Status\"\000\022>\n\016setWeatherMode\022\030.contract." +
-      "WeatherRequest\032\020.contract.Status\"\000\022A\n\027di" +
-      "sabelTemperatureAlarm\022\022.contract.DeviceI" +
-      "d\032\020.contract.Status\"\000\022L\n\023setTemperatureA" +
-      "larm\022!.contract.TemperatureAlarmRequest\032" +
-      "\020.contract.Status\"\000\022L\n\023setTemperatureRan" +
-      "ge\022!.contract.TemperatureRangeRequest\032\020." +
-      "contract.Status\"\000B\027\n\tgeneratedB\010Contract" +
-      "P\001b\006proto3"
+      "eraType\"r\n\nDeviceList\0220\n\rlight_devices\030\001" +
+      " \003(\0132\031.contract.LightDeviceInfo\0222\n\016camer" +
+      "a_devices\030\002 \003(\0132\032.contract.CameraDeviceI" +
+      "nfo\"\026\n\010DeviceId\022\n\n\002id\030\001 \001(\005\".\n\006Status\022$\n" +
+      "\006status\030\001 \001(\0162\024.contract.StatusEnum\"^\n\004T" +
+      "ime\022\014\n\004year\030\001 \001(\005\022\r\n\005month\030\002 \001(\005\022\013\n\003day\030" +
+      "\003 \001(\005\022\014\n\004hour\030\004 \001(\005\022\016\n\006minute\030\005 \001(\005\022\016\n\006s" +
+      "econd\030\006 \001(\005\"3\n\021BrigthnessRequest\022\n\n\002id\030\001" +
+      " \001(\005\022\022\n\nbrightness\030\002 \001(\005\"J\n\025PowerUsageSt" +
+      "atsPerDay\022\034\n\004time\030\001 \001(\0132\016.contract.Time\022" +
+      "\023\n\013consumption\030\002 \001(\001\"M\n\017PowerUsageStats\022" +
+      "\n\n\002id\030\001 \001(\005\022.\n\005stats\030\002 \003(\0132\037.contract.Po" +
+      "werUsageStatsPerDay\";\n\017ScheduleRequest\022\n" +
+      "\n\002id\030\001 \001(\005\022\034\n\004time\030\002 \001(\0132\016.contract.Time" +
+      "\"B\n\nRGBRequest\022\n\n\002id\030\001 \001(\005\022\013\n\003red\030\002 \001(\005\022" +
+      "\r\n\005green\030\003 \001(\005\022\014\n\004blue\030\004 \001(\005\"%\n\nHueReque" +
+      "st\022\n\n\002id\030\001 \001(\005\022\013\n\003hue\030\002 \001(\005\"=\n\rEffectReq" +
+      "uest\022\n\n\002id\030\001 \001(\005\022 \n\006effect\030\002 \001(\0162\020.contr" +
+      "act.Effect\"F\n\020AnimationRequest\022\n\n\002id\030\001 \001" +
+      "(\005\022&\n\tanimation\030\002 \001(\0162\023.contract.Animati" +
+      "on\"B\n\rMotionRequest\022\n\n\002id\030\001 \001(\005\022%\n\004mode\030" +
+      "\002 \001(\0162\027.contract.DetectionMode\"I\n\022Sensit" +
+      "ivityRequest\022\n\n\002id\030\001 \001(\005\022\'\n\004mode\030\002 \001(\0162\031" +
+      ".contract.SensitivityMode\"-\n\016WeatherRequ" +
+      "est\022\n\n\002id\030\001 \001(\005\022\017\n\007enabled\030\002 \001(\010\"B\n\013Move" +
+      "Request\022\n\n\002id\030\001 \001(\005\022\013\n\003pan\030\002 \001(\005\022\014\n\004tilt" +
+      "\030\003 \001(\005\022\014\n\004zoom\030\004 \001(\005\"D\n\021CaptureOneReques" +
+      "t\022\n\n\002id\030\001 \001(\005\022#\n\006format\030\002 \001(\0162\023.contract" +
+      ".ImgFormat\">\n\022CaptureManyRequest\022(\n\003req\030" +
+      "\001 \003(\0132\033.contract.CaptureOneRequest\"A\n\005Im" +
+      "age\022\013\n\003url\030\001 \001(\t\022\r\n\005width\030\002 \001(\005\022\016\n\006heigh" +
+      "t\030\003 \001(\005\022\014\n\004size\030\004 \001(\005\")\n\006Images\022\037\n\006image" +
+      "s\030\001 \003(\0132\017.contract.Image\"6\n\tRecording\022\013\n" +
+      "\003url\030\001 \001(\t\022\016\n\006length\030\002 \001(\005\022\014\n\004size\030\003 \001(\005" +
+      "\"H\n\013PatrolPoint\022\013\n\003pan\030\001 \001(\005\022\014\n\004tilt\030\002 \001" +
+      "(\005\022\014\n\004zoom\030\003 \001(\005\022\020\n\010stayTime\030\004 \001(\005\"b\n\rPa" +
+      "trolRequest\022\n\n\002id\030\001 \001(\005\022%\n\006points\030\002 \003(\0132" +
+      "\025.contract.PatrolPoint\022\036\n\006active\030\003 \003(\0132\016" +
+      ".contract.Time\"A\n\016PrivacyRequest\022\n\n\002id\030\001" +
+      " \001(\005\022#\n\004mode\030\002 \001(\0162\025.contract.PrivacyMod" +
+      "e\"<\n\014AudioRequest\022\n\n\002id\030\001 \001(\005\022\020\n\010audioUr" +
+      "l\030\002 \001(\t\022\016\n\006repeat\030\003 \001(\005\"8\n\027TemperatureAl" +
+      "armRequest\022\n\n\002id\030\001 \001(\005\022\021\n\tthreshold\030\002 \001(" +
+      "\001\"?\n\027TemperatureRangeRequest\022\n\n\002id\030\001 \001(\005" +
+      "\022\013\n\003min\030\002 \001(\001\022\013\n\003max\030\003 \001(\001*#\n\nDeviceType" +
+      "\022\t\n\005LIGHT\020\000\022\n\n\006CAMERA\020\001*:\n\tLightType\022\014\n\010" +
+      "RGB_LAMP\020\000\022\r\n\tLED_STRIP\020\001\022\020\n\014OUTDOOR_LAM" +
+      "P\020\002*2\n\nCameraType\022\n\n\006INDOOR\020\000\022\013\n\007OUTDOOR" +
+      "\020\001\022\013\n\007THERMAL\020\002*\037\n\nStatusEnum\022\006\n\002OK\020\000\022\t\n" +
+      "\005ERROR\020\001**\n\006Effect\022\010\n\004NONE\020\000\022\t\n\005PULSE\020\001\022" +
+      "\013\n\007RAINBOW\020\002*7\n\tAnimation\022\013\n\007NOT_SET\020\000\022\010" +
+      "\n\004WAVE\020\001\022\010\n\004FADE\020\002\022\t\n\005BLINK\020\003*=\n\rDetecti" +
+      "onMode\022\r\n\tRANGE_10M\020\000\022\r\n\tRANGE_50M\020\001\022\016\n\n" +
+      "RANGE_100M\020\002*2\n\017SensitivityMode\022\t\n\005SMALL" +
+      "\020\000\022\n\n\006MEDIUM\020\001\022\010\n\004HIGH\020\002*&\n\tImgFormat\022\007\n" +
+      "\003JPG\020\000\022\007\n\003PNG\020\001\022\007\n\003SVG\020\002*A\n\013PrivacyMode\022" +
+      "\007\n\003OFF\020\000\022\r\n\tAUDIO_OFF\020\001\022\r\n\tIMAGE_OFF\020\002\022\013" +
+      "\n\007ALL_OFF\020\0032\177\n\004Test\022/\n\004echo\022\017.contract.E" +
+      "mpty\032\024.contract.EchoResult\"\000\022F\n\003add\022\037.co" +
+      "ntract.ArithmeticOpArguments\032\034.contract." +
+      "ArithmeticOpResult\"\0002B\n\010Registry\0226\n\013list" +
+      "Devices\022\017.contract.Empty\032\024.contract.Devi" +
+      "ceList\"\0002m\n\006Device\0220\n\006turnON\022\022.contract." +
+      "DeviceId\032\020.contract.Status\"\000\0221\n\007turnOFF\022" +
+      "\022.contract.DeviceId\032\020.contract.Status\"\0002" +
+      "\270\002\n\005Light\0220\n\006Toggle\022\022.contract.DeviceId\032" +
+      "\020.contract.Status\"\000\022@\n\rsetBrightness\022\033.c" +
+      "ontract.BrigthnessRequest\032\020.contract.Sta" +
+      "tus\"\000\022@\n\rgetPowerUsage\022\022.contract.Device" +
+      "Id\032\031.contract.PowerUsageStats\"\000\022;\n\nsched" +
+      "uleON\022\031.contract.ScheduleRequest\032\020.contr" +
+      "act.Status\"\000\022<\n\013scheduleOFF\022\031.contract.S" +
+      "cheduleRequest\032\020.contract.Status\"\0002\302\003\n\rA" +
+      "dvancedLight\0222\n\006setRGB\022\024.contract.RGBReq" +
+      "uest\032\020.contract.Status\"\000\0222\n\006setHue\022\024.con" +
+      "tract.HueRequest\032\020.contract.Status\"\000\0228\n\t" +
+      "setEffect\022\027.contract.EffectRequest\032\020.con" +
+      "tract.Status\"\000\022C\n\021setStripAnimation\022\032.co" +
+      "ntract.AnimationRequest\032\020.contract.Statu" +
+      "s\"\000\022@\n\021setMotionDetecion\022\027.contract.Moti" +
+      "onRequest\032\020.contract.Status\"\000\022H\n\024setMoti" +
+      "onSensitivity\022\034.contract.SensitivityRequ" +
+      "est\032\020.contract.Status\"\000\022>\n\016setWeatherMod" +
+      "e\022\030.contract.WeatherRequest\032\020.contract.S" +
+      "tatus\"\0002\367\002\n\nMonitoring\0221\n\004move\022\025.contrac" +
+      "t.MoveRequest\032\020.contract.Status\"\000\022>\n\014cap" +
+      "tureImage\022\033.contract.CaptureOneRequest\032\017" +
+      ".contract.Image\"\000\022A\n\rcaptureImages\022\034.con" +
+      "tract.CaptureManyRequest\032\020.contract.Imag" +
+      "es\"\000\0228\n\016startRecording\022\022.contract.Device" +
+      "Id\032\020.contract.Status\"\000\0229\n\014endRecording\022\022" +
+      ".contract.DeviceId\032\023.contract.Recording\"" +
+      "\000\022>\n\017configurePatrol\022\027.contract.PatrolRe" +
+      "quest\032\020.contract.Status\"\0002\254\003\n\022AdvancedMo" +
+      "nitoring\022>\n\016setPrivacyMode\022\030.contract.Pr" +
+      "ivacyRequest\032\020.contract.Status\"\000\0227\n\tplay" +
+      "Audio\022\026.contract.AudioRequest\032\020.contract" +
+      ".Status\"\000\022>\n\016setWeatherMode\022\030.contract.W" +
+      "eatherRequest\032\020.contract.Status\"\000\022A\n\027dis" +
+      "ableTemperatureAlarm\022\022.contract.DeviceId" +
+      "\032\020.contract.Status\"\000\022L\n\023setTemperatureAl" +
+      "arm\022!.contract.TemperatureAlarmRequest\032\020" +
+      ".contract.Status\"\000\022L\n\023setTemperatureRang" +
+      "e\022!.contract.TemperatureRangeRequest\032\020.c" +
+      "ontract.Status\"\000B\027\n\tgeneratedB\010ContractP" +
+      "\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -418,170 +408,164 @@ public final class Contract extends com.google.protobuf.GeneratedFile {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_contract_CameraDeviceInfo_descriptor,
         new java.lang.String[] { "Id", "Name", "Type", });
-    internal_static_contract_FridgeDeviceInfo_descriptor =
-      getDescriptor().getMessageType(10);
-    internal_static_contract_FridgeDeviceInfo_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_contract_FridgeDeviceInfo_descriptor,
-        new java.lang.String[] { "Id", "Name", "Type", });
     internal_static_contract_DeviceList_descriptor =
-      getDescriptor().getMessageType(11);
+      getDescriptor().getMessageType(10);
     internal_static_contract_DeviceList_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_contract_DeviceList_descriptor,
-        new java.lang.String[] { "LightDevices", "CameraDevices", "FridgeDevices", });
+        new java.lang.String[] { "LightDevices", "CameraDevices", });
     internal_static_contract_DeviceId_descriptor =
-      getDescriptor().getMessageType(12);
+      getDescriptor().getMessageType(11);
     internal_static_contract_DeviceId_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_contract_DeviceId_descriptor,
         new java.lang.String[] { "Id", });
     internal_static_contract_Status_descriptor =
-      getDescriptor().getMessageType(13);
+      getDescriptor().getMessageType(12);
     internal_static_contract_Status_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_contract_Status_descriptor,
         new java.lang.String[] { "Status", });
     internal_static_contract_Time_descriptor =
-      getDescriptor().getMessageType(14);
+      getDescriptor().getMessageType(13);
     internal_static_contract_Time_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_contract_Time_descriptor,
         new java.lang.String[] { "Year", "Month", "Day", "Hour", "Minute", "Second", });
     internal_static_contract_BrigthnessRequest_descriptor =
-      getDescriptor().getMessageType(15);
+      getDescriptor().getMessageType(14);
     internal_static_contract_BrigthnessRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_contract_BrigthnessRequest_descriptor,
         new java.lang.String[] { "Id", "Brightness", });
     internal_static_contract_PowerUsageStatsPerDay_descriptor =
-      getDescriptor().getMessageType(16);
+      getDescriptor().getMessageType(15);
     internal_static_contract_PowerUsageStatsPerDay_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_contract_PowerUsageStatsPerDay_descriptor,
         new java.lang.String[] { "Time", "Consumption", });
     internal_static_contract_PowerUsageStats_descriptor =
-      getDescriptor().getMessageType(17);
+      getDescriptor().getMessageType(16);
     internal_static_contract_PowerUsageStats_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_contract_PowerUsageStats_descriptor,
         new java.lang.String[] { "Id", "Stats", });
     internal_static_contract_ScheduleRequest_descriptor =
-      getDescriptor().getMessageType(18);
+      getDescriptor().getMessageType(17);
     internal_static_contract_ScheduleRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_contract_ScheduleRequest_descriptor,
         new java.lang.String[] { "Id", "Time", });
     internal_static_contract_RGBRequest_descriptor =
-      getDescriptor().getMessageType(19);
+      getDescriptor().getMessageType(18);
     internal_static_contract_RGBRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_contract_RGBRequest_descriptor,
         new java.lang.String[] { "Id", "Red", "Green", "Blue", });
     internal_static_contract_HueRequest_descriptor =
-      getDescriptor().getMessageType(20);
+      getDescriptor().getMessageType(19);
     internal_static_contract_HueRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_contract_HueRequest_descriptor,
         new java.lang.String[] { "Id", "Hue", });
     internal_static_contract_EffectRequest_descriptor =
-      getDescriptor().getMessageType(21);
+      getDescriptor().getMessageType(20);
     internal_static_contract_EffectRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_contract_EffectRequest_descriptor,
         new java.lang.String[] { "Id", "Effect", });
     internal_static_contract_AnimationRequest_descriptor =
-      getDescriptor().getMessageType(22);
+      getDescriptor().getMessageType(21);
     internal_static_contract_AnimationRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_contract_AnimationRequest_descriptor,
         new java.lang.String[] { "Id", "Animation", });
     internal_static_contract_MotionRequest_descriptor =
-      getDescriptor().getMessageType(23);
+      getDescriptor().getMessageType(22);
     internal_static_contract_MotionRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_contract_MotionRequest_descriptor,
         new java.lang.String[] { "Id", "Mode", });
     internal_static_contract_SensitivityRequest_descriptor =
-      getDescriptor().getMessageType(24);
+      getDescriptor().getMessageType(23);
     internal_static_contract_SensitivityRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_contract_SensitivityRequest_descriptor,
         new java.lang.String[] { "Id", "Mode", });
     internal_static_contract_WeatherRequest_descriptor =
-      getDescriptor().getMessageType(25);
+      getDescriptor().getMessageType(24);
     internal_static_contract_WeatherRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_contract_WeatherRequest_descriptor,
         new java.lang.String[] { "Id", "Enabled", });
     internal_static_contract_MoveRequest_descriptor =
-      getDescriptor().getMessageType(26);
+      getDescriptor().getMessageType(25);
     internal_static_contract_MoveRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_contract_MoveRequest_descriptor,
         new java.lang.String[] { "Id", "Pan", "Tilt", "Zoom", });
     internal_static_contract_CaptureOneRequest_descriptor =
-      getDescriptor().getMessageType(27);
+      getDescriptor().getMessageType(26);
     internal_static_contract_CaptureOneRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_contract_CaptureOneRequest_descriptor,
         new java.lang.String[] { "Id", "Format", });
     internal_static_contract_CaptureManyRequest_descriptor =
-      getDescriptor().getMessageType(28);
+      getDescriptor().getMessageType(27);
     internal_static_contract_CaptureManyRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_contract_CaptureManyRequest_descriptor,
         new java.lang.String[] { "Req", });
     internal_static_contract_Image_descriptor =
-      getDescriptor().getMessageType(29);
+      getDescriptor().getMessageType(28);
     internal_static_contract_Image_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_contract_Image_descriptor,
         new java.lang.String[] { "Url", "Width", "Height", "Size", });
     internal_static_contract_Images_descriptor =
-      getDescriptor().getMessageType(30);
+      getDescriptor().getMessageType(29);
     internal_static_contract_Images_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_contract_Images_descriptor,
         new java.lang.String[] { "Images", });
     internal_static_contract_Recording_descriptor =
-      getDescriptor().getMessageType(31);
+      getDescriptor().getMessageType(30);
     internal_static_contract_Recording_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_contract_Recording_descriptor,
         new java.lang.String[] { "Url", "Length", "Size", });
     internal_static_contract_PatrolPoint_descriptor =
-      getDescriptor().getMessageType(32);
+      getDescriptor().getMessageType(31);
     internal_static_contract_PatrolPoint_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_contract_PatrolPoint_descriptor,
         new java.lang.String[] { "Pan", "Tilt", "Zoom", "StayTime", });
     internal_static_contract_PatrolRequest_descriptor =
-      getDescriptor().getMessageType(33);
+      getDescriptor().getMessageType(32);
     internal_static_contract_PatrolRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_contract_PatrolRequest_descriptor,
         new java.lang.String[] { "Id", "Points", "Active", });
     internal_static_contract_PrivacyRequest_descriptor =
-      getDescriptor().getMessageType(34);
+      getDescriptor().getMessageType(33);
     internal_static_contract_PrivacyRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_contract_PrivacyRequest_descriptor,
         new java.lang.String[] { "Id", "Mode", });
     internal_static_contract_AudioRequest_descriptor =
-      getDescriptor().getMessageType(35);
+      getDescriptor().getMessageType(34);
     internal_static_contract_AudioRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_contract_AudioRequest_descriptor,
         new java.lang.String[] { "Id", "AudioUrl", "Repeat", });
     internal_static_contract_TemperatureAlarmRequest_descriptor =
-      getDescriptor().getMessageType(36);
+      getDescriptor().getMessageType(35);
     internal_static_contract_TemperatureAlarmRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_contract_TemperatureAlarmRequest_descriptor,
         new java.lang.String[] { "Id", "Threshold", });
     internal_static_contract_TemperatureRangeRequest_descriptor =
-      getDescriptor().getMessageType(37);
+      getDescriptor().getMessageType(36);
     internal_static_contract_TemperatureRangeRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_contract_TemperatureRangeRequest_descriptor,

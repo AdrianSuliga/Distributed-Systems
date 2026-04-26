@@ -106,7 +106,7 @@ public enum Effect
   }
   public static com.google.protobuf.Descriptors.EnumDescriptor
       getDescriptor() {
-    return generated.Contract.getDescriptor().getEnumType(5);
+    return generated.Contract.getDescriptor().getEnumType(4);
   }
 
   private static final Effect[] VALUES = values();

@@ -115,7 +115,7 @@ public enum Animation
   }
   public static com.google.protobuf.Descriptors.EnumDescriptor
       getDescriptor() {
-    return generated.Contract.getDescriptor().getEnumType(6);
+    return generated.Contract.getDescriptor().getEnumType(5);
   }
 
   private static final Animation[] VALUES = values();
