@@ -46,6 +46,7 @@ public class Server {
                 .addService(new LightImpl(repo))
                 .addService(new AdvancedLightImpl(repo))
                 .addService(new MonitoringImpl(repo))
+                .addService(new AdvancedMonitoringImpl(repo))
                 .build()
                 .start();
         logger.info("Server started, listening on " + port);

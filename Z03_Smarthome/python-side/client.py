@@ -16,6 +16,7 @@ class GrpcClient:
         self.light_stub = pb2_grpc.LightStub(self.channel)
         self.advanced_light_stub = pb2_grpc.AdvancedLightStub(self.channel)
         self.monitoring_stub = pb2_grpc.MonitoringStub(self.channel)
+        self.advanced_monitoring_stub = pb2_grpc.AdvancedMonitoringStub(self.channel)
 
     def shutdown(self):
         self.channel.close()
@@ -367,7 +368,52 @@ class GrpcClient:
                     print(pb2.StatusEnum.Name(res.status))
 
                 # ADVANCED MONITORING
-                
+                elif cmd == "setPrivacyMode":
+                    req = pb2.PrivacyRequest(
+                        id=int(args[0]),
+                        mode=pb2.PrivacyMode.Value(args[1])
+                    )
+                    res = self.advanced_monitoring_stub.setPrivacyMode(req)
+                    print(pb2.StatusEnum.Name(res.status))
+
+                elif cmd == "playAudio":
+                    req = pb2.AudioRequest(
+                        id=int(args[0]),
+                        audioUrl=args[1],
+                        repeat=int(args[2])
+                    )
+                    res = self.advanced_monitoring_stub.playAudio(req)
+                    print(pb2.StatusEnum.Name(res.status))
+
+                elif cmd == "setWeatherMode":
+                    req = pb2.WeatherRequest(
+                        id=int(args[0]),
+                        enabled=bool(int(args[1]))
+                    )
+                    res = self.advanced_monitoring_stub.setWeatherMode(req)
+                    print(pb2.StatusEnum.Name(res.status))
+
+                elif cmd == "disableTempAlarm":
+                    req = pb2.DeviceId(id=int(args[0]))
+                    res = self.advanced_monitoring_stub.disableTemperatureAlarm(req)
+                    print(pb2.StatusEnum.Name(res.status))
+
+                elif cmd == "enableTempAlarm":
+                    req = pb2.TemperatureAlarmRequest(
+                        id=int(args[0]),
+                        threshold=float(args[1])
+                    )
+                    res = self.advanced_monitoring_stub.setTemperatureAlarm(req)
+                    print(pb2.StatusEnum.Name(res.status))
+
+                elif cmd == "setTempRange":
+                    req = pb2.TemperatureRangeRequest(
+                        id=int(args[0]),
+                        min=float(args[1]),
+                        max=float(args[2])
+                    )
+                    res = self.advanced_monitoring_stub.setTemperatureRange(req)
+                    print(pb2.StatusEnum.Name(res.status))
 
                 # OTHER
                 elif cmd == "exit":
