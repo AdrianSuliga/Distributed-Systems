@@ -8,8 +8,28 @@ import contract_pb2 as pb2
 import contract_pb2_grpc as pb2_grpc
 
 class GrpcClient:
-    def __init__(self, host, port):
+    def __init__(self):
+        self.host = None
+        self.port = None
+        self.channel = None
+
+        self.test_stub = None
+        self.registry_stub = None
+        self.device_stub = None
+        self.light_stub = None
+        self.advanced_light_stub = None
+        self.monitoring_stub = None
+        self.advanced_monitoring_stub = None
+
+    def connect(self, host, port):
+        if self.channel:
+            self.channel.close()
+
+        self.host = host
+        self.port = port
+
         self.channel = grpc.insecure_channel(f"{host}:{port}")
+
         self.test_stub = pb2_grpc.TestStub(self.channel)
         self.registry_stub = pb2_grpc.RegistryStub(self.channel)
         self.device_stub = pb2_grpc.DeviceStub(self.channel)
@@ -416,6 +436,10 @@ class GrpcClient:
                     print(pb2.StatusEnum.Name(res.status))
 
                 # OTHER
+                elif cmd == "connect":
+                    client.connect(args[0], int(args[1]))
+                    print("Connected to", args[0], args[1])
+
                 elif cmd == "exit":
                     break
 
@@ -428,5 +452,7 @@ class GrpcClient:
         self.shutdown()
 
 if __name__ == "__main__":
-    client = GrpcClient("127.0.0.5", 50051)
+    client = GrpcClient()
+
+    client.connect("127.0.0.5", 50051)
     client.run()
