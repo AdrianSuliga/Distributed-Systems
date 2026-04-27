@@ -265,84 +265,84 @@ public final class Contract extends com.google.protobuf.GeneratedFile {
       "Request\022\n\n\002id\030\001 \001(\005\022\013\n\003pan\030\002 \001(\005\022\014\n\004tilt" +
       "\030\003 \001(\005\022\014\n\004zoom\030\004 \001(\005\"D\n\021CaptureOneReques" +
       "t\022\n\n\002id\030\001 \001(\005\022#\n\006format\030\002 \001(\0162\023.contract" +
-      ".ImgFormat\">\n\022CaptureManyRequest\022(\n\003req\030" +
-      "\001 \003(\0132\033.contract.CaptureOneRequest\"A\n\005Im" +
-      "age\022\013\n\003url\030\001 \001(\t\022\r\n\005width\030\002 \001(\005\022\016\n\006heigh" +
-      "t\030\003 \001(\005\022\014\n\004size\030\004 \001(\005\")\n\006Images\022\037\n\006image" +
-      "s\030\001 \003(\0132\017.contract.Image\"6\n\tRecording\022\013\n" +
-      "\003url\030\001 \001(\t\022\016\n\006length\030\002 \001(\005\022\014\n\004size\030\003 \001(\005" +
-      "\"H\n\013PatrolPoint\022\013\n\003pan\030\001 \001(\005\022\014\n\004tilt\030\002 \001" +
-      "(\005\022\014\n\004zoom\030\003 \001(\005\022\020\n\010stayTime\030\004 \001(\005\"b\n\rPa" +
-      "trolRequest\022\n\n\002id\030\001 \001(\005\022%\n\006points\030\002 \003(\0132" +
-      "\025.contract.PatrolPoint\022\036\n\006active\030\003 \003(\0132\016" +
-      ".contract.Time\"A\n\016PrivacyRequest\022\n\n\002id\030\001" +
-      " \001(\005\022#\n\004mode\030\002 \001(\0162\025.contract.PrivacyMod" +
-      "e\"<\n\014AudioRequest\022\n\n\002id\030\001 \001(\005\022\020\n\010audioUr" +
-      "l\030\002 \001(\t\022\016\n\006repeat\030\003 \001(\005\"8\n\027TemperatureAl" +
-      "armRequest\022\n\n\002id\030\001 \001(\005\022\021\n\tthreshold\030\002 \001(" +
-      "\001\"?\n\027TemperatureRangeRequest\022\n\n\002id\030\001 \001(\005" +
-      "\022\013\n\003min\030\002 \001(\001\022\013\n\003max\030\003 \001(\001*#\n\nDeviceType" +
-      "\022\t\n\005LIGHT\020\000\022\n\n\006CAMERA\020\001*:\n\tLightType\022\014\n\010" +
-      "RGB_LAMP\020\000\022\r\n\tLED_STRIP\020\001\022\020\n\014OUTDOOR_LAM" +
-      "P\020\002*2\n\nCameraType\022\n\n\006INDOOR\020\000\022\013\n\007OUTDOOR" +
-      "\020\001\022\013\n\007THERMAL\020\002*\037\n\nStatusEnum\022\006\n\002OK\020\000\022\t\n" +
-      "\005ERROR\020\001**\n\006Effect\022\010\n\004NONE\020\000\022\t\n\005PULSE\020\001\022" +
-      "\013\n\007RAINBOW\020\002*7\n\tAnimation\022\013\n\007NOT_SET\020\000\022\010" +
-      "\n\004WAVE\020\001\022\010\n\004FADE\020\002\022\t\n\005BLINK\020\003*=\n\rDetecti" +
-      "onMode\022\r\n\tRANGE_10M\020\000\022\r\n\tRANGE_50M\020\001\022\016\n\n" +
-      "RANGE_100M\020\002*2\n\017SensitivityMode\022\t\n\005SMALL" +
-      "\020\000\022\n\n\006MEDIUM\020\001\022\010\n\004HIGH\020\002*&\n\tImgFormat\022\007\n" +
-      "\003JPG\020\000\022\007\n\003PNG\020\001\022\007\n\003SVG\020\002*A\n\013PrivacyMode\022" +
-      "\007\n\003OFF\020\000\022\r\n\tAUDIO_OFF\020\001\022\r\n\tIMAGE_OFF\020\002\022\013" +
-      "\n\007ALL_OFF\020\0032\177\n\004Test\022/\n\004echo\022\017.contract.E" +
-      "mpty\032\024.contract.EchoResult\"\000\022F\n\003add\022\037.co" +
-      "ntract.ArithmeticOpArguments\032\034.contract." +
-      "ArithmeticOpResult\"\0002B\n\010Registry\0226\n\013list" +
-      "Devices\022\017.contract.Empty\032\024.contract.Devi" +
-      "ceList\"\0002m\n\006Device\0220\n\006turnON\022\022.contract." +
-      "DeviceId\032\020.contract.Status\"\000\0221\n\007turnOFF\022" +
-      "\022.contract.DeviceId\032\020.contract.Status\"\0002" +
-      "\270\002\n\005Light\0220\n\006Toggle\022\022.contract.DeviceId\032" +
-      "\020.contract.Status\"\000\022@\n\rsetBrightness\022\033.c" +
-      "ontract.BrigthnessRequest\032\020.contract.Sta" +
-      "tus\"\000\022@\n\rgetPowerUsage\022\022.contract.Device" +
-      "Id\032\031.contract.PowerUsageStats\"\000\022;\n\nsched" +
-      "uleON\022\031.contract.ScheduleRequest\032\020.contr" +
-      "act.Status\"\000\022<\n\013scheduleOFF\022\031.contract.S" +
-      "cheduleRequest\032\020.contract.Status\"\0002\302\003\n\rA" +
-      "dvancedLight\0222\n\006setRGB\022\024.contract.RGBReq" +
-      "uest\032\020.contract.Status\"\000\0222\n\006setHue\022\024.con" +
-      "tract.HueRequest\032\020.contract.Status\"\000\0228\n\t" +
-      "setEffect\022\027.contract.EffectRequest\032\020.con" +
-      "tract.Status\"\000\022C\n\021setStripAnimation\022\032.co" +
-      "ntract.AnimationRequest\032\020.contract.Statu" +
-      "s\"\000\022@\n\021setMotionDetecion\022\027.contract.Moti" +
-      "onRequest\032\020.contract.Status\"\000\022H\n\024setMoti" +
-      "onSensitivity\022\034.contract.SensitivityRequ" +
-      "est\032\020.contract.Status\"\000\022>\n\016setWeatherMod" +
-      "e\022\030.contract.WeatherRequest\032\020.contract.S" +
-      "tatus\"\0002\367\002\n\nMonitoring\0221\n\004move\022\025.contrac" +
-      "t.MoveRequest\032\020.contract.Status\"\000\022>\n\014cap" +
-      "tureImage\022\033.contract.CaptureOneRequest\032\017" +
-      ".contract.Image\"\000\022A\n\rcaptureImages\022\034.con" +
-      "tract.CaptureManyRequest\032\020.contract.Imag" +
-      "es\"\000\0228\n\016startRecording\022\022.contract.Device" +
-      "Id\032\020.contract.Status\"\000\0229\n\014endRecording\022\022" +
-      ".contract.DeviceId\032\023.contract.Recording\"" +
-      "\000\022>\n\017configurePatrol\022\027.contract.PatrolRe" +
-      "quest\032\020.contract.Status\"\0002\254\003\n\022AdvancedMo" +
-      "nitoring\022>\n\016setPrivacyMode\022\030.contract.Pr" +
-      "ivacyRequest\032\020.contract.Status\"\000\0227\n\tplay" +
-      "Audio\022\026.contract.AudioRequest\032\020.contract" +
-      ".Status\"\000\022>\n\016setWeatherMode\022\030.contract.W" +
-      "eatherRequest\032\020.contract.Status\"\000\022A\n\027dis" +
-      "ableTemperatureAlarm\022\022.contract.DeviceId" +
-      "\032\020.contract.Status\"\000\022L\n\023setTemperatureAl" +
-      "arm\022!.contract.TemperatureAlarmRequest\032\020" +
-      ".contract.Status\"\000\022L\n\023setTemperatureRang" +
-      "e\022!.contract.TemperatureRangeRequest\032\020.c" +
-      "ontract.Status\"\000B\027\n\tgeneratedB\010ContractP" +
-      "\001b\006proto3"
+      ".ImgFormat\"F\n\022CaptureManyRequest\022\n\n\002id\030\001" +
+      " \001(\005\022$\n\007formats\030\002 \003(\0162\023.contract.ImgForm" +
+      "at\"A\n\005Image\022\013\n\003url\030\001 \001(\t\022\r\n\005width\030\002 \001(\005\022" +
+      "\016\n\006height\030\003 \001(\005\022\014\n\004size\030\004 \001(\005\")\n\006Images\022" +
+      "\037\n\006images\030\001 \003(\0132\017.contract.Image\"6\n\tReco" +
+      "rding\022\013\n\003url\030\001 \001(\t\022\016\n\006length\030\002 \001(\005\022\014\n\004si" +
+      "ze\030\003 \001(\005\"H\n\013PatrolPoint\022\013\n\003pan\030\001 \001(\005\022\014\n\004" +
+      "tilt\030\002 \001(\005\022\014\n\004zoom\030\003 \001(\005\022\020\n\010stayTime\030\004 \001" +
+      "(\005\"b\n\rPatrolRequest\022\n\n\002id\030\001 \001(\005\022%\n\006point" +
+      "s\030\002 \003(\0132\025.contract.PatrolPoint\022\036\n\006active" +
+      "\030\003 \003(\0132\016.contract.Time\"A\n\016PrivacyRequest" +
+      "\022\n\n\002id\030\001 \001(\005\022#\n\004mode\030\002 \001(\0162\025.contract.Pr" +
+      "ivacyMode\"<\n\014AudioRequest\022\n\n\002id\030\001 \001(\005\022\020\n" +
+      "\010audioUrl\030\002 \001(\t\022\016\n\006repeat\030\003 \001(\005\"8\n\027Tempe" +
+      "ratureAlarmRequest\022\n\n\002id\030\001 \001(\005\022\021\n\tthresh" +
+      "old\030\002 \001(\001\"?\n\027TemperatureRangeRequest\022\n\n\002" +
+      "id\030\001 \001(\005\022\013\n\003min\030\002 \001(\001\022\013\n\003max\030\003 \001(\001*#\n\nDe" +
+      "viceType\022\t\n\005LIGHT\020\000\022\n\n\006CAMERA\020\001*:\n\tLight" +
+      "Type\022\014\n\010RGB_LAMP\020\000\022\r\n\tLED_STRIP\020\001\022\020\n\014OUT" +
+      "DOOR_LAMP\020\002*2\n\nCameraType\022\n\n\006INDOOR\020\000\022\013\n" +
+      "\007OUTDOOR\020\001\022\013\n\007THERMAL\020\002*\037\n\nStatusEnum\022\006\n" +
+      "\002OK\020\000\022\t\n\005ERROR\020\001**\n\006Effect\022\010\n\004NONE\020\000\022\t\n\005" +
+      "PULSE\020\001\022\013\n\007RAINBOW\020\002*7\n\tAnimation\022\013\n\007NOT" +
+      "_SET\020\000\022\010\n\004WAVE\020\001\022\010\n\004FADE\020\002\022\t\n\005BLINK\020\003*=\n" +
+      "\rDetectionMode\022\r\n\tRANGE_10M\020\000\022\r\n\tRANGE_5" +
+      "0M\020\001\022\016\n\nRANGE_100M\020\002*2\n\017SensitivityMode\022" +
+      "\t\n\005SMALL\020\000\022\n\n\006MEDIUM\020\001\022\010\n\004HIGH\020\002*&\n\tImgF" +
+      "ormat\022\007\n\003JPG\020\000\022\007\n\003PNG\020\001\022\007\n\003SVG\020\002*A\n\013Priv" +
+      "acyMode\022\007\n\003OFF\020\000\022\r\n\tAUDIO_OFF\020\001\022\r\n\tIMAGE" +
+      "_OFF\020\002\022\013\n\007ALL_OFF\020\0032\177\n\004Test\022/\n\004echo\022\017.co" +
+      "ntract.Empty\032\024.contract.EchoResult\"\000\022F\n\003" +
+      "add\022\037.contract.ArithmeticOpArguments\032\034.c" +
+      "ontract.ArithmeticOpResult\"\0002B\n\010Registry" +
+      "\0226\n\013listDevices\022\017.contract.Empty\032\024.contr" +
+      "act.DeviceList\"\0002m\n\006Device\0220\n\006turnON\022\022.c" +
+      "ontract.DeviceId\032\020.contract.Status\"\000\0221\n\007" +
+      "turnOFF\022\022.contract.DeviceId\032\020.contract.S" +
+      "tatus\"\0002\270\002\n\005Light\0220\n\006Toggle\022\022.contract.D" +
+      "eviceId\032\020.contract.Status\"\000\022@\n\rsetBright" +
+      "ness\022\033.contract.BrigthnessRequest\032\020.cont" +
+      "ract.Status\"\000\022@\n\rgetPowerUsage\022\022.contrac" +
+      "t.DeviceId\032\031.contract.PowerUsageStats\"\000\022" +
+      ";\n\nscheduleON\022\031.contract.ScheduleRequest" +
+      "\032\020.contract.Status\"\000\022<\n\013scheduleOFF\022\031.co" +
+      "ntract.ScheduleRequest\032\020.contract.Status" +
+      "\"\0002\302\003\n\rAdvancedLight\0222\n\006setRGB\022\024.contrac" +
+      "t.RGBRequest\032\020.contract.Status\"\000\0222\n\006setH" +
+      "ue\022\024.contract.HueRequest\032\020.contract.Stat" +
+      "us\"\000\0228\n\tsetEffect\022\027.contract.EffectReque" +
+      "st\032\020.contract.Status\"\000\022C\n\021setStripAnimat" +
+      "ion\022\032.contract.AnimationRequest\032\020.contra" +
+      "ct.Status\"\000\022@\n\021setMotionDetecion\022\027.contr" +
+      "act.MotionRequest\032\020.contract.Status\"\000\022H\n" +
+      "\024setMotionSensitivity\022\034.contract.Sensiti" +
+      "vityRequest\032\020.contract.Status\"\000\022>\n\016setWe" +
+      "atherMode\022\030.contract.WeatherRequest\032\020.co" +
+      "ntract.Status\"\0002\367\002\n\nMonitoring\0221\n\004move\022\025" +
+      ".contract.MoveRequest\032\020.contract.Status\"" +
+      "\000\022>\n\014captureImage\022\033.contract.CaptureOneR" +
+      "equest\032\017.contract.Image\"\000\022A\n\rcaptureImag" +
+      "es\022\034.contract.CaptureManyRequest\032\020.contr" +
+      "act.Images\"\000\0228\n\016startRecording\022\022.contrac" +
+      "t.DeviceId\032\020.contract.Status\"\000\0229\n\014endRec" +
+      "ording\022\022.contract.DeviceId\032\023.contract.Re" +
+      "cording\"\000\022>\n\017configurePatrol\022\027.contract." +
+      "PatrolRequest\032\020.contract.Status\"\0002\254\003\n\022Ad" +
+      "vancedMonitoring\022>\n\016setPrivacyMode\022\030.con" +
+      "tract.PrivacyRequest\032\020.contract.Status\"\000" +
+      "\0227\n\tplayAudio\022\026.contract.AudioRequest\032\020." +
+      "contract.Status\"\000\022>\n\016setWeatherMode\022\030.co" +
+      "ntract.WeatherRequest\032\020.contract.Status\"" +
+      "\000\022A\n\027disableTemperatureAlarm\022\022.contract." +
+      "DeviceId\032\020.contract.Status\"\000\022L\n\023setTempe" +
+      "ratureAlarm\022!.contract.TemperatureAlarmR" +
+      "equest\032\020.contract.Status\"\000\022L\n\023setTempera" +
+      "tureRange\022!.contract.TemperatureRangeReq" +
+      "uest\032\020.contract.Status\"\000B\027\n\tgeneratedB\010C" +
+      "ontractP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -515,7 +515,7 @@ public final class Contract extends com.google.protobuf.GeneratedFile {
     internal_static_contract_CaptureManyRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_contract_CaptureManyRequest_descriptor,
-        new java.lang.String[] { "Req", });
+        new java.lang.String[] { "Id", "Formats", });
     internal_static_contract_Image_descriptor =
       getDescriptor().getMessageType(28);
     internal_static_contract_Image_fieldAccessorTable = new

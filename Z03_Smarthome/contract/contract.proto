@@ -264,7 +264,8 @@ message CaptureOneRequest {
 }
 
 message CaptureManyRequest {
-  repeated CaptureOneRequest req = 1;
+  int32 id = 1;
+  repeated ImgFormat formats = 2;
 }
 
 message Image {

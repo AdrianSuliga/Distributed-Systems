@@ -6,6 +6,7 @@ import generated.LightType;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class LightBase extends DeviceBase {
     /* 0 - 100 */
@@ -17,6 +18,7 @@ public abstract class LightBase extends DeviceBase {
         super(id, name, DeviceType.LIGHT);
         this.brightness = 0;
         this.lightType = lightType;
+        this.stats.add(new PowerUsageRecord(LocalDateTime.now(), ThreadLocalRandom.current().nextInt(50, 201)));
     }
 
     public LightType getLightType() {

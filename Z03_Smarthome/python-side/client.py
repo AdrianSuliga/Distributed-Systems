@@ -13,7 +13,10 @@ class GrpcClient:
         self.test_stub = pb2_grpc.TestStub(self.channel)
         self.registry_stub = pb2_grpc.RegistryStub(self.channel)
         self.device_stub = pb2_grpc.DeviceStub(self.channel)
-    
+        self.light_stub = pb2_grpc.LightStub(self.channel)
+        self.advanced_light_stub = pb2_grpc.AdvancedLightStub(self.channel)
+        self.monitoring_stub = pb2_grpc.MonitoringStub(self.channel)
+
     def shutdown(self):
         self.channel.close()
 
@@ -130,20 +133,20 @@ class GrpcClient:
                 # LIGHT
                 elif cmd == "toggle":
                     req = pb2.DeviceId(id=int(args[0]))
-                    res = self.device_stub.Toggle(req)
-                    print(res)
+                    res = self.light_stub.Toggle(req)
+                    print(res.status)
 
                 elif cmd == "setBrightness":
                     req = pb2.BrigthnessRequest(
                         id=int(args[0]),
                         brightness=int(args[1])
                     )
-                    res = self.device_stub.setBrightness(req)
-                    print(res)
+                    res = self.light_stub.setBrightness(req)
+                    print(res.status)
 
                 elif cmd == "getPowerUsage":
                     req = pb2.DeviceId(id=int(args[0]))
-                    res = self.device_stub.getPowerUsage(req)
+                    res = self.light_stub.getPowerUsage(req)
 
                     print("Device:", res.id)
                     for stat in res.stats:
@@ -173,8 +176,8 @@ class GrpcClient:
                         )
                     )
 
-                    res = self.device_stub.scheduleON(req)
-                    print(res)
+                    res = self.light_stub.scheduleON(req)
+                    print(res.status)
 
                 elif cmd == "scheduleOff":
                     date_part = args[1]
@@ -195,9 +198,10 @@ class GrpcClient:
                         )
                     )
 
-                    res = self.device_stub.scheduleOFF(req)
-                    print(res)
+                    res = self.light_stub.scheduleOFF(req)
+                    print(res.status)
 
+                # ADVANCED LIGHT
                 elif cmd == "setColor":
                     req = pb2.RGBRequest(
                         id=int(args[0]),
@@ -205,98 +209,164 @@ class GrpcClient:
                         green=int(args[2]),
                         blue=int(args[3])
                     )
-                    res = self.device_stub.setRGB(req)
-                    print(res)
+                    res = self.advanced_light_stub.setRGB(req)
+                    print(pb2.StatusEnum.Name(res.status))
 
                 elif cmd == "setHue":
                     req = pb2.HueRequest(
                         id=int(args[0]),
                         hue=int(args[1])
                     )
-                    res = self.device_stub.setHue(req)
-                    print(res)
-
-                elif cmd == "setEffect":
-                    req = pb2.EffectRequest(
-                        id=int(args[0]),
-                        effect=int(args[1])
-                    )
-                    res = self.device_stub.setEffect(req)
-                    print(res)
-
-                elif cmd == "setAnimation":
-                    req = pb2.AnimationRequest(
-                        id=int(args[0]),
-                        animation=int(args[1])
-                    )
-                    res = self.device_stub.setStripAnimation(req)
-                    print(res)
-
-                elif cmd == "setMotionDetection":
-                    req = pb2.MotionRequest(
-                        id=int(args[0]),
-                        mode=int(args[1])
-                    )
-                    res = self.device_stub.setMotionDetecion(req)
-                    print(res)
-
-                elif cmd == "setMotionSensitivity":
-                    req = pb2.SensitivityRequest(
-                        id=int(args[0]),
-                        mode=int(args[1])
-                    )
-                    res = self.device_stub.setMotionSensitivity(req)
-                    print(res)
-
-                elif cmd == "setWeatherMode":
-                    req = pb2.WeatherRequest(
-                        id=int(args[0]),
-                        enabled=bool(int(args[1]))
-                    )
-                    res = self.device_stub.setWeatherMode(req)
-                    print(res)
+                    res = self.advanced_light_stub.setHue(req)
+                    print(pb2.StatusEnum.Name(res.status))
 
                 elif cmd == "setEffect":
                     req = pb2.EffectRequest(
                         id=int(args[0]),
                         effect=pb2.Effect.Value(args[1])
                     )
-                    res = self.device_stub.setEffect(req)
-                    print(res.status)
+                    res = self.advanced_light_stub.setEffect(req)
+                    print(pb2.StatusEnum.Name(res.status))
 
                 elif cmd == "setAnimation":
                     req = pb2.AnimationRequest(
                         id=int(args[0]),
                         animation=pb2.Animation.Value(args[1])
                     )
-                    res = self.device_stub.setStripAnimation(req)
-                    print(res.status)
+                    res = self.advanced_light_stub.setStripAnimation(req)
+                    print(pb2.StatusEnum.Name(res.status))
 
                 elif cmd == "setMotionDetection":
                     req = pb2.MotionRequest(
                         id=int(args[0]),
                         mode=pb2.DetectionMode.Value(args[1])
                     )
-                    res = self.device_stub.setMotionDetecion(req)
-                    print(res.status)
+                    res = self.advanced_light_stub.setMotionDetecion(req)
+                    print(pb2.StatusEnum.Name(res.status))
 
                 elif cmd == "setMotionSensitivity":
                     req = pb2.SensitivityRequest(
                         id=int(args[0]),
                         mode=pb2.SensitivityMode.Value(args[1])
                     )
-                    res = self.device_stub.setMotionSensitivity(req)
-                    print(res.status)
+                    res = self.advanced_light_stub.setMotionSensitivity(req)
+                    print(pb2.StatusEnum.Name(res.status))
 
                 elif cmd == "setWeatherMode":
                     req = pb2.WeatherRequest(
                         id=int(args[0]),
                         enabled=bool(int(args[1]))
                     )
+                    res = self.advanced_light_stub.setWeatherMode(req)
+                    print(pb2.StatusEnum.Name(res.status))
 
-                    res = self.device_stub.setWeatherMode(req)
-                    print(res)
+                # MONITORING
+                elif cmd == "move":
+                    req = pb2.MoveRequest(
+                        id=int(args[0]),
+                        pan=int(args[1]),
+                        tilt=int(args[2]),
+                        zoom=int(args[3])
+                    )
+                    res = self.monitoring_stub.move(req)
+                    print(pb2.StatusEnum.Name(res.status))
 
+                elif cmd == "takePhoto":
+                    req = pb2.CaptureOneRequest(
+                        id=int(args[0]),
+                        format=pb2.ImgFormat.Value(args[1])
+                    )
+
+                    res = self.monitoring_stub.captureImage(req)
+
+                    print("URL:", res.url)
+                    print("Width:", res.width)
+                    print("Height:", res.height)
+                    print("Size:", res.size)
+
+                elif cmd == "takePhotos":
+                    device_id = int(args[0])
+
+                    formats = []
+
+                    for fmt in args[1:]:
+                        formats.append(pb2.ImgFormat.Value(fmt))
+
+                    req = pb2.CaptureManyRequest(
+                        id=device_id,
+                        formats=formats
+                    )
+
+                    res = self.monitoring_stub.captureImages(req)
+
+                    for img in res.images:
+                        print("URL:", img.url)
+                        print("Width:", img.width)
+                        print("Height:", img.height)
+                        print("Size:", img.size)
+                        print()
+
+                elif cmd == "startRecording":
+                    req = pb2.DeviceId(id=int(args[0]))
+                    res = self.monitoring_stub.startRecording(req)
+                    print(pb2.StatusEnum.Name(res.status))
+
+                elif cmd == "stopRecording":
+                    req = pb2.DeviceId(id=int(args[0]))
+                    res = self.monitoring_stub.endRecording(req)
+
+                    print("URL:", res.url)
+                    print("Length:", res.length)
+                    print("Size:", res.size)
+
+                elif cmd == "configurePatrol":
+                    device_id = int(args[0])
+
+                    # example:
+                    # configurePatrol 5 0,0,1,10 30,10,2,5 12:00:00 18:00:00
+
+                    points = []
+                    active = []
+
+                    parsing_times = False
+
+                    for token in args[1:]:
+
+                        if ":" in token and token.count(":") == 2:
+                            parsing_times = True
+
+                        if not parsing_times:
+                            p = token.split(",")
+
+                            points.append(
+                                pb2.PatrolPoint(
+                                    pan=int(p[0]),
+                                    tilt=int(p[1]),
+                                    zoom=int(p[2]),
+                                    stayTime=int(p[3])
+                                )
+                            )
+                        else:
+                            hh, mm, ss = map(int, token.split(":"))
+
+                            active.append(
+                                pb2.Time(
+                                    hour=hh,
+                                    minute=mm,
+                                    second=ss
+                                )
+                            )
+
+                    req = pb2.PatrolRequest(
+                        id=device_id,
+                        points=points,
+                        active=active
+                    )
+
+                    res = self.monitoring_stub.configurePatrol(req)
+                    print(pb2.StatusEnum.Name(res.status))
+
+                # ADVANCED MONITORING
                 
 
                 # OTHER

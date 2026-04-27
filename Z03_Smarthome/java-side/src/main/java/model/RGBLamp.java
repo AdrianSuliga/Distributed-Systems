@@ -20,6 +20,7 @@ public class RGBLamp extends LightBase {
             throw new Exception("RGB values must be 0 - 255");
         }
 
+        System.out.println("Setting new color for " + this.name);
         this.color = new RGB(red, green, blue);
     }
 
@@ -28,7 +29,13 @@ public class RGBLamp extends LightBase {
             throw new Exception("Hue values must be 0 - 360");
         }
 
+        System.out.println("Setting new hue for " + this.name);
         this.hue = newHue;
     }
 
+    public void setEffect(Effect newEffect) {
+        System.out.println("Setting new effect for " + this.name);
+
+        this.currentEffect = newEffect;
+    }
 }

@@ -11,26 +11,37 @@ public interface CaptureManyRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>repeated .contract.CaptureOneRequest req = 1;</code>
+   * <code>int32 id = 1;</code>
+   * @return The id.
    */
-  java.util.List<generated.CaptureOneRequest> 
-      getReqList();
+  int getId();
+
   /**
-   * <code>repeated .contract.CaptureOneRequest req = 1;</code>
+   * <code>repeated .contract.ImgFormat formats = 2;</code>
+   * @return A list containing the formats.
    */
-  generated.CaptureOneRequest getReq(int index);
+  java.util.List<generated.ImgFormat> getFormatsList();
   /**
-   * <code>repeated .contract.CaptureOneRequest req = 1;</code>
+   * <code>repeated .contract.ImgFormat formats = 2;</code>
+   * @return The count of formats.
    */
-  int getReqCount();
+  int getFormatsCount();
   /**
-   * <code>repeated .contract.CaptureOneRequest req = 1;</code>
+   * <code>repeated .contract.ImgFormat formats = 2;</code>
+   * @param index The index of the element to return.
+   * @return The formats at the given index.
    */
-  java.util.List<? extends generated.CaptureOneRequestOrBuilder> 
-      getReqOrBuilderList();
+  generated.ImgFormat getFormats(int index);
   /**
-   * <code>repeated .contract.CaptureOneRequest req = 1;</code>
+   * <code>repeated .contract.ImgFormat formats = 2;</code>
+   * @return A list containing the enum numeric values on the wire for formats.
    */
-  generated.CaptureOneRequestOrBuilder getReqOrBuilder(
-      int index);
+  java.util.List<java.lang.Integer>
+  getFormatsValueList();
+  /**
+   * <code>repeated .contract.ImgFormat formats = 2;</code>
+   * @param index The index of the value to return.
+   * @return The enum numeric value on the wire of formats at the given index.
+   */
+  int getFormatsValue(int index);
 }

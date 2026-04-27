@@ -28,7 +28,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private CaptureManyRequest() {
-    req_ = java.util.Collections.emptyList();
+    formats_ = emptyIntList();
   }
 
   public static final com.google.protobuf.Descriptors.Descriptor
@@ -49,46 +49,75 @@ private static final long serialVersionUID = 0L;
             generated.CaptureManyRequest.class, generated.CaptureManyRequest.Builder.class);
   }
 
-  public static final int REQ_FIELD_NUMBER = 1;
+  public static final int ID_FIELD_NUMBER = 1;
+  private int id_ = 0;
+  /**
+   * <code>int32 id = 1;</code>
+   * @return The id.
+   */
+  @java.lang.Override
+  public int getId() {
+    return id_;
+  }
+
+  public static final int FORMATS_FIELD_NUMBER = 2;
   @SuppressWarnings("serial")
-  private java.util.List<generated.CaptureOneRequest> req_;
+  private com.google.protobuf.Internal.IntList formats_ =
+      emptyIntList();
+  private static final     com.google.protobuf.Internal.IntListAdapter.IntConverter<
+      generated.ImgFormat> formats_converter_ =
+          new com.google.protobuf.Internal.IntListAdapter.IntConverter<
+              generated.ImgFormat>() {
+            public generated.ImgFormat convert(int from) {
+              generated.ImgFormat result = generated.ImgFormat.forNumber(from);
+              return result == null ? generated.ImgFormat.UNRECOGNIZED : result;
+            }
+          };
   /**
-   * <code>repeated .contract.CaptureOneRequest req = 1;</code>
+   * <code>repeated .contract.ImgFormat formats = 2;</code>
+   * @return A list containing the formats.
    */
   @java.lang.Override
-  public java.util.List<generated.CaptureOneRequest> getReqList() {
-    return req_;
+  public java.util.List<generated.ImgFormat> getFormatsList() {
+    return new com.google.protobuf.Internal.IntListAdapter<
+        generated.ImgFormat>(formats_, formats_converter_);
   }
   /**
-   * <code>repeated .contract.CaptureOneRequest req = 1;</code>
+   * <code>repeated .contract.ImgFormat formats = 2;</code>
+   * @return The count of formats.
    */
   @java.lang.Override
-  public java.util.List<? extends generated.CaptureOneRequestOrBuilder> 
-      getReqOrBuilderList() {
-    return req_;
+  public int getFormatsCount() {
+    return formats_.size();
   }
   /**
-   * <code>repeated .contract.CaptureOneRequest req = 1;</code>
+   * <code>repeated .contract.ImgFormat formats = 2;</code>
+   * @param index The index of the element to return.
+   * @return The formats at the given index.
    */
   @java.lang.Override
-  public int getReqCount() {
-    return req_.size();
+  public generated.ImgFormat getFormats(int index) {
+    return formats_converter_.convert(formats_.getInt(index));
   }
   /**
-   * <code>repeated .contract.CaptureOneRequest req = 1;</code>
+   * <code>repeated .contract.ImgFormat formats = 2;</code>
+   * @return A list containing the enum numeric values on the wire for formats.
    */
   @java.lang.Override
-  public generated.CaptureOneRequest getReq(int index) {
-    return req_.get(index);
+  public java.util.List<java.lang.Integer>
+  getFormatsValueList() {
+    return formats_;
   }
   /**
-   * <code>repeated .contract.CaptureOneRequest req = 1;</code>
+   * <code>repeated .contract.ImgFormat formats = 2;</code>
+   * @param index The index of the value to return.
+   * @return The enum numeric value on the wire of formats at the given index.
    */
   @java.lang.Override
-  public generated.CaptureOneRequestOrBuilder getReqOrBuilder(
-      int index) {
-    return req_.get(index);
+  public int getFormatsValue(int index) {
+    return formats_.getInt(index);
   }
+  private int formatsMemoizedSerializedSize;
 
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
@@ -104,8 +133,16 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    for (int i = 0; i < req_.size(); i++) {
-      output.writeMessage(1, req_.get(i));
+    getSerializedSize();
+    if (id_ != 0) {
+      output.writeInt32(1, id_);
+    }
+    if (getFormatsList().size() > 0) {
+      output.writeUInt32NoTag(18);
+      output.writeUInt32NoTag(formatsMemoizedSerializedSize);
+    }
+    for (int i = 0; i < formats_.size(); i++) {
+      output.writeEnumNoTag(formats_.getInt(i));
     }
     getUnknownFields().writeTo(output);
   }
@@ -116,15 +153,22 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-
-        {
-          final int count = req_.size();
-          for (int i = 0; i < count; i++) {
-            size += com.google.protobuf.CodedOutputStream
-              .computeMessageSizeNoTag(req_.get(i));
-          }
-          size += 1 * count;
-        }
+    if (id_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(1, id_);
+    }
+    {
+      int dataSize = 0;
+      for (int i = 0; i < formats_.size(); i++) {
+        dataSize += com.google.protobuf.CodedOutputStream
+          .computeEnumSizeNoTag(formats_.getInt(i));
+      }
+      size += dataSize;
+      if (!getFormatsList().isEmpty()) {  size += 1;
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32SizeNoTag(dataSize);
+      }formatsMemoizedSerializedSize = dataSize;
+    }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
     return size;
@@ -140,8 +184,9 @@ private static final long serialVersionUID = 0L;
     }
     generated.CaptureManyRequest other = (generated.CaptureManyRequest) obj;
 
-    if (!getReqList()
-        .equals(other.getReqList())) return false;
+    if (getId()
+        != other.getId()) return false;
+    if (!formats_.equals(other.formats_)) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -153,9 +198,11 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    if (getReqCount() > 0) {
-      hash = (37 * hash) + REQ_FIELD_NUMBER;
-      hash = (53 * hash) + getReqList().hashCode();
+    hash = (37 * hash) + ID_FIELD_NUMBER;
+    hash = (53 * hash) + getId();
+    if (getFormatsCount() > 0) {
+      hash = (37 * hash) + FORMATS_FIELD_NUMBER;
+      hash = (53 * hash) + formats_.hashCode();
     }
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
@@ -288,13 +335,8 @@ private static final long serialVersionUID = 0L;
     public Builder clear() {
       super.clear();
       bitField0_ = 0;
-      if (reqBuilder_ == null) {
-        req_ = java.util.Collections.emptyList();
-      } else {
-        req_ = null;
-        reqBuilder_.clear();
-      }
-      bitField0_ = (bitField0_ & ~0x00000001);
+      id_ = 0;
+      formats_ = emptyIntList();
       return this;
     }
 
@@ -321,26 +363,20 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public generated.CaptureManyRequest buildPartial() {
       generated.CaptureManyRequest result = new generated.CaptureManyRequest(this);
-      buildPartialRepeatedFields(result);
       if (bitField0_ != 0) { buildPartial0(result); }
       onBuilt();
       return result;
     }
 
-    private void buildPartialRepeatedFields(generated.CaptureManyRequest result) {
-      if (reqBuilder_ == null) {
-        if (((bitField0_ & 0x00000001) != 0)) {
-          req_ = java.util.Collections.unmodifiableList(req_);
-          bitField0_ = (bitField0_ & ~0x00000001);
-        }
-        result.req_ = req_;
-      } else {
-        result.req_ = reqBuilder_.build();
-      }
-    }
-
     private void buildPartial0(generated.CaptureManyRequest result) {
       int from_bitField0_ = bitField0_;
+      if (((from_bitField0_ & 0x00000001) != 0)) {
+        result.id_ = id_;
+      }
+      if (((from_bitField0_ & 0x00000002) != 0)) {
+        formats_.makeImmutable();
+        result.formats_ = formats_;
+      }
     }
 
     @java.lang.Override
@@ -355,31 +391,19 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(generated.CaptureManyRequest other) {
       if (other == generated.CaptureManyRequest.getDefaultInstance()) return this;
-      if (reqBuilder_ == null) {
-        if (!other.req_.isEmpty()) {
-          if (req_.isEmpty()) {
-            req_ = other.req_;
-            bitField0_ = (bitField0_ & ~0x00000001);
-          } else {
-            ensureReqIsMutable();
-            req_.addAll(other.req_);
-          }
-          onChanged();
+      if (other.getId() != 0) {
+        setId(other.getId());
+      }
+      if (!other.formats_.isEmpty()) {
+        if (formats_.isEmpty()) {
+          formats_ = other.formats_;
+          formats_.makeImmutable();
+          bitField0_ |= 0x00000002;
+        } else {
+          ensureFormatsIsMutable();
+          formats_.addAll(other.formats_);
         }
-      } else {
-        if (!other.req_.isEmpty()) {
-          if (reqBuilder_.isEmpty()) {
-            reqBuilder_.dispose();
-            reqBuilder_ = null;
-            req_ = other.req_;
-            bitField0_ = (bitField0_ & ~0x00000001);
-            reqBuilder_ = 
-              com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
-                 internalGetReqFieldBuilder() : null;
-          } else {
-            reqBuilder_.addAllMessages(other.req_);
-          }
-        }
+        onChanged();
       }
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
@@ -407,19 +431,27 @@ private static final long serialVersionUID = 0L;
             case 0:
               done = true;
               break;
-            case 10: {
-              generated.CaptureOneRequest m =
-                  input.readMessage(
-                      generated.CaptureOneRequest.parser(),
-                      extensionRegistry);
-              if (reqBuilder_ == null) {
-                ensureReqIsMutable();
-                req_.add(m);
-              } else {
-                reqBuilder_.addMessage(m);
-              }
+            case 8: {
+              id_ = input.readInt32();
+              bitField0_ |= 0x00000001;
               break;
-            } // case 10
+            } // case 8
+            case 16: {
+              int tmpRaw = input.readEnum();
+              ensureFormatsIsMutable();
+              formats_.addInt(tmpRaw);
+              break;
+            } // case 16
+            case 18: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              ensureFormatsIsMutable();
+              while (input.getBytesUntilLimit() > 0) {
+                formats_.addInt(input.readEnum());
+              }
+              input.popLimit(limit);
+              break;
+            } // case 18
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -437,244 +469,174 @@ private static final long serialVersionUID = 0L;
     }
     private int bitField0_;
 
-    private java.util.List<generated.CaptureOneRequest> req_ =
-      java.util.Collections.emptyList();
-    private void ensureReqIsMutable() {
-      if (!((bitField0_ & 0x00000001) != 0)) {
-        req_ = new java.util.ArrayList<generated.CaptureOneRequest>(req_);
-        bitField0_ |= 0x00000001;
-       }
+    private int id_ ;
+    /**
+     * <code>int32 id = 1;</code>
+     * @return The id.
+     */
+    @java.lang.Override
+    public int getId() {
+      return id_;
+    }
+    /**
+     * <code>int32 id = 1;</code>
+     * @param value The id to set.
+     * @return This builder for chaining.
+     */
+    public Builder setId(int value) {
+
+      id_ = value;
+      bitField0_ |= 0x00000001;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int32 id = 1;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearId() {
+      bitField0_ = (bitField0_ & ~0x00000001);
+      id_ = 0;
+      onChanged();
+      return this;
     }
 
-    private com.google.protobuf.RepeatedFieldBuilder<
-        generated.CaptureOneRequest, generated.CaptureOneRequest.Builder, generated.CaptureOneRequestOrBuilder> reqBuilder_;
-
-    /**
-     * <code>repeated .contract.CaptureOneRequest req = 1;</code>
-     */
-    public java.util.List<generated.CaptureOneRequest> getReqList() {
-      if (reqBuilder_ == null) {
-        return java.util.Collections.unmodifiableList(req_);
-      } else {
-        return reqBuilder_.getMessageList();
+    private com.google.protobuf.Internal.IntList formats_ = emptyIntList();
+    private void ensureFormatsIsMutable() {
+      if (!formats_.isModifiable()) {
+        formats_ = makeMutableCopy(formats_);
       }
+      bitField0_ |= 0x00000002;
     }
     /**
-     * <code>repeated .contract.CaptureOneRequest req = 1;</code>
+     * <code>repeated .contract.ImgFormat formats = 2;</code>
+     * @return A list containing the formats.
      */
-    public int getReqCount() {
-      if (reqBuilder_ == null) {
-        return req_.size();
-      } else {
-        return reqBuilder_.getCount();
-      }
+    public java.util.List<generated.ImgFormat> getFormatsList() {
+      return new com.google.protobuf.Internal.IntListAdapter<
+          generated.ImgFormat>(formats_, formats_converter_);
     }
     /**
-     * <code>repeated .contract.CaptureOneRequest req = 1;</code>
+     * <code>repeated .contract.ImgFormat formats = 2;</code>
+     * @return The count of formats.
      */
-    public generated.CaptureOneRequest getReq(int index) {
-      if (reqBuilder_ == null) {
-        return req_.get(index);
-      } else {
-        return reqBuilder_.getMessage(index);
-      }
+    public int getFormatsCount() {
+      return formats_.size();
     }
     /**
-     * <code>repeated .contract.CaptureOneRequest req = 1;</code>
+     * <code>repeated .contract.ImgFormat formats = 2;</code>
+     * @param index The index of the element to return.
+     * @return The formats at the given index.
      */
-    public Builder setReq(
-        int index, generated.CaptureOneRequest value) {
-      if (reqBuilder_ == null) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        ensureReqIsMutable();
-        req_.set(index, value);
-        onChanged();
-      } else {
-        reqBuilder_.setMessage(index, value);
-      }
+    public generated.ImgFormat getFormats(int index) {
+      return formats_converter_.convert(formats_.getInt(index));
+    }
+    /**
+     * <code>repeated .contract.ImgFormat formats = 2;</code>
+     * @param index The index to set the value at.
+     * @param value The formats to set.
+     * @return This builder for chaining.
+     */
+    public Builder setFormats(
+        int index, generated.ImgFormat value) {
+      if (value == null) { throw new NullPointerException(); }
+      ensureFormatsIsMutable();
+      formats_.setInt(index, value.getNumber());
+      onChanged();
       return this;
     }
     /**
-     * <code>repeated .contract.CaptureOneRequest req = 1;</code>
+     * <code>repeated .contract.ImgFormat formats = 2;</code>
+     * @param value The formats to add.
+     * @return This builder for chaining.
      */
-    public Builder setReq(
-        int index, generated.CaptureOneRequest.Builder builderForValue) {
-      if (reqBuilder_ == null) {
-        ensureReqIsMutable();
-        req_.set(index, builderForValue.build());
-        onChanged();
-      } else {
-        reqBuilder_.setMessage(index, builderForValue.build());
-      }
+    public Builder addFormats(generated.ImgFormat value) {
+      if (value == null) { throw new NullPointerException(); }
+      ensureFormatsIsMutable();
+      formats_.addInt(value.getNumber());
+      onChanged();
       return this;
     }
     /**
-     * <code>repeated .contract.CaptureOneRequest req = 1;</code>
+     * <code>repeated .contract.ImgFormat formats = 2;</code>
+     * @param values The formats to add.
+     * @return This builder for chaining.
      */
-    public Builder addReq(generated.CaptureOneRequest value) {
-      if (reqBuilder_ == null) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        ensureReqIsMutable();
-        req_.add(value);
-        onChanged();
-      } else {
-        reqBuilder_.addMessage(value);
+    public Builder addAllFormats(
+        java.lang.Iterable<? extends generated.ImgFormat> values) {
+      ensureFormatsIsMutable();
+      for (generated.ImgFormat value : values) {
+        formats_.addInt(value.getNumber());
       }
+      onChanged();
       return this;
     }
     /**
-     * <code>repeated .contract.CaptureOneRequest req = 1;</code>
+     * <code>repeated .contract.ImgFormat formats = 2;</code>
+     * @return This builder for chaining.
      */
-    public Builder addReq(
-        int index, generated.CaptureOneRequest value) {
-      if (reqBuilder_ == null) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        ensureReqIsMutable();
-        req_.add(index, value);
-        onChanged();
-      } else {
-        reqBuilder_.addMessage(index, value);
-      }
+    public Builder clearFormats() {
+      formats_ = emptyIntList();
+      bitField0_ = (bitField0_ & ~0x00000002);
+      onChanged();
       return this;
     }
     /**
-     * <code>repeated .contract.CaptureOneRequest req = 1;</code>
+     * <code>repeated .contract.ImgFormat formats = 2;</code>
+     * @return A list containing the enum numeric values on the wire for formats.
      */
-    public Builder addReq(
-        generated.CaptureOneRequest.Builder builderForValue) {
-      if (reqBuilder_ == null) {
-        ensureReqIsMutable();
-        req_.add(builderForValue.build());
-        onChanged();
-      } else {
-        reqBuilder_.addMessage(builderForValue.build());
-      }
+    public java.util.List<java.lang.Integer>
+    getFormatsValueList() {
+      formats_.makeImmutable();
+      return formats_;
+    }
+    /**
+     * <code>repeated .contract.ImgFormat formats = 2;</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of formats at the given index.
+     */
+    public int getFormatsValue(int index) {
+      return formats_.getInt(index);
+    }
+    /**
+     * <code>repeated .contract.ImgFormat formats = 2;</code>
+     * @param index The index to set the value at.
+     * @param value The enum numeric value on the wire for formats to set.
+     * @return This builder for chaining.
+     */
+    public Builder setFormatsValue(
+        int index, int value) {
+      ensureFormatsIsMutable();
+      formats_.setInt(index, value);
+      onChanged();
       return this;
     }
     /**
-     * <code>repeated .contract.CaptureOneRequest req = 1;</code>
+     * <code>repeated .contract.ImgFormat formats = 2;</code>
+     * @param value The enum numeric value on the wire for formats to add.
+     * @throws IllegalArgumentException if UNRECOGNIZED is provided.
+     * @return This builder for chaining.
      */
-    public Builder addReq(
-        int index, generated.CaptureOneRequest.Builder builderForValue) {
-      if (reqBuilder_ == null) {
-        ensureReqIsMutable();
-        req_.add(index, builderForValue.build());
-        onChanged();
-      } else {
-        reqBuilder_.addMessage(index, builderForValue.build());
-      }
+    public Builder addFormatsValue(int value) {
+      ensureFormatsIsMutable();
+      formats_.addInt(value);
+      onChanged();
       return this;
     }
     /**
-     * <code>repeated .contract.CaptureOneRequest req = 1;</code>
+     * <code>repeated .contract.ImgFormat formats = 2;</code>
+     * @param values The enum numeric values on the wire for formats to add.
+     * @throws IllegalArgumentException if UNRECOGNIZED is provided.
+     * @return This builder for chaining.
      */
-    public Builder addAllReq(
-        java.lang.Iterable<? extends generated.CaptureOneRequest> values) {
-      if (reqBuilder_ == null) {
-        ensureReqIsMutable();
-        com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, req_);
-        onChanged();
-      } else {
-        reqBuilder_.addAllMessages(values);
+    public Builder addAllFormatsValue(
+        java.lang.Iterable<java.lang.Integer> values) {
+      ensureFormatsIsMutable();
+      for (int value : values) {
+        formats_.addInt(value);
       }
+      onChanged();
       return this;
-    }
-    /**
-     * <code>repeated .contract.CaptureOneRequest req = 1;</code>
-     */
-    public Builder clearReq() {
-      if (reqBuilder_ == null) {
-        req_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000001);
-        onChanged();
-      } else {
-        reqBuilder_.clear();
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .contract.CaptureOneRequest req = 1;</code>
-     */
-    public Builder removeReq(int index) {
-      if (reqBuilder_ == null) {
-        ensureReqIsMutable();
-        req_.remove(index);
-        onChanged();
-      } else {
-        reqBuilder_.remove(index);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .contract.CaptureOneRequest req = 1;</code>
-     */
-    public generated.CaptureOneRequest.Builder getReqBuilder(
-        int index) {
-      return internalGetReqFieldBuilder().getBuilder(index);
-    }
-    /**
-     * <code>repeated .contract.CaptureOneRequest req = 1;</code>
-     */
-    public generated.CaptureOneRequestOrBuilder getReqOrBuilder(
-        int index) {
-      if (reqBuilder_ == null) {
-        return req_.get(index);  } else {
-        return reqBuilder_.getMessageOrBuilder(index);
-      }
-    }
-    /**
-     * <code>repeated .contract.CaptureOneRequest req = 1;</code>
-     */
-    public java.util.List<? extends generated.CaptureOneRequestOrBuilder> 
-         getReqOrBuilderList() {
-      if (reqBuilder_ != null) {
-        return reqBuilder_.getMessageOrBuilderList();
-      } else {
-        return java.util.Collections.unmodifiableList(req_);
-      }
-    }
-    /**
-     * <code>repeated .contract.CaptureOneRequest req = 1;</code>
-     */
-    public generated.CaptureOneRequest.Builder addReqBuilder() {
-      return internalGetReqFieldBuilder().addBuilder(
-          generated.CaptureOneRequest.getDefaultInstance());
-    }
-    /**
-     * <code>repeated .contract.CaptureOneRequest req = 1;</code>
-     */
-    public generated.CaptureOneRequest.Builder addReqBuilder(
-        int index) {
-      return internalGetReqFieldBuilder().addBuilder(
-          index, generated.CaptureOneRequest.getDefaultInstance());
-    }
-    /**
-     * <code>repeated .contract.CaptureOneRequest req = 1;</code>
-     */
-    public java.util.List<generated.CaptureOneRequest.Builder> 
-         getReqBuilderList() {
-      return internalGetReqFieldBuilder().getBuilderList();
-    }
-    private com.google.protobuf.RepeatedFieldBuilder<
-        generated.CaptureOneRequest, generated.CaptureOneRequest.Builder, generated.CaptureOneRequestOrBuilder> 
-        internalGetReqFieldBuilder() {
-      if (reqBuilder_ == null) {
-        reqBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-            generated.CaptureOneRequest, generated.CaptureOneRequest.Builder, generated.CaptureOneRequestOrBuilder>(
-                req_,
-                ((bitField0_ & 0x00000001) != 0),
-                getParentForChildren(),
-                isClean());
-        req_ = null;
-      }
-      return reqBuilder_;
     }
 
     // @@protoc_insertion_point(builder_scope:contract.CaptureManyRequest)
