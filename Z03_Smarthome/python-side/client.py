@@ -97,26 +97,26 @@ class GrpcClient:
                     print("=============== RGB LIGHT =================")
                     print(" - setColor <id> <red> <green> <blue>")
                     print(" - setHue <id> <hue>")
-                    print(" - setEffect <id> <0|1|2>")
+                    print(" - setEffect <id> <NONE|PULSE|RAINBOW>")
                     print("===========================================")
                     print()
 
                     print("=============== LED LIGHT =================")
-                    print(" - setAnimation <id> <0|1|2|3>")
+                    print(" - setAnimation <id> <NOT_SET|WAVE|FADE|BLINK>")
                     print("===========================================")
                     print()
 
                     print("============= OUTDOOR LIGHT ===============")
-                    print(" - setMotionDetection <id> <0|1|2>")
-                    print(" - setMotionSensitivity <id> <0|1|2>")
+                    print(" - setMotionDetection <id> <RANGE_10M|RANGE_50M|RANGE_100M>")
+                    print(" - setMotionSensitivity <id> <SMALL|MEDIUM|HIGH>")
                     print(" - setWeatherMode <id> <0|1>")
                     print("===========================================")
                     print()
 
                     print("============ COMMON MONITORING ============")
                     print(" - move <id> <pan> <tilt> <zoom>")
-                    print(" - takePhoto <id> <0|1|2>")
-                    print(" - takePhotos <id> [<0|1|2>, ...]")
+                    print(" - takePhoto <id> <JPG|PNG|SVG>")
+                    print(" - takePhotos <id> [<JPG|PNG|SVG>, ...]")
                     print(" - startRecording <id>")
                     print(" - stopRecording <id>")
                     print(" - configurePatrol <id> [(pan, tilt, zoom, stayTime), ...] [hh:mm:ss, ...]")
@@ -124,13 +124,13 @@ class GrpcClient:
                     print()
 
                     print("============ INDOOR MONITORING ============")
-                    print(" - setPrivacyMode <id> <0|1|2|3>")
+                    print(" - setPrivacyMode <id> <OFF|AUDIO_OFF|IMAGE_OFF|ALL_OFF>")
                     print(" - playAudio <id> <url> <repeat>")
                     print("===========================================")
                     print()
 
                     print("=========== OUTDOOR MONITORING ============")
-                    print(" - setWeatherMode <id> <0|1>")
+                    print(" - setWeatherModeM <id> <0|1>")
                     print("===========================================")
                     print()
 
@@ -405,7 +405,7 @@ class GrpcClient:
                     res = self.advanced_monitoring_stub.playAudio(req)
                     print(pb2.StatusEnum.Name(res.status))
 
-                elif cmd == "setWeatherMode":
+                elif cmd == "setWeatherModeM":
                     req = pb2.WeatherRequest(
                         id=int(args[0]),
                         enabled=bool(int(args[1]))

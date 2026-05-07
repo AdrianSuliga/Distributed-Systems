@@ -174,8 +174,10 @@ public class LightImpl extends LightGrpc.LightImplBase {
 
             if (e.getMessage().equals("NOT_FOUND")) {
                 sendNotFound(responseObserver, id);
+            } else if (e.getMessage().equals("UNSUPPORTED")) {
+                sendUnsupported(responseObserver, id, "Not supported on this device");
             } else {
-                sendInvalid(responseObserver, id, "light", "Invalid");
+                sendInvalid(responseObserver, id, "light", "Invalid argument");
             }
         }
     }
@@ -210,8 +212,10 @@ public class LightImpl extends LightGrpc.LightImplBase {
 
             if (e.getMessage().equals("NOT_FOUND")) {
                 sendNotFound(responseObserver, id);
+            } else if (e.getMessage().equals("UNSUPPORTED")) {
+                sendUnsupported(responseObserver, id, "Not supported on this device");
             } else {
-                sendUnsupported(responseObserver, id, "unknown");
+                sendInvalid(responseObserver, id, "light", "Invalid argument");
             }
         }
     }
@@ -238,8 +242,10 @@ public class LightImpl extends LightGrpc.LightImplBase {
 
             if (e.getMessage().equals("NOT_FOUND")) {
                 sendNotFound(responseObserver, id);
+            } else if (e.getMessage().equals("UNSUPPORTED")) {
+                sendUnsupported(responseObserver, id, "Not supported on this device");
             } else {
-                sendInvalid(responseObserver, id, "light", "Invalid");
+                sendInvalid(responseObserver, id, "light", "Invalid argument");
             }
         }
     }
@@ -266,8 +272,10 @@ public class LightImpl extends LightGrpc.LightImplBase {
 
             if (e.getMessage().equals("NOT_FOUND")) {
                 sendNotFound(responseObserver, id);
+            } else if (e.getMessage().equals("UNSUPPORTED")) {
+                sendUnsupported(responseObserver, id, "Not supported on this device");
             } else {
-                sendInvalid(responseObserver, id, "light", "Invalid");
+                sendInvalid(responseObserver, id, "light", "Invalid argument");
             }
         }
     }

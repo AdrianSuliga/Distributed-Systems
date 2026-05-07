@@ -1,16 +1,16 @@
 services:
   dev:
     build: .
-    container_name: tls-exercise
+    container_name: smarthome
     working_dir: /workspace
 
     volumes:
       - ./:/workspace
 
     ports:
-      - "10010:10010/tcp"
-      - "10010:10010/udp"
-      - "9090-9091:9090-9091/tcp"
-      - "50041:50041/tcp"
+      - "10011:10011/tcp"
+      - "10011:10011/udp"
+      - "9092-9093:9092-9093/tcp"
+      - "50042:50042/tcp"
 
     tty: true

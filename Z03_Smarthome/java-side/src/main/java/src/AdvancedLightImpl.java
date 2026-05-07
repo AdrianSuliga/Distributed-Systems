@@ -136,8 +136,10 @@ public class AdvancedLightImpl extends AdvancedLightGrpc.AdvancedLightImplBase {
 
             if (e.getMessage().equals("NOT_FOUND")) {
                 sendNotFound(responseObserver, id);
+            } else if (e.getMessage().equals("UNSUPPORTED")) {
+                sendUnsupported(responseObserver, id, "light", "Not supported on this device");
             } else {
-                sendInvalid(responseObserver, id, "RGB", e.getMessage());
+                sendInvalid(responseObserver, id, "light", "Invalid argument");
             }
         }
     }
@@ -169,8 +171,10 @@ public class AdvancedLightImpl extends AdvancedLightGrpc.AdvancedLightImplBase {
 
             if (e.getMessage().equals("NOT_FOUND")) {
                 sendNotFound(responseObserver, id);
+            } else if (e.getMessage().equals("UNSUPPORTED")) {
+                sendUnsupported(responseObserver, id, "light", "Not supported on this device");
             } else {
-                sendInvalid(responseObserver, id, "RGB", e.getMessage());
+                sendInvalid(responseObserver, id, "light", "Invalid argument");
             }
         }
     }
@@ -202,8 +206,10 @@ public class AdvancedLightImpl extends AdvancedLightGrpc.AdvancedLightImplBase {
 
             if (e.getMessage().equals("NOT_FOUND")) {
                 sendNotFound(responseObserver, id);
+            } else if (e.getMessage().equals("UNSUPPORTED")) {
+                sendUnsupported(responseObserver, id, "light", "Not supported on this device");
             } else {
-                sendUnsupported(responseObserver, id, "unknown", e.getMessage());
+                sendInvalid(responseObserver, id, "light", "Invalid argument");
             }
         }
     }
@@ -234,8 +240,10 @@ public class AdvancedLightImpl extends AdvancedLightGrpc.AdvancedLightImplBase {
 
             if (e.getMessage().equals("NOT_FOUND")) {
                 sendNotFound(responseObserver, id);
+            } else if (e.getMessage().equals("UNSUPPORTED")) {
+                sendUnsupported(responseObserver, id, "light", "Not supported on this device");
             } else {
-                sendUnsupported(responseObserver, id, "unknown", e.getMessage());
+                sendInvalid(responseObserver, id, "light", "Invalid argument");
             }
         }
     }
@@ -266,8 +274,10 @@ public class AdvancedLightImpl extends AdvancedLightGrpc.AdvancedLightImplBase {
 
             if (e.getMessage().equals("NOT_FOUND")) {
                 sendNotFound(responseObserver, id);
+            } else if (e.getMessage().equals("UNSUPPORTED")) {
+                sendUnsupported(responseObserver, id, "light", "Not supported on this device");
             } else {
-                sendUnsupported(responseObserver, id, "unknown", e.getMessage());
+                sendInvalid(responseObserver, id, "light", "Invalid argument");
             }
         }
     }
@@ -298,8 +308,10 @@ public class AdvancedLightImpl extends AdvancedLightGrpc.AdvancedLightImplBase {
 
             if (e.getMessage().equals("NOT_FOUND")) {
                 sendNotFound(responseObserver, id);
+            } else if (e.getMessage().equals("UNSUPPORTED")) {
+                sendUnsupported(responseObserver, id, "light", "Not supported on this device");
             } else {
-                sendUnsupported(responseObserver, id, "unknown", e.getMessage());
+                sendInvalid(responseObserver, id, "light", "Invalid argument");
             }
         }
     }
@@ -334,8 +346,10 @@ public class AdvancedLightImpl extends AdvancedLightGrpc.AdvancedLightImplBase {
 
             if (e.getMessage().equals("NOT_FOUND")) {
                 sendNotFound(responseObserver, id);
+            } else if (e.getMessage().equals("UNSUPPORTED")) {
+                sendUnsupported(responseObserver, id, "light", "Not supported on this device");
             } else {
-                sendUnsupported(responseObserver, id, "unknown", e.getMessage());
+                sendInvalid(responseObserver, id, "light", "Invalid argument");
             }
         }
     }
