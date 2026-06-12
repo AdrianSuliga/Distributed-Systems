@@ -124,7 +124,7 @@ def main():
                 tree.append(current)
 
             for tree_part in tree:
-                print(f'{'   ' * tree_part.count('/')}- {tree_part.split('/')[-1]}')    
+                print(f'{'   ' * tree_part.count('/')}-{tree_part.split('/')[-1]}')    
 
     zk.stop()
     kill_exec_process()
